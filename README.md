@@ -5,7 +5,6 @@ Submission for DCL 2022 Game Jam
 # Assets
 
 ### Images
- - https://opengameart.org/content/elemental-badges-from-the-savage-swordsman
  - https://opengameart.org/content/fantasy-ui-box
  - https://opengameart.org/content/ui-button
 
