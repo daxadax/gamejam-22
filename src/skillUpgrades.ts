@@ -51,7 +51,6 @@ export class SkillUpgrades {
     this.skillPointsCounter.positionX = 350
     this.skillPointsCounter.positionY = -160
     this.skillPointsCounter.isPointerBlocker = false
-
   }
 
   show() {
