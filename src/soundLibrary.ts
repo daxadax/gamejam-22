@@ -4,10 +4,12 @@ export class SoundLibrary {
   constructor() {
     const buttonClick = new Sound('upgrade_select.mp3')
     const upgradeSkill = new Sound('downgrade_select.mp3')
+    const enemyHit = new Sound('hit.wav')
 
     this.library =  {
       "button_click": buttonClick,
-      "upgrade_skill": upgradeSkill
+      "upgrade_skill": upgradeSkill,
+      "enemy_hit": enemyHit
     }
   }
 
