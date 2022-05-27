@@ -1,12 +1,13 @@
 import * as utils from '@dcl/ecs-scene-utils'
 
 export class Spell extends Entity {
+  bonusStats: any
   name: string
   level: number = 0
   manaCost: number = 10
 
   // default stats
-  atkSpeed: number = 1
+  atkSpeed: number = 0
   dmg: number = 5
   knockback: number = 0
   range: number = 15
@@ -15,6 +16,7 @@ export class Spell extends Entity {
   constructor(name: string, assetPath: string, stats: any) {
     super()
     this.name = name
+    this.bonusStats = stats
 
     this.addComponent(new GLTFShape('models/'+ assetPath))
     this.addComponent(
@@ -31,6 +33,7 @@ export class Spell extends Entity {
     this.range += stats.range || 0
     this.slow += stats.slow || 0
 
+    // add and immediately remove to init the model (idk why this works but it does)
     engine.addEntity(this)
     this.addComponentOrReplace(new utils.ExpireIn(1))
   }
@@ -45,25 +48,41 @@ export class Spell extends Entity {
       new utils.MoveTransformComponent(startPosition, endPosition, speed / 1000)
     )
 
+    // TODO: play casting sound
+
     engine.addEntity(this)
     this.addComponentOrReplace(new utils.ExpireIn(speed))
   }
 
-  viewStats() {
+  stats() {
     return {
-      'level': this.level,
-      'atkSpeed': this.atkSpeed,
-      'dmg': this.dmg,
-      'knockback': this.knockback,
-      'range': this.range,
-      'slow': this.slow
+      'current': {
+        'level': this.level,
+        'atkSpeed': this.atkSpeed,
+        'dmg': this.dmg,
+        'knockback': this.knockback,
+        'range': this.range,
+        'slow': this.slow
+      },
+      'next': {
+        'level': this.level + 1,
+        'atkSpeed': this.atkSpeed + (this.bonusStats.atkSpeed || 0),
+        'dmg': this.dmg + (this.bonusStats.dmg || 0.5),
+        'knockback': this.knockback + (this.bonusStats.knockback || 0),
+        'range': this.range + (this.bonusStats.range || 0),
+        'slow': this.slow + (this.bonusStats.slow || 0)
+      }
     }
   }
 
   incrementLevel() {
-    this.level ++
-    this.dmg += this.dmg * 0.25
-    // TODO: increment tagged attributes for spell type
-    // TODO: decrease mana cost?
+    const lvlUp = this.stats()['next']
+    const self = this
+
+    Object.keys(lvlUp).forEach(function(key) {
+      self[key] = lvlUp[key]
+    })
+
+    // TODO: decrease mana cost every x levels?
   }
 }

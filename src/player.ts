@@ -9,11 +9,18 @@ export class Player {
     dmgBonus: 0,
     hp: 100,
     hpRegenRate: 0.5,
-    mana: 100,
-    manaRegenRate: 5,
+    mana: 125,
+    manaRegenRate: 7,
     maxHp: 100,
-    maxMana: 100,
+    maxMana: 125,
     rangeBonus: 0
+  }
+
+  statIncrementMap = {
+    dmgBonus: 5,
+    maxHp: 20,
+    maxMana: 20,
+    rangeBonus: 5
   }
 
   data!: UserData
@@ -50,6 +57,10 @@ export class Player {
 
   replenishMana(amount: number) {
     this.stats.mana += amount
+  }
+
+  incrementStat(statName: string) {
+    this.stats[statName] += this.statIncrementMap[statName]
   }
 
   restrictMovement() {

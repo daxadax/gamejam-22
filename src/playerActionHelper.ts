@@ -1,7 +1,8 @@
 import * as utils from '@dcl/ecs-scene-utils'
 
-import { Player } from './player'
 import { GameUI } from './gameUI'
+import { Player } from './player'
+import { Spell } from './spell'
 
 export class PlayerActionHelper {
   player: Player
@@ -26,6 +27,24 @@ export class PlayerActionHelper {
 
   startRegeneration() {
     engine.addEntity(this.regenerator)
+  }
+
+  setActiveSpell(spell: Spell) {
+    this.player.setActiveSpell(spell)
+    this.gameUI.playerUI.setActiveSpell(spell)
+  }
+
+  activeSpellStats() {
+    const spell = this.player.activeSpell
+
+    // probably there is a much cleaner way to do this but idk js hing
+    return {
+      atkSpeed: spell.atkSpeed,
+      dmg: spell.dmg + this.player.stats.dmgBonus,
+      knockback: spell.knockback,
+      range: spell.range + this.player.stats.rangeBonus,
+      slow: spell.slow
+    }
   }
 
   diminishHp(amount: number) {
