@@ -73,8 +73,8 @@ export class SkeletonEnemy extends Entity {
 
   async takeDmg(dmg: number, atkSpeed: number, statusEffects: any) {
     setTimeout(() => {
-      log("le ouch")
       this.hp -= dmg
+      this.soundLibrary.play('enemy_hit')
 
       if ( this.hp <= 0 ) {
         log('but i am le dead')
@@ -83,16 +83,15 @@ export class SkeletonEnemy extends Entity {
 
         this.getComponent(Animator).getClip('die').play()
         this.addComponentOrReplace(new utils.ExpireIn(2000))
+        return null
       }
 
-      this.soundLibrary.play('enemy_hit')
       this.resolveStatusEffects(statusEffects)
     }, atkSpeed)
   }
 
   resolveStatusEffects(statusEffects: any) {
-    log('status effects', statusEffects)
-    // handle slow
+    // handle slow (applied once)
     if ( statusEffects.slow > 0 && !this.statusEffects.includes('slow') ) {
       this.statusEffects.push('slow')
       this.speed -= statusEffects.slow
@@ -103,6 +102,13 @@ export class SkeletonEnemy extends Entity {
       }
     }
 
-    // TODO: handle knockback
+    // handle knockback (applied on every hit)
+    if ( statusEffects.knockback > 0 ) {
+      const transform = this.getComponent(Transform)
+      const backwardVector = Vector3.Backward().rotate(transform.rotation)
+      const knockback = backwardVector.scale(statusEffects.knockback)
+
+      transform.translate(knockback)
+    }
   }
 }
