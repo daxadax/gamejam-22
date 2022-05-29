@@ -48,8 +48,13 @@ export class PlayerActionHelper {
   }
 
   diminishHp(amount: number) {
-    this.player.diminishHp(amount)
-    this.gameUI.playerUI.decrementHp(amount)
+    if ( this.player.stats.hp > 0) {
+      this.player.diminishHp(amount)
+      this.gameUI.playerUI.decrementHp(amount)
+    } else {
+      // TODO: you dead
+      log('i am le dead')
+    }
   }
 
   replenishHp(amount: number) {

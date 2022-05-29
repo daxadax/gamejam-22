@@ -44,7 +44,7 @@ export class SkillUpgrades {
     this.skillInfoText.hAlign = 'center'
     this.skillInfoText.vAlign = 'top'
     this.skillInfoText.positionX = -10
-    this.skillInfoText.positionY = 0
+    this.skillInfoText.positionY = -60
     this.skillInfoText.color = Color4.Black()
     this.skillInfoText.isPointerBlocker = false
 
@@ -62,6 +62,12 @@ export class SkillUpgrades {
     this.skillPointsCounter.isPointerBlocker = false
   }
 
+  visible() {
+    return this.container.visible
+  }
+
+  // TODO: all skillupgrades need to be initialized one time and then referenced
+  // in show so that they aren't created multiple times
   show() {
     // spells
     let blizzard = new SkillUpgrade(this.container, 'blizzard')
@@ -201,8 +207,12 @@ export class SkillUpgrades {
       el = this.player.stats[skill]
       text = "Current value: "+ el
 
-      upgradeText = el + this.player.statIncrementMap[skill]
+      upgradeText = (el + this.player.statIncrementMap[skill]).toString()
     }
+
+    // every upgradeText should have the same number of new lines
+    // otherwise the alignment is off
+    upgradeText += "\n".repeat(5 - upgradeText.split(/\r\n|\r|\n/).length)
 
     this.skillInfoText.value = displayName +"\n"+ text +"\n\nNext level:"+ upgradeText
   }

@@ -1,11 +1,14 @@
-import { EnemyModel } from './enemyModel'
 import { GameUI } from './gameUI'
 import { Player } from './player'
-import { PlayerActionHelper } from './playerActionHelper'
 import { Spell } from './spell'
 import { SoundLibrary } from './soundLibrary'
 import { Scene } from './scene'
-import { Spawner } from './spawner'
+
+import { PlayerActionHelper } from './playerActionHelper'
+import { SpawnHelper } from './spawnHelper'
+import { SpellHelper } from './spellHelper'
+
+import { EnemyActionSystem } from './enemyActionSystem'
 
 // Spells //
 // Blizzard: Water damage [ Knockback ]
@@ -29,96 +32,39 @@ const fireball      = new Spell('fireball', 'fireball.gltf', {'dmg': 2.5})
 const storm         = new Spell('storm', 'trashy.gltf', {'atkSpeed': 1})
 const spells        = [blizzard, vines, fireball, storm]
 
-// game UI
+// UI and helpers
 const gameUI        = new GameUI(canvas, player, soundLibrary, spells)
 const playerHelper  = new PlayerActionHelper(player, gameUI)
-
-
-// test stuff
-const spawner = new Spawner(
-  new GLTFShape('models/skelly_with_collider.glb'),
-  'spawner',
-  scene,
-  soundLibrary,
-  new Transform({
-    position: new Vector3(25, 0.3, 23),
-    rotation: new Quaternion(0, 180, 0, 1),
-    scale: new Vector3(1, 1, 1)
-  })
-)
+const spawnHelper   = new SpawnHelper(scene, soundLibrary)
+const spellHelper   = new SpellHelper(camera, physicsCast, playerHelper)
 
 // run initializers
-scene.addModifiers()
+scene.initialize()
 scene.buildStaticModels()
 gameUI.displayIntroduction()
 player.initialize()
 player.restrictMovement()
 playerHelper.startRegeneration()
 
+engine.addSystem(new EnemyActionSystem(camera, playerHelper))
+
 // TODO: start spawn after entering tomb
-spawner.initialize()
+spawnHelper.createSpawners(1)
 
 input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, (e) => {
   selectNextSpell()
 })
 
-input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (e) => {
-  let activeSpell = player.activeSpell
-  let spellStats = playerHelper.activeSpellStats()
-
-  // can the player cast this spell in the first place?
-  if ( player.stats.mana >= activeSpell.manaCost ) {
-    log('casting ', activeSpell.name)
-    log('stats', spellStats)
-
-    let ray: Ray = {
-      origin: camera.position,
-      direction: Vector3.Forward().rotate(camera.rotation),
-      distance: spellStats.range
-    }
-
-    physicsCast.hitFirst(
-      ray,
-      (e) => {
-        let origin  = new Vector3(camera.position.x, camera.position.y - 0.4, camera.position.z)
-
-        // decrement mana pool
-        playerHelper.diminishMana(activeSpell.manaCost)
-
-        if (e.didHit) {
-          let enemy       = engine.entities[e.entity.entityId]
-          let entityType  = enemy.constructor.name
-          let target      = Vector3.Zero().copyFrom(e.hitPoint)
-          let atkSpeed    = 200
-
-          // cast spell at target
-          activeSpell.cast(origin, target, atkSpeed)
-
-          // deal damage to enemy targets
-          if ( entityType === "EnemyModel" ) {
-            // TODO: calculate headshots
-            enemy.takeDmg(spellStats.dmg, atkSpeed, {
-              knockback: spellStats.knockback,
-              slow: spellStats.slow
-            })
-          } else if ( entityType === "Spawner" ) {
-            enemy.takeDmg(spellStats.dmg, atkSpeed)
-          }
-        } else {
-          log(e)
-          // cast spell into the air like an idiot
-          // TODO: cast it straight forward for player range
-          // activeSpell.cast(origin, Vector3.Forward(), 200)
-        }
-      },
-      1
-    )
+input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
+  if ( player.stats.mana >= player.activeSpell.manaCost ) {
+    spellHelper.castActiveSpell(player.activeSpell, target)
   } else {
-    log("bro, do you even resource management?")
+    log("bro, although mana is a renewable resource, conservation is paramount")
   }
 })
 
 input.subscribe("BUTTON_DOWN", ActionButton.SECONDARY, false, (e) => {
+  gameUI.toggleSkillUpgradeDisplay()
 })
 
 function selectNextSpell() {

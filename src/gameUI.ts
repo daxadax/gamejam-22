@@ -13,6 +13,7 @@ export class GameUI {
   soundLibrary: SoundLibrary
   spellLibrary: Spell[]
 
+  private gameStarted: Boolean = false
   private screenCover: UIContainerRect
   private text: UIText
   private textWrapper: UIImage
@@ -22,12 +23,7 @@ export class GameUI {
   introText2 =
     "Making it all the way here would have been impossible without some kind of magical training. What do you know? \n\nYou start the game with 3 skill points but you'll gain more as you play. Spend them wisely!\n\n\n" // each text container needs the same number of carraige returns for it to align properly. smh
 
-  constructor(
-    canvas: UICanvas,
-    player: Player,
-    soundLibrary: SoundLibrary,
-    spells: Spell[]
-  ) {
+  constructor(canvas, player, soundLibrary, spells: Spell[]) {
     this.canvas = canvas
     this.player = player
     this.soundLibrary = soundLibrary
@@ -121,6 +117,8 @@ export class GameUI {
       // TODO: if player has selected at least one spell, continue
       //       otherwise reset skillpoints and say "you must select at least one spell"
 
+      this.gameStarted = true
+
       // play sound
       this.soundLibrary.play('button_click')
 
@@ -140,5 +138,26 @@ export class GameUI {
       // allow player to move
       this.player.unrestrictMovement()
     })
+  }
+
+  toggleSkillUpgradeDisplay() {
+    // don't allow this to be triggered before the game starts
+    if ( this.gameStarted === false ) { return null }
+
+    if ( this.skillUpgradesComponent.visible() ) {
+      // hide UI elements
+      this.screenCover.visible = false
+      this.skillUpgradesComponent.hide()
+
+      // show playerUI
+      this.playerUI.show()
+    } else {
+      // hide playerUI
+      this.playerUI.hide()
+
+      // show UI elements
+      this.screenCover.visible = true
+      this.skillUpgradesComponent.show()
+    }
   }
 }

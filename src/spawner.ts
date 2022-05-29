@@ -2,7 +2,7 @@ import * as utils from '@dcl/ecs-scene-utils'
 
 import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
-import { EnemyModel } from './enemyModel'
+import { SkeletonEnemy } from './skeletonEnemy'
 
 export class Spawner extends Entity {
   hp: number
@@ -16,7 +16,6 @@ export class Spawner extends Entity {
   MAX_TIME_OFFSET = 2000
 
   constructor(
-    model: GLTFShape,
     name: string,
     scene: Scene,
     soundLibrary: SoundLibrary,
@@ -27,6 +26,7 @@ export class Spawner extends Entity {
     this.setParent(scene)
     this.addComponent(transform)
 
+    const model = new GLTFShape('models/portal.glb')
     model.withCollisions = true
     model.isPointerBlocker = true
     model.visible = true
@@ -45,11 +45,10 @@ export class Spawner extends Entity {
 
     this.addComponent(
       new utils.Interval(spawnTime, () => {
-        // TODO: this logic should instead respond
-        // to the total enemies currently in combat
+        // TODO: this logic should instead respond to the total enemies currently in combat
         if ( this.spawnCounter === this.maxEnemies ) { return null }
         log('spawning enemy')
-        this.spawnEnemy()
+        this.spawnEnemy(this.spawnCounter)
         this.spawnCounter ++
       })
     )
@@ -74,17 +73,18 @@ export class Spawner extends Entity {
     }, atkSpeed)
   }
 
-  spawnEnemy() {
-    new EnemyModel(
-      new GLTFShape('models/skelly_with_collider.glb'), // TODO: model library like soundLibrary
-      'skelly',
+  spawnEnemy(id: number) {
+    const t = this.getComponent(Transform)
+    let n = new Transform()
+    n.position.copyFrom(t.position)
+    n.rotation.copyFrom(t.rotation)
+
+    new SkeletonEnemy(
+      new GLTFShape('models/skelly.glb'), // TODO: model library like soundLibrary
+      'skelly-'+ this.name +'-'+ id,
       this.scene,
       this.soundLibrary,
-      new Transform({
-        position: new Vector3(31, 0.3, 23),
-        rotation: new Quaternion(0, 180, 0, 1),
-        scale: new Vector3(1, 1, 1)
-      })
+      n
     )
   }
 }
