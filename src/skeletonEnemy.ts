@@ -79,10 +79,11 @@ export class SkeletonEnemy extends Entity {
       if ( this.hp <= 0 ) {
         log('but i am le dead')
 
-        // TODO play death sound
-
+        // TODO: this should be a different clip maybe?
+        // it gets cut if called too frequently
+        this.soundLibrary.play('enemy_die')
         this.getComponent(Animator).getClip('die').play()
-        this.addComponentOrReplace(new utils.ExpireIn(2000))
+        this.addComponentOrReplace(new utils.ExpireIn(3000))
         return null
       }
 

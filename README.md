@@ -14,6 +14,7 @@ The following are opensource assets from outside decentraland:
  - https://www.gamedevmarket.net/asset/fantasy-wooden-gui-free/
 
 ### Sounds
+ - https://freesound.org/people/AUDACITIER/sounds/632244/
  - https://freesound.org/people/EminYILDIRIM/sounds/540568/
  - https://freesound.org/people/SilverIllusionist/sounds/513826/
  - https://opengameart.org/content/spell-4-fire
