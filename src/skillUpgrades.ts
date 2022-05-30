@@ -145,6 +145,7 @@ export class SkillUpgrades {
 
     // show initial purchase window
     this.showPurchaseWindow('blizzard', 'spell')
+    this.skillPointsCounter.value = this.player.skillPoints +" skill points available"
     this.container.visible = true
   }
 

@@ -81,7 +81,7 @@ export class Spawner extends Entity {
 
     new SkeletonEnemy(
       new GLTFShape('models/skelly.glb'), // TODO: model library like soundLibrary
-      'skelly-'+ this.name +'-'+ id,
+      'enemy-skelly-'+ this.name +'-'+ id,
       this.scene,
       this.soundLibrary,
       n

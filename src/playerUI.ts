@@ -1,4 +1,5 @@
 import * as ui from '@dcl/ui-scene-utils'
+import { UIBar } from '@dcl/ui-scene-utils'
 
 import { Player } from './player'
 import { Spell } from './spell'

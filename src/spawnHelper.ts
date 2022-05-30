@@ -1,3 +1,4 @@
+import { GameState } from './gameState'
 import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
 import { Spawner } from './spawner'
@@ -5,12 +6,19 @@ import { spawnLocations } from './spawnLocations'
 
 
 export class SpawnHelper {
+  gameState: GameState
   scene: Scene
   soundLibrary: SoundLibrary
 
-  constructor(scene, soundLibrary) {
+  constructor(gameState, scene, soundLibrary) {
+    this.gameState = gameState
     this.scene = scene
     this.soundLibrary = soundLibrary
+  }
+
+  startNextWave() {
+    log('starting wave '+ this.gameState.wave)
+    this.createSpawners(this.gameState.wave)
   }
 
   createSpawners(count: number) {
@@ -19,7 +27,7 @@ export class SpawnHelper {
 
     locations.forEach(function(spawnLocation, i) {
       const spawner = new Spawner(
-        'spawner-'+ i,
+        'enemy-spawner-'+ i,
         self.scene,
         self.soundLibrary,
         spawnLocation

@@ -82,6 +82,9 @@ export class SkeletonEnemy extends Entity {
         // TODO: this should be a different clip maybe?
         // it gets cut if called too frequently
         this.soundLibrary.play('enemy_die')
+
+        // TODO: low priority
+        // skeleton should rotate to face dmgSource before death animation is triggered
         this.getComponent(Animator).getClip('die').play()
         this.addComponentOrReplace(new utils.ExpireIn(3000))
         return null
@@ -97,10 +100,7 @@ export class SkeletonEnemy extends Entity {
       this.statusEffects.push('slow')
       this.speed -= statusEffects.slow
 
-      if ( this.speed <= 0 ) {
-        log('i should be frozen')
-        this.freeze()
-      }
+      if ( this.speed <= 0 ) { this.freeze() }
     }
 
     // handle knockback (applied on every hit)

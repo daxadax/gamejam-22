@@ -77,4 +77,12 @@ export class PlayerActionHelper {
       this.gameUI.playerUI.incrementMana(amount)
     }
   }
+
+  restrictMovement() {
+    this.player.restrictMovement()
+  }
+
+  unrestrictMovement() {
+    this.player.unrestrictMovement()
+  }
 }

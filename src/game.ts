@@ -1,3 +1,5 @@
+import { GameIntroduction } from './gameIntroduction'
+import { GameState } from './gameState'
 import { GameUI } from './gameUI'
 import { Player } from './player'
 import { Spell } from './spell'
@@ -9,12 +11,13 @@ import { SpawnHelper } from './spawnHelper'
 import { SpellHelper } from './spellHelper'
 
 import { EnemyActionSystem } from './enemyActionSystem'
+import { GameLoopSystem } from './gameLoopSystem'
 
 // Spells //
 // Blizzard: Water damage [ Knockback ]
-// Creeping vines: Earth damage [ Enemy SPD- ]
+// Creeping vines: Earth damage [ Slow Enemy ]
 // Fireball: Fire damage [ DMG+ ]
-// Storm: Lightning damage [ ATK SPD + ]
+// Storm: Lightning damage [ Attack speed+ ] // TODO: attack speed is lame
 
 // set scene constants
 const scene         = new Scene()
@@ -33,23 +36,25 @@ const storm         = new Spell('storm', 'trashy.gltf', {'atkSpeed': 1})
 const spells        = [blizzard, vines, fireball, storm]
 
 // UI and helpers
+const gameState     = new GameState()
 const gameUI        = new GameUI(canvas, player, soundLibrary, spells)
 const playerHelper  = new PlayerActionHelper(player, gameUI)
-const spawnHelper   = new SpawnHelper(scene, soundLibrary)
+const spawnHelper   = new SpawnHelper(gameState, scene, soundLibrary)
 const spellHelper   = new SpellHelper(camera, physicsCast, playerHelper)
+const gameIntro     = new GameIntroduction(gameUI, gameState, playerHelper, soundLibrary, spawnHelper)
 
 // run initializers
 scene.initialize()
 scene.buildStaticModels()
-gameUI.displayIntroduction()
 player.initialize()
 player.restrictMovement()
-playerHelper.startRegeneration()
 
+// add systems
 engine.addSystem(new EnemyActionSystem(camera, playerHelper))
+engine.addSystem(new GameLoopSystem(gameUI, gameState, player, spawnHelper))
 
-// TODO: start spawn after entering tomb
-spawnHelper.createSpawners(1)
+// start game loop
+gameIntro.initialize()
 
 input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, (e) => {
   selectNextSpell()
@@ -58,13 +63,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, (e) => {
 input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
   if ( player.stats.mana >= player.activeSpell.manaCost ) {
     spellHelper.castActiveSpell(player.activeSpell, target)
-  } else {
-    log("bro, although mana is a renewable resource, conservation is paramount")
   }
 })
 
 input.subscribe("BUTTON_DOWN", ActionButton.SECONDARY, false, (e) => {
-  gameUI.toggleSkillUpgradeDisplay()
+  if ( gameState.isStarted ) { gameUI.toggleSkillUpgradeDisplay() }
 })
 
 function selectNextSpell() {

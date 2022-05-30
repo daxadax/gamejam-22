@@ -1,4 +1,5 @@
 import { Button } from './button'
+import { GameIntroduction } from './gameIntroduction'
 import { Player } from './player'
 import { PlayerUI } from './playerUI'
 import { SkillUpgrades } from './skillUpgrades'
@@ -13,15 +14,10 @@ export class GameUI {
   soundLibrary: SoundLibrary
   spellLibrary: Spell[]
 
-  private gameStarted: Boolean = false
   private screenCover: UIContainerRect
   private text: UIText
   private textWrapper: UIImage
-
-  introText =
-    "After years of seeking, you've finally found it: the fabled tomb of the evil Archmage Bobby Bubonic. Your whole life has led you here and while you can't anticipate how things will end, you know it's your only chance to save your village / gain limitless power / get enough gold to pay for little timmy's operation. \n\nAre you ready?"
-  introText2 =
-    "Making it all the way here would have been impossible without some kind of magical training. What do you know? \n\nYou start the game with 3 skill points but you'll gain more as you play. Spend them wisely!\n\n\n" // each text container needs the same number of carraige returns for it to align properly. smh
+  private btnNext: Button
 
   constructor(canvas, player, soundLibrary, spells: Spell[]) {
     this.canvas = canvas
@@ -60,6 +56,9 @@ export class GameUI {
     this.text.positionY = -220
     this.text.color = Color4.Black()
 
+    // default btn
+    this.btnNext = new Button(this.canvas)
+
     // player ui
     this.playerUI = new PlayerUI(canvas, player, spells)
 
@@ -67,86 +66,51 @@ export class GameUI {
     this.skillUpgradesComponent = new SkillUpgrades(canvas, player, soundLibrary, spells)
   }
 
-  displayIntroduction() {
+  show() {
     this.screenCover.visible = true
-
-    // intro text
-    this.text.value = this.introText
-
-    //// buttons
-    const btn_next = new Button(this.canvas)
-    btn_next.onClick = new OnClick(() => {
-      // play sound
-      this.soundLibrary.play('button_click')
-
-      // hide existing components
-      btn_next.visible = false
-
-      this.displayIntroductionTwo()
-    })
+    this.btnNext.visible = true
   }
 
-  displayIntroductionTwo() {
-    this.text.value = this.introText2
-
-    // display skill select screen
-    const btnSkillSelect = new Button(this.canvas)
-
-    btnSkillSelect.onClick = new OnClick(() => {
-      // play sound
-      this.soundLibrary.play('button_click')
-
-      // hide existing components
-      btnSkillSelect.visible = false
-      this.text.value = null
-
-      this.selectSkills()
-    })
+  hide() {
+    this.screenCover.visible = false
+    this.btnNext.visible = false
   }
 
-  selectSkills() {
-    // skill upgrade component
-    this.skillUpgradesComponent.container.positionY = 50
-    this.skillUpgradesComponent.container.visible = false
+  editText(text: string) {
+    this.text.value = text
+  }
+
+  selectNewSkills(spawnHelper: spawnHelper) {
+    // hide playerUI
+    this.playerUI.hide()
+
+    // show UI elements
+    this.show()
     this.skillUpgradesComponent.show()
 
-    // start game
-    const btnStartGame = new Button(this.canvas)
-
-    btnStartGame.onClick = new OnClick(() => {
-      // TODO: if player has selected at least one spell, continue
-      //       otherwise reset skillpoints and say "you must select at least one spell"
-
-      this.gameStarted = true
-
+    this.btnNext.onClick = new OnClick(() => {
       // play sound
       this.soundLibrary.play('button_click')
 
       // hide existing components
-      this.screenCover.visible = false
-      btnStartGame.visible = false
+      this.hide()
       this.skillUpgradesComponent.hide()
-
-      // set active spell
-      const spell = this.spellLibrary.find(spell => spell.level > 0)
-      this.player.setActiveSpell(spell)
-      this.playerUI.setActiveSpell(spell) // TODO: maybe "refresh ui"?
 
       // display playerUI
       this.playerUI.show()
 
-      // allow player to move
-      this.player.unrestrictMovement()
+      // TODO: i hate that this is here but i haven't found a better way to ensure
+      // that the next wave is called only after the player has chosen upgrades
+      //
+      // start next wave
+      spawnHelper.startNextWave()
     })
   }
 
   toggleSkillUpgradeDisplay() {
-    // don't allow this to be triggered before the game starts
-    if ( this.gameStarted === false ) { return null }
-
     if ( this.skillUpgradesComponent.visible() ) {
       // hide UI elements
-      this.screenCover.visible = false
+      this.hide()
       this.skillUpgradesComponent.hide()
 
       // show playerUI
@@ -156,7 +120,7 @@ export class GameUI {
       this.playerUI.hide()
 
       // show UI elements
-      this.screenCover.visible = true
+      this.show()
       this.skillUpgradesComponent.show()
     }
   }
