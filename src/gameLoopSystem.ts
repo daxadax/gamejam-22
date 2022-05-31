@@ -8,6 +8,7 @@ export class GameLoopSystem implements ISystem {
   gameUI: GameUI
   gameState: GameState
   player: Player
+  spawnHelper: SpawnHelper
 
   constructor(gameUI, gameState, player, spawnHelper) {
     this.gameUI = gameUI
@@ -40,10 +41,8 @@ export class GameLoopSystem implements ISystem {
       this.gameState.incrementWave()
 
       // open skill menu
+      // pass spawnhelper to start next wave with increased enemy difficulty / more enemies
       this.gameUI.selectNewSkills(this.spawnHelper)
-
-      // start next wave with increased enemy difficulty / more enemies
-      // this.spawnHelper.startNextWave()
     }
   }
 }

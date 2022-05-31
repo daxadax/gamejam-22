@@ -57,8 +57,7 @@ export class Spawner extends Entity {
 
   // TODO: spawn additional enemy/enemies when health is low
   async takeDmg(dmg: number, atkSpeed: number) {
-    setTimeout(() => {
-      log("le ouch")
+    utils.setTimeout(atkSpeed, ()=> {
       this.hp -= dmg
 
       if ( this.hp <= 0 ) {
@@ -70,7 +69,7 @@ export class Spawner extends Entity {
       }
 
       this.soundLibrary.play('enemy_hit')
-    }, atkSpeed)
+    })
   }
 
   spawnEnemy(id: number) {

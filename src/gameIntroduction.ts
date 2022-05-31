@@ -73,7 +73,7 @@ export class GameIntroduction {
       this.gameUI.skillUpgradesComponent.hide()
 
       // set active spell
-      const spell = this.gameUI.spellLibrary.find(spell => spell.level > 0)
+      const spell = this.gameUI.spellLibrary.filter(spell => spell.level > 0).shift()
       this.playerHelper.setActiveSpell(spell)
 
       // TODO: add instructions / keybinding after selecting skills

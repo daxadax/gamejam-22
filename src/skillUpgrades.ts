@@ -162,7 +162,7 @@ export class SkillUpgrades {
       this.soundLibrary.play('upgrade_skill')
 
       if ( type === 'spell' ) {
-        this.spells.find(spell => spell.name === skill).incrementLevel()
+        this.spells.filter(spell => spell.name === skill).shift().incrementLevel()
       } else {
         this.player.incrementStat(skill)
       }
@@ -190,7 +190,7 @@ export class SkillUpgrades {
 
     if ( type === 'spell' ) {
       displayName = skill.toUpperCase()
-      el = this.spells.find(spell => spell.name === skill)
+      el = this.spells.filter(spell => spell.name === skill).shift()
       text = "Level: "+ el.level
 
       // add a new line since spells have multiple attributes to upgrade
@@ -213,7 +213,11 @@ export class SkillUpgrades {
 
     // every upgradeText should have the same number of new lines
     // otherwise the alignment is off
-    upgradeText += "\n".repeat(5 - upgradeText.split(/\r\n|\r|\n/).length)
+    const requiredNewlines = 6 - upgradeText.split(/\r\n|\r|\n/).length
+    upgradeText += Array(requiredNewlines).join("\n")
+
+    // NOTE: this is nicer but due to heroku i can only use TS native code
+    // upgradeText += "\n".repeat(5 - upgradeText.split(/\r\n|\r|\n/).length)
 
     this.skillInfoText.value = displayName +"\n"+ text +"\n\nNext level:"+ upgradeText
   }

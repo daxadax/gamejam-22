@@ -20,7 +20,7 @@ export class EnemyActionSystem implements ISystem {
     ids.filter(function(id) {
       const entity = engine.entities[id]
 
-      if ( entity.constructor.name === 'SkeletonEnemy' ) {
+      if ( entity.constructor['name'] === 'SkeletonEnemy' ) {
         enemies.push(entity)
       }
     })

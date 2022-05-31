@@ -1,5 +1,7 @@
 import { PlayerActionHelper } from './playerActionHelper'
 import { Spell } from './spell'
+import { SkeletonEnemy } from './skeletonEnemy'
+import { Spawner } from './spawner'
 
 export class SpellHelper {
   camera: Camera
@@ -35,7 +37,7 @@ export class SpellHelper {
 
         if (e.didHit) {
           let enemy       = engine.entities[e.entity.entityId]
-          let entityType  = enemy.constructor.name
+          let entityType  = enemy.constructor['name']
           let target      = Vector3.Zero().copyFrom(e.hitPoint)
           let atkSpeed    = 200
 
@@ -43,17 +45,20 @@ export class SpellHelper {
           activeSpell.cast(origin, target, atkSpeed)
 
           // deal damage to enemy targets
-          if ( entityType === "SkeletonEnemy" && enemy.hp > 0) {
+          if ( entityType === "SkeletonEnemy" && enemy['hp'] > 0) {
+            const skeleton = enemy as SkeletonEnemy
+
             // TODO: calculate headshots
-            enemy.takeDmg(spellStats.dmg, atkSpeed, {
+            skeleton.takeDmg(spellStats.dmg, atkSpeed, {
               knockback: spellStats.knockback,
               slow: spellStats.slow
             })
-          } else if ( entityType === "Spawner" && enemy.hp > 0) {
-            enemy.takeDmg(spellStats.dmg, atkSpeed)
+          } else if ( entityType === "Spawner" && enemy['hp'] > 0) {
+            const spawner = enemy as Spawner
+
+            spawner.takeDmg(spellStats.dmg, atkSpeed)
           }
         } else {
-          log(e)
           // cast spell into the air like an idiot
           // TODO: cast it straight forward for player range
           // activeSpell.cast(origin, Vector3.Forward(), 200)

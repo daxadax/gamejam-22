@@ -51,7 +51,7 @@ export class SkeletonEnemy extends Entity {
   }
 
   isFrozen() {
-    return this.statusEffects.includes('slow')
+    return this.statusEffects.indexOf('slow') > -1
   }
 
   attack() {
@@ -72,7 +72,7 @@ export class SkeletonEnemy extends Entity {
   }
 
   async takeDmg(dmg: number, atkSpeed: number, statusEffects: any) {
-    setTimeout(() => {
+    utils.setTimeout(atkSpeed, ()=> {
       this.hp -= dmg
       this.soundLibrary.play('enemy_hit')
 
@@ -91,12 +91,12 @@ export class SkeletonEnemy extends Entity {
       }
 
       this.resolveStatusEffects(statusEffects)
-    }, atkSpeed)
+    })
   }
 
   resolveStatusEffects(statusEffects: any) {
     // handle slow (applied once)
-    if ( statusEffects.slow > 0 && !this.statusEffects.includes('slow') ) {
+    if ( statusEffects.slow > 0 && !this.isFrozen() ) {
       this.statusEffects.push('slow')
       this.speed -= statusEffects.slow
 

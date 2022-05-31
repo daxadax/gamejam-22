@@ -4,6 +4,7 @@ import { Player } from './player'
 import { PlayerUI } from './playerUI'
 import { SkillUpgrades } from './skillUpgrades'
 import { SoundLibrary } from './soundLibrary'
+import { SpawnHelper } from './spawnHelper'
 import { Spell } from './spell'
 
 export class GameUI {
@@ -17,7 +18,7 @@ export class GameUI {
   private screenCover: UIContainerRect
   private text: UIText
   private textWrapper: UIImage
-  private btnNext: Button
+  btnNext: Button
 
   constructor(canvas, player, soundLibrary, spells: Spell[]) {
     this.canvas = canvas
@@ -80,7 +81,7 @@ export class GameUI {
     this.text.value = text
   }
 
-  selectNewSkills(spawnHelper: spawnHelper) {
+  selectNewSkills(spawnHelper: SpawnHelper) {
     // hide playerUI
     this.playerUI.hide()
 
