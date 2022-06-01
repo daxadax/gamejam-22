@@ -75,6 +75,7 @@ export class Spawner extends Entity {
     const t = this.getComponent(Transform)
     let n = new Transform()
     n.position.copyFrom(t.position)
+    n.position.y = 0 // ground level
     n.rotation.copyFrom(t.rotation)
 
     new SkeletonEnemy(
