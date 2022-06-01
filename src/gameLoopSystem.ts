@@ -19,6 +19,10 @@ export class GameLoopSystem implements ISystem {
 
   onAddEntity(entity: Entity) {
     if ( /enemy/.test(entity.name) ) {
+      // set the wave as active on first enemy spawn per wave
+      if ( !this.gameState.waveIsActive ) { this.gameState.setWaveActive() }
+
+      // add enemy to list of enemies
       this.enemies.push(entity)
     }
   }
@@ -28,8 +32,14 @@ export class GameLoopSystem implements ISystem {
       this.enemies.splice(this.enemies.indexOf(entity), 1)
     }
 
-    if ( this.gameState.isStarted && this.enemies.length === 0 ) {
+    if ( this.gameState.isStarted && this.gameState.waveIsActive && this.enemies.length === 0 ) {
       log('wave complete')
+
+      // mark the wave as currently inactive
+      // removing this line allows the player to keep casting spells
+      // and triggering this function (since the spell entity is removed)
+      // thereby getting unlimited skill points
+      this.gameState.setWaveInactive()
 
       // notify player that wave is complete
       // this.gameUI.xxx
