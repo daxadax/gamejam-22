@@ -72,6 +72,7 @@ export class SkeletonEnemy extends Entity {
   }
 
   async takeDmg(dmg: number, atkSpeed: number, statusEffects: any) {
+    log("player dealt "+ dmg + " damage to Skeleton")
     utils.setTimeout(atkSpeed, ()=> {
       this.hp -= dmg
       this.soundLibrary.play('enemy_hit')

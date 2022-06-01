@@ -38,18 +38,22 @@ export class SpellHelper {
         if (e.didHit) {
           let enemy       = engine.entities[e.entity.entityId]
           let entityType  = enemy.constructor['name']
+          let collider    = e.entity.meshName
           let target      = Vector3.Zero().copyFrom(e.hitPoint)
           let atkSpeed    = 200
+          let isHeadshot  = /_head/.test(collider)
 
           // cast spell at target
           activeSpell.cast(origin, target, atkSpeed)
 
+          if ( isHeadshot ) { log('HEADSHOT!') }
+
           // deal damage to enemy targets
           if ( entityType === "SkeletonEnemy" && enemy['hp'] > 0) {
             const skeleton = enemy as SkeletonEnemy
+            const dmg = isHeadshot ? spellStats.dmg * 2 : spellStats.dmg
 
-            // TODO: calculate headshots
-            skeleton.takeDmg(spellStats.dmg, atkSpeed, {
+            skeleton.takeDmg(dmg, atkSpeed, {
               knockback: spellStats.knockback,
               slow: spellStats.slow
             })
