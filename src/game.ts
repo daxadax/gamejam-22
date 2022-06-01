@@ -14,6 +14,9 @@ import { EnemyActionSystem } from './enemyActionSystem'
 import { GameLoopSystem } from './gameLoopSystem'
 
 // Spells //
+// TODO: blizzard => bind/freeze, vines => poison/DoT, fire => dmg, storm => knockback
+// TODO: enemy types with weaknesses
+// TODO: better spell models
 // Blizzard: Water damage [ Knockback ]
 // Creeping vines: Earth damage [ Slow Enemy ]
 // Fireball: Fire damage [ DMG+ ]
