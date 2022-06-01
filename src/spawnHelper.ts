@@ -16,6 +16,12 @@ export class SpawnHelper {
     this.soundLibrary = soundLibrary
   }
 
+  // TODO: increase difficulty per wave
+  // enemy/spawner health
+  // new enemies
+  // more dmg
+  // more speed
+  // etc
   startNextWave() {
     log('starting wave '+ this.gameState.wave)
     this.createSpawners(this.gameState.wave)

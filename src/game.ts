@@ -29,10 +29,10 @@ const player        = new Player()
 const soundLibrary  = new SoundLibrary()
 
 // spells
-const blizzard      = new Spell('blizzard', 'iceball.gltf', {'knockback': 1})
-const vines         = new Spell('vines', 'poison.gltf', {'slow': 1})
-const fireball      = new Spell('fireball', 'fireball.gltf', {'dmg': 2.5})
-const storm         = new Spell('storm', 'trashy.gltf', {'atkSpeed': 1})
+const blizzard      = new Spell('blizzard', 'iceball.gltf', soundLibrary, {'knockback': 1})
+const vines         = new Spell('vines', 'poison.gltf', soundLibrary, {'slow': 1})
+const fireball      = new Spell('fireball', 'fireball.gltf', soundLibrary, {'dmg': 2.5})
+const storm         = new Spell('storm', 'trashy.gltf', soundLibrary, {'atkSpeed': 1})
 const spells        = [blizzard, vines, fireball, storm]
 
 // UI and helpers
@@ -51,7 +51,7 @@ player.restrictMovement()
 
 // add systems
 engine.addSystem(new EnemyActionSystem(camera, playerHelper))
-engine.addSystem(new GameLoopSystem(gameUI, gameState, player, spawnHelper))
+engine.addSystem(new GameLoopSystem(gameUI, gameState, player, soundLibrary, spawnHelper))
 
 // start game loop
 gameIntro.initialize()

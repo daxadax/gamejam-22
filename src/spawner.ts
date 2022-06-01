@@ -59,16 +59,15 @@ export class Spawner extends Entity {
   async takeDmg(dmg: number, atkSpeed: number) {
     utils.setTimeout(atkSpeed, ()=> {
       this.hp -= dmg
+      this.soundLibrary.play('enemy_hit')
 
       if ( this.hp <= 0 ) {
         log('but i am le dead')
 
-        // TODO play death sound
+        this.soundLibrary.play('portal_close')
 
         engine.removeEntity(this) // TODO trigger death animation
       }
-
-      this.soundLibrary.play('enemy_hit')
     })
   }
 

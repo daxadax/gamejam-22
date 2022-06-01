@@ -16,7 +16,12 @@ The following are opensource assets from outside decentraland:
 ### Sounds
  - https://freesound.org/people/AUDACITIER/sounds/632244/
  - https://freesound.org/people/EminYILDIRIM/sounds/540568/
+ - https://freesound.org/people/EminYILDIRIM/sounds/541477/
+ - https://freesound.org/people/EminYILDIRIM/sounds/541479/
+ - https://freesound.org/people/EminYILDIRIM/sounds/541480/
  - https://freesound.org/people/SilverIllusionist/sounds/513826/
+ - https://freesound.org/people/igroglaz/sounds/632336/
+ - https://freesound.org/people/qubodup/sounds/219570/
  - https://opengameart.org/content/spell-4-fire
 
 ### 3D Models

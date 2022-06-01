@@ -1,6 +1,10 @@
 import * as utils from '@dcl/ecs-scene-utils'
 
+import { SoundLibrary } from './soundLibrary'
+
 export class Spell extends Entity {
+  soundLibrary: SoundLibrary
+
   bonusStats: any
   name: string
   level: number = 0
@@ -13,9 +17,10 @@ export class Spell extends Entity {
   range: number = 15
   slow: number = 0
 
-  constructor(name: string, assetPath: string, stats: any) {
+  constructor(name, assetPath, soundLibrary, stats) {
     super()
     this.name = name
+    this.soundLibrary = soundLibrary
     this.bonusStats = stats
 
     this.addComponent(new GLTFShape('models/'+ assetPath))
@@ -44,11 +49,13 @@ export class Spell extends Entity {
     // Randomly rotate each projectile
      this.getComponent(Transform).rotate(Vector3.Forward(), Math.random() * 360)
 
+    // cast projectile
     this.addComponentOrReplace(
       new utils.MoveTransformComponent(startPosition, endPosition, speed / 1000)
     )
 
-    // TODO: play casting sound
+    // play casting sound
+    this.soundLibrary.play('spell_'+ this.name)
 
     engine.addEntity(this)
     this.addComponentOrReplace(new utils.ExpireIn(speed))

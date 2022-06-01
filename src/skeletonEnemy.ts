@@ -88,10 +88,9 @@ export class SkeletonEnemy extends Entity {
         // skeleton should rotate to face dmgSource before death animation is triggered
         this.getComponent(Animator).getClip('die').play()
         this.addComponentOrReplace(new utils.ExpireIn(3000))
-        return null
+      } else {
+        this.resolveStatusEffects(statusEffects)
       }
-
-      this.resolveStatusEffects(statusEffects)
     })
   }
 

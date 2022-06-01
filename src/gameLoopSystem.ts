@@ -8,12 +8,14 @@ export class GameLoopSystem implements ISystem {
   gameUI: GameUI
   gameState: GameState
   player: Player
+  soundLibrary: SoundLibrary
   spawnHelper: SpawnHelper
 
-  constructor(gameUI, gameState, player, spawnHelper) {
+  constructor(gameUI, gameState, player, soundLibrary, spawnHelper) {
     this.gameUI = gameUI
     this.gameState = gameState
     this.player = player
+    this.soundLibrary = soundLibrary
     this.spawnHelper = spawnHelper
   }
 
@@ -49,6 +51,9 @@ export class GameLoopSystem implements ISystem {
 
       // increment wave
       this.gameState.incrementWave()
+
+      // play wave complete sound
+      this.soundLibrary.play('wave_complete')
 
       // open skill menu
       // pass spawnhelper to start next wave with increased enemy difficulty / more enemies
