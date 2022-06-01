@@ -1,6 +1,7 @@
 import { PlayerActionHelper } from './playerActionHelper'
 
 export class EnemyActionSystem implements ISystem {
+  enemies = []
   camera: Camera
   playerHelper: PlayerActionHelper
 
@@ -9,23 +10,15 @@ export class EnemyActionSystem implements ISystem {
     this.playerHelper = playerHelper
   }
 
+  onAddEntity(entity: Entity) {
+    if ( /skelly/.test(entity.name) ) { this.enemies.push(entity) }
+  }
+
   update(dt: number) {
     const camera = this.camera
     const playerHelper = this.playerHelper
-    const ids = Object.keys(engine.entities)
-    let enemies = []
 
-    // TODO: should use component group
-    // https://docs.decentraland.org/development-guide/component-groups/
-    ids.filter(function(id) {
-      const entity = engine.entities[id]
-
-      if ( entity.constructor['name'] === 'SkeletonEnemy' ) {
-        enemies.push(entity)
-      }
-    })
-
-    enemies.forEach(function(enemy) {
+    this.enemies.forEach(function(enemy) {
       const transform = enemy.getComponent(Transform)
 
       // Rotate to face the player
