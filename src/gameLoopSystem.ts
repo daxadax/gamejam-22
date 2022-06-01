@@ -2,6 +2,7 @@ import { GameState } from './gameState'
 import { GameUI } from './gameUI'
 import { Player } from './player'
 import { SpawnHelper } from './spawnHelper'
+import { SoundLibrary } from './soundLibrary'
 
 export class GameLoopSystem implements ISystem {
   enemies = []
