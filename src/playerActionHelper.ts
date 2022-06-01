@@ -2,16 +2,19 @@ import * as utils from '@dcl/ecs-scene-utils'
 
 import { GameUI } from './gameUI'
 import { Player } from './player'
+import { SoundLibrary } from './soundLibrary'
 import { Spell } from './spell'
 
 export class PlayerActionHelper {
   player: Player
   gameUI: GameUI
   regenerator: Entity
+  soundLibrary: SoundLibrary
 
-  constructor(player: Player, gameUI: GameUI) {
-    this.player = player
-    this.gameUI = gameUI
+  constructor(player, gameUI, soundLibrary) {
+    this.player       = player
+    this.gameUI       = gameUI
+    this.soundLibrary = soundLibrary
 
     this.regenerator = new Entity()
     this.regenerator.addComponent(
@@ -47,8 +50,11 @@ export class PlayerActionHelper {
     }
   }
 
-  diminishHp(amount: number) {
+  takeDmg(amount: number) {
+    log('player took '+ amount +' damage')
+
     if ( this.player.stats.hp > 0) {
+      this.soundLibrary.play('player_hit')
       this.player.diminishHp(amount)
       this.gameUI.playerUI.decrementHp(amount)
     } else {

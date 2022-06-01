@@ -38,7 +38,7 @@ const spells        = [blizzard, vines, fireball, storm]
 // UI and helpers
 const gameState     = new GameState()
 const gameUI        = new GameUI(canvas, player, soundLibrary, spells)
-const playerHelper  = new PlayerActionHelper(player, gameUI)
+const playerHelper  = new PlayerActionHelper(player, gameUI, soundLibrary)
 const spawnHelper   = new SpawnHelper(gameState, scene, soundLibrary)
 const spellHelper   = new SpellHelper(camera, physicsCast, playerHelper)
 const gameIntro     = new GameIntroduction(gameUI, gameState, playerHelper, soundLibrary, spawnHelper)

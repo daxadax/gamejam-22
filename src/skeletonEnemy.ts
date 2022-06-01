@@ -5,11 +5,13 @@ import { SoundLibrary } from './soundLibrary'
 
 export class SkeletonEnemy extends Entity {
   soundLibrary: SoundLibrary
-  dmg: number // this is more like dmg / frame so it should be low
+  dmg: number
   hp: number
   level: number = 1
   statusEffects = []
   speed: number
+
+  attackTimer: number = 0
 
   constructor(
     model: GLTFShape,
@@ -45,7 +47,7 @@ export class SkeletonEnemy extends Entity {
 
     this.hp = 10 * this.level
     this.speed = 3 + this.level // TODO increase speed every x levels
-    this.dmg = 1 + (0.1 * this.level)
+    this.dmg = 5 * 1.2 * this.level
 
     return this
   }
@@ -54,7 +56,13 @@ export class SkeletonEnemy extends Entity {
     return this.statusEffects.indexOf('slow') > -1
   }
 
+  hasRecentlyAttacked(dt) {
+    return this.attackTimer > 0
+  }
+
+  // For now, all attacks hit
   attack() {
+    this.attackTimer = 1
     this.getComponent(Animator).getClip('attack').play()
   }
 
@@ -64,6 +72,10 @@ export class SkeletonEnemy extends Entity {
 
   freeze() {
     this.getComponent(Animator).getClip('walk').speed = 0
+  }
+
+  decrementAttackTimer(time: number) {
+    this.attackTimer -= time
   }
 
   // not used

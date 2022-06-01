@@ -23,6 +23,7 @@ The following are opensource assets from outside decentraland:
  - https://freesound.org/people/igroglaz/sounds/632336/
  - https://freesound.org/people/qubodup/sounds/219570/
  - https://opengameart.org/content/spell-4-fire
+ - https://freesound.org/people/CGEffex/sounds/89769/
 
 ### 3D Models
  - https://sketchfab.com/3d-models/ancient-portal-b68dceee1b22484ab6ca0207b9e7137a
