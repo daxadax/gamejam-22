@@ -108,21 +108,22 @@ export class GameUI {
     })
   }
 
-  toggleSkillUpgradeDisplay() {
-    if ( this.skillUpgradesComponent.visible() ) {
-      // hide UI elements
-      this.hide()
-      this.skillUpgradesComponent.hide()
+  // // NOT CURRENTLY USED
+  // toggleSkillUpgradeDisplay() {
+  //   if ( this.skillUpgradesComponent.visible() ) {
+  //     // hide UI elements
+  //     this.hide()
+  //     this.skillUpgradesComponent.hide()
 
-      // show playerUI
-      this.playerUI.show()
-    } else {
-      // hide playerUI
-      this.playerUI.hide()
+  //     // show playerUI
+  //     this.playerUI.show()
+  //   } else {
+  //     // hide playerUI
+  //     this.playerUI.hide()
 
-      // show UI elements
-      this.show()
-      this.skillUpgradesComponent.show()
-    }
-  }
+  //     // show UI elements
+  //     this.show()
+  //     this.skillUpgradesComponent.show()
+  //   }
+  // }
 }

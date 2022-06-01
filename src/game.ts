@@ -67,7 +67,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
 })
 
 input.subscribe("BUTTON_DOWN", ActionButton.SECONDARY, false, (e) => {
-  if ( gameState.isStarted ) { gameUI.toggleSkillUpgradeDisplay() }
+  // if ( gameState.isStarted ) { gameUI.toggleSkillUpgradeDisplay() }
 })
 
 function selectNextSpell() {
