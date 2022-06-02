@@ -1,3 +1,5 @@
+import * as utils from '@dcl/ecs-scene-utils'
+
 import { Button } from './button'
 import { GameIntroduction } from './gameIntroduction'
 import { Player } from './player'
@@ -16,6 +18,7 @@ export class GameUI {
   spellLibrary: Spell[]
 
   private screenCover: UIContainerRect
+  private colorFlash: UIContainerRect
   private text: UIText
   private textWrapper: UIImage
   btnNext: Button
@@ -33,6 +36,13 @@ export class GameUI {
     this.screenCover.color = new Color4(0, 0, 0, 0.9)
     this.screenCover.isPointerBlocker = false
     this.screenCover.visible = false
+
+    // color flash
+    this.colorFlash = new UIContainerRect(canvas)
+    this.colorFlash.width = "100%"
+    this.colorFlash.height = "125%"
+    this.colorFlash.isPointerBlocker = false
+    this.colorFlash.visible = false
 
     // text wrapper
     this.textWrapper = new UIImage(this.screenCover, new Texture('assets/textWrapper.png'))
@@ -65,6 +75,17 @@ export class GameUI {
 
     // skill upgrades component
     this.skillUpgradesComponent = new SkillUpgrades(canvas, player, soundLibrary, spells)
+  }
+
+  flashColor(color: Color4, duration: number = 10) {
+    const prevColor = this.screenCover.color
+
+    this.colorFlash.color = color
+    this.colorFlash.visible = true
+
+    utils.setTimeout(duration, ()=> {
+      this.colorFlash.visible = false
+    })
   }
 
   show() {

@@ -53,7 +53,9 @@ export class PlayerActionHelper {
   takeDmg(amount: number) {
     log('player took '+ amount +' damage')
 
-    if ( this.player.stats.hp > 0) {
+    if ( this.player.stats.hp >= 0) {
+      // TODO: this color flash could be tighter with the attack animation
+      this.gameUI.flashColor(new Color4(255, 0, 0, 0.25))
       this.soundLibrary.play('player_hit')
       this.player.diminishHp(amount)
       this.gameUI.playerUI.decrementHp(amount)

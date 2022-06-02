@@ -62,7 +62,7 @@ export class SkeletonEnemy extends Entity {
 
   // For now, all attacks hit
   attack() {
-    this.attackTimer = 1
+    this.attackTimer = 1.2
     this.getComponent(Animator).getClip('attack').play()
   }
 
