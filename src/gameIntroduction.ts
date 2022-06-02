@@ -109,6 +109,6 @@ export class GameIntroduction {
 
       // spawn initial wave
       this.spawnHelper.startNextWave()
-    }
+    })
   }
 }
