@@ -79,13 +79,13 @@ export class SkillUpgrades {
       this.showPurchaseWindow('blizzard', 'spell')
     })
 
-    let vines = new SkillUpgrade(this.container, 'vines')
-    vines.positionX = -45
-    vines.positionY = -10
-    vines.onClick = new OnClick(() => {
-      log('vines')
+    let poison = new SkillUpgrade(this.container, 'poison')
+    poison.positionX = -45
+    poison.positionY = -10
+    poison.onClick = new OnClick(() => {
+      log('poison')
       this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('vines', 'spell')
+      this.showPurchaseWindow('poison', 'spell')
     })
 
     let fireball = new SkillUpgrade(this.container, 'fireball')
@@ -238,7 +238,7 @@ class SkillUpgrade extends UIImage {
 
   skillImgMap = {
     'blizzard': [0,0],
-    'vines': [125,0],
+    'poison': [125,0],
     'fireball': [250,0],
     'storm': [375,0],
     'maxMana': [0,80],

@@ -11,7 +11,7 @@ export class PlayerUI {
 
   spellImgMap = {
     'blizzard': 0,
-    'vines': 50,
+    'poison': 50,
     'fireball': 100,
     'storm': 150
   }

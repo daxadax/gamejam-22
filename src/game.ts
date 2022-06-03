@@ -16,11 +16,11 @@ import { GameLoopSystem } from './gameLoopSystem'
 // Spells //
 // TODO: blizzard => bind/freeze, vines => poison/DoT, fire => dmg, storm => knockback
 // TODO: enemy types with weaknesses
-// TODO: better spell models
-// Blizzard: Water damage [ Knockback ]
-// Creeping vines: Earth damage [ Slow Enemy ]
+// TODO: better spell 3d models
+// Blizzard: Ice damage [ slow enemy ]
+// Poison: Earth damage [ poison enemy ]
 // Fireball: Fire damage [ DMG+ ]
-// Storm: Lightning damage [ Attack speed+ ] // TODO: attack speed is lame
+// Storm: Air damage [ knockback enemy ]
 
 // set scene constants
 const scene         = new Scene()
@@ -32,11 +32,11 @@ const player        = new Player()
 const soundLibrary  = new SoundLibrary()
 
 // spells
-const blizzard      = new Spell('blizzard', 'iceball.gltf', soundLibrary, {'knockback': 1})
-const vines         = new Spell('vines', 'poison.gltf', soundLibrary, {'slow': 1})
+const blizzard      = new Spell('blizzard', 'iceball.gltf', soundLibrary, {'slow': 1})
+const poison        = new Spell('poison', 'poison.gltf', soundLibrary, {'dot': 0.5})
 const fireball      = new Spell('fireball', 'fireball.gltf', soundLibrary, {'dmg': 2.5})
-const storm         = new Spell('storm', 'trashy.gltf', soundLibrary, {'atkSpeed': 1})
-const spells        = [blizzard, vines, fireball, storm]
+const storm         = new Spell('storm', 'trashy.gltf', soundLibrary, {'knockback': 1})
+const spells        = [blizzard, poison, fireball, storm]
 
 // UI and helpers
 const gameState     = new GameState()

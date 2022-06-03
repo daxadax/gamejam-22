@@ -11,7 +11,7 @@ export class SoundLibrary {
     const portalClose = new Sound('portal_close.wav')
     const stormSpell = new Sound('lightning.wav')
     const upgradeSkill = new Sound('downgrade_select.mp3')
-    const vinesSpell = new Sound('vines.wav')
+    const poisonSpell = new Sound('poison.wav')
     const waveComplete = new Sound('magic_spell_06.wav')
 
     this.library =  {
@@ -23,7 +23,7 @@ export class SoundLibrary {
       spell_blizzard: blizzardSpell,
       spell_fireball: fireballSpell,
       spell_storm: stormSpell,
-      spell_vines: vinesSpell,
+      spell_poison: poisonSpell,
       upgrade_skill: upgradeSkill,
       wave_complete: waveComplete
     }
