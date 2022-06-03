@@ -77,7 +77,7 @@ export class GameUI {
     this.skillUpgradesComponent = new SkillUpgrades(canvas, player, soundLibrary, spells)
   }
 
-  flashColor(color: Color4, duration: number = 10) {
+  async flashColor(color: Color4, duration: number = 10) {
     const prevColor = this.screenCover.color
 
     this.colorFlash.color = color
