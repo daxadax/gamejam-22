@@ -54,13 +54,17 @@ export class SpellHelper {
             const dmg = isHeadshot ? spellStats.dmg * 2 : spellStats.dmg
 
             skeleton.takeDmg(dmg, atkSpeed, {
+              dot: spellStats.dot,
               knockback: spellStats.knockback,
               slow: spellStats.slow
             })
           } else if ( entityType === "Spawner" && enemy['hp'] > 0) {
             const spawner = enemy as Spawner
 
-            spawner.takeDmg(spellStats.dmg, atkSpeed)
+            spawner.takeDmg(spellStats.dmg, atkSpeed, {
+              dot: spellStats.dot,
+              slow: spellStats.slow
+            })
           }
         } else {
           // cast spell into the air like an idiot

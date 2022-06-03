@@ -3,17 +3,19 @@ import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
 import { Spawner } from './spawner'
 import { spawnLocations } from './spawnLocations'
-
+import { StatusEffectResolver } from './statusEffectResolver'
 
 export class SpawnHelper {
   gameState: GameState
   scene: Scene
   soundLibrary: SoundLibrary
+  statusEffectResolver: StatusEffectResolver
 
-  constructor(gameState, scene, soundLibrary) {
+  constructor(gameState, scene, soundLibrary, statusEffectResolver) {
     this.gameState = gameState
     this.scene = scene
     this.soundLibrary = soundLibrary
+    this.statusEffectResolver = statusEffectResolver
   }
 
   // TODO: increase difficulty per wave
@@ -36,6 +38,7 @@ export class SpawnHelper {
         'enemy-spawner-'+ i,
         self.scene,
         self.soundLibrary,
+        self.statusEffectResolver,
         spawnLocation
       )
 

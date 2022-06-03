@@ -19,6 +19,8 @@ export class PlayerActionHelper {
     this.regenerator = new Entity()
     this.regenerator.addComponent(
       new utils.Interval(500, () => {
+        // TODO: stop on player death
+
         let manaRegen = this.player.stats.manaRegenRate
         let hpRegen = this.player.stats.hpRegenRate
 
@@ -42,8 +44,8 @@ export class PlayerActionHelper {
 
     // probably there is a much cleaner way to do this but idk js hing
     return {
-      atkSpeed: spell.atkSpeed,
       dmg: spell.dmg + this.player.stats.dmgBonus,
+      dot: spell.dot,
       knockback: spell.knockback,
       range: spell.range + this.player.stats.rangeBonus,
       slow: spell.slow

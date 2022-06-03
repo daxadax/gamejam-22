@@ -2,9 +2,11 @@ import * as utils from '@dcl/ecs-scene-utils'
 
 import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
+import { StatusEffectResolver } from './statusEffectResolver'
 
 export class SkeletonEnemy extends Entity {
   soundLibrary: SoundLibrary
+  statusEffectResolver: StatusEffectResolver
   dmg: number
   hp: number
   level: number = 1
@@ -18,6 +20,7 @@ export class SkeletonEnemy extends Entity {
     name: string,
     scene: Scene,
     soundLibrary: SoundLibrary,
+    statusEffectResolver: StatusEffectResolver,
     transform: Transform
   ) {
     super(name)
@@ -44,7 +47,9 @@ export class SkeletonEnemy extends Entity {
     walk.play()
 
     this.soundLibrary = soundLibrary
+    this.statusEffectResolver = statusEffectResolver
 
+    // TODO: would be nice to dynamically slow animations based on speed changes
     this.hp = 10 * this.level
     this.speed = 3 + this.level // TODO increase speed every x levels
     this.dmg = 5 * 1.2 * this.level
@@ -52,8 +57,20 @@ export class SkeletonEnemy extends Entity {
     return this
   }
 
-  isFrozen() {
+  isSlowed() {
     return this.statusEffects.indexOf('slow') > -1
+  }
+
+  isFrozen() {
+    return this.speed <= 0
+  }
+
+  isPoisoned() {
+    return this.statusEffects.indexOf('dot') > -1
+  }
+
+  isDead() {
+    return this.hp <= 0
   }
 
   hasRecentlyAttacked(dt) {
@@ -71,7 +88,8 @@ export class SkeletonEnemy extends Entity {
   }
 
   freeze() {
-    this.getComponent(Animator).getClip('walk').speed = 0
+    this.getComponent(Animator).getClip('walk').pause()
+    this.getComponent(Animator).getClip('attack').pause()
   }
 
   decrementAttackTimer(time: number) {
@@ -83,15 +101,20 @@ export class SkeletonEnemy extends Entity {
     this.getComponent(Animator).getClip('walk').speed = 1
   }
 
+  // TODO: extract some concepts to a separate module which can be included in
+  // various classes - a "damageHelper" maybe that could be used for the player
+  // and enemies.
+  // TODO: in same helper as above - popup damage dealt like warcraft
   async takeDmg(dmg: number, atkSpeed: number, statusEffects: any) {
+    // don't allow enemy to take damage after it's dead
+    if ( this.isDead() ) { return null }
+
     log("player dealt "+ dmg + " damage to Skeleton")
     utils.setTimeout(atkSpeed, ()=> {
       this.hp -= dmg
       this.soundLibrary.play('enemy_hit')
 
-      if ( this.hp <= 0 ) {
-        log('but i am le dead')
-
+      if ( this.isDead() ) {
         // TODO: this should be a different clip maybe?
         // it gets cut if called too frequently
         this.soundLibrary.play('enemy_die')
@@ -101,27 +124,8 @@ export class SkeletonEnemy extends Entity {
         this.getComponent(Animator).getClip('die').play()
         this.addComponentOrReplace(new utils.ExpireIn(3000))
       } else {
-        this.resolveStatusEffects(statusEffects)
+        this.statusEffectResolver.resolve(this, statusEffects)
       }
     })
-  }
-
-  resolveStatusEffects(statusEffects: any) {
-    // handle slow (applied once)
-    if ( statusEffects.slow > 0 && !this.isFrozen() ) {
-      this.statusEffects.push('slow')
-      this.speed -= statusEffects.slow
-
-      if ( this.speed <= 0 ) { this.freeze() }
-    }
-
-    // handle knockback (applied on every hit)
-    if ( statusEffects.knockback > 0 ) {
-      const transform = this.getComponent(Transform)
-      const backwardVector = Vector3.Backward().rotate(transform.rotation)
-      const knockback = backwardVector.scale(statusEffects.knockback)
-
-      transform.translate(knockback)
-    }
   }
 }

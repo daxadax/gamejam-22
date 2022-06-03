@@ -11,8 +11,8 @@ export class Spell extends Entity {
   manaCost: number = 10
 
   // default stats
-  atkSpeed: number = 0
   dmg: number = 5
+  dot: number = 0
   knockback: number = 0
   range: number = 15
   slow: number = 0
@@ -32,8 +32,8 @@ export class Spell extends Entity {
     )
 
     // add bonus stats
-    this.atkSpeed += stats.atkSpeed || 0
     this.dmg += stats.dmg || 0
+    this.dot += stats.dot || 0
     this.knockback += stats.knockback || 0
     this.range += stats.range || 0
     this.slow += stats.slow || 0
@@ -65,16 +65,16 @@ export class Spell extends Entity {
     return {
       'current': {
         'level': this.level,
-        'atkSpeed': this.atkSpeed,
         'dmg': this.dmg,
+        'dot': this.dot,
         'knockback': this.knockback,
         'range': this.range,
         'slow': this.slow
       },
       'next': {
         'level': this.level + 1,
-        'atkSpeed': this.atkSpeed + (this.bonusStats.atkSpeed || 0),
-        'dmg': this.dmg + (this.bonusStats.dmg || 0.5),
+        'dmg': this.dmg + (this.bonusStats.dmg || 1),
+        'dot': this.dot + (this.bonusStats.dot || 0),
         'knockback': this.knockback + (this.bonusStats.knockback || 0),
         'range': this.range + (this.bonusStats.range || 0),
         'slow': this.slow + (this.bonusStats.slow || 0)

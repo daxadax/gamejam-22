@@ -11,7 +11,8 @@ export class EnemyActionSystem implements ISystem {
   }
 
   onAddEntity(entity: Entity) {
-    if ( /skelly/.test(entity.name) ) { this.enemies.push(entity) }
+    // "enemy-skelly" not preceeded by "statusEffect-"
+    if ( /(?<!statusEffect-)enemy-skelly/.test(entity.name) ) { this.enemies.push(entity) }
   }
 
   update(dt: number) {
