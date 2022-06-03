@@ -38,6 +38,8 @@ export class GameLoopSystem implements ISystem {
     if ( this.gameState.isStarted && this.gameState.waveIsActive && this.enemies.length === 0 ) {
       log('wave complete')
 
+      // TODO: pause player regeneration during this time
+
       // mark the wave as currently inactive
       // removing this line allows the player to keep casting spells
       // and triggering this function (since the spell entity is removed)
