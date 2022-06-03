@@ -18,7 +18,7 @@ export class GameIntroduction {
   introText2 =
     "Making it all the way here would have been impossible without some kind of magical training. What do you know? \n\nYou start the game with 3 skill points but you'll gain more as you play. Spend them wisely!\n\n\n"
   instructions =
-    "Cast spells with the 'E' key and cycle through your available spells with the left mouse button. Destroy all enemies and portals to complete the current wave and move on to the next.\n\n\n\n\n"
+    " - Cast spells with the 'E' key.\n - Cycle through your available spells with the left mouse button. \n - Destroy all enemies and portals to complete the current wave and move on to the next.\n\n\n"
 
   constructor(gameUI, gameState, playerHelper, soundLibrary, spawnHelper) {
     this.gameUI = gameUI
