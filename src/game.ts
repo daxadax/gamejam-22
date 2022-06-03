@@ -15,7 +15,6 @@ import { EnemyActionSystem } from './enemyActionSystem'
 import { GameLoopSystem } from './gameLoopSystem'
 
 // Spells //
-// TODO: blizzard => bind/freeze, vines => poison/DoT, fire => dmg, storm => knockback
 // TODO: enemy types with weaknesses
 // TODO: better spell 3d models
 // Blizzard: Ice damage [ slow enemy ]
