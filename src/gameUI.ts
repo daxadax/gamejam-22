@@ -90,12 +90,12 @@ export class GameUI {
 
   show() {
     this.screenCover.visible = true
-    this.btnNext.visible = true
+    this.btnNext.show()
   }
 
   hide() {
     this.screenCover.visible = false
-    this.btnNext.visible = false
+    this.btnNext.hide()
   }
 
   editText(text: string) {
@@ -110,7 +110,7 @@ export class GameUI {
     this.show()
     this.skillUpgradesComponent.show()
 
-    this.btnNext.onClick = new OnClick(() => {
+    this.btnNext.buttonComponent.onClick = new OnClick(() => {
       // play sound
       this.soundLibrary.play('button_click')
 

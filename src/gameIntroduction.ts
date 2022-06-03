@@ -32,7 +32,7 @@ export class GameIntroduction {
     this.gameUI.show()
     this.gameUI.editText(this.introText)
 
-    this.gameUI.btnNext.onClick = new OnClick(() => {
+    this.gameUI.btnNext.buttonComponent.onClick = new OnClick(() => {
       // play sound
       this.soundLibrary.play('button_click')
 
@@ -44,7 +44,7 @@ export class GameIntroduction {
   displayIntroductionTwo() {
     this.gameUI.editText(this.introText2)
 
-    this.gameUI.btnNext.onClick = new OnClick(() => {
+    this.gameUI.btnNext.buttonComponent.onClick = new OnClick(() => {
       // play sound
       this.soundLibrary.play('button_click')
 
@@ -63,7 +63,7 @@ export class GameIntroduction {
     this.gameUI.skillUpgradesComponent.show()
 
     // start game
-    this.gameUI.btnNext.onClick = new OnClick(() => {
+    this.gameUI.btnNext.buttonComponent.onClick = new OnClick(() => {
       // TODO: if player has selected at least one spell, continue
       //       otherwise reset skillpoints and say "you must select at least one spell"
 
@@ -86,7 +86,7 @@ export class GameIntroduction {
   displayInstructions() {
     this.gameUI.editText(this.instructions)
 
-    this.gameUI.btnNext.onClick = new OnClick(() => {
+    this.gameUI.btnNext.buttonComponent.onClick = new OnClick(() => {
       // play sound
       this.soundLibrary.play('button_click')
 

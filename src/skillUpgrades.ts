@@ -14,6 +14,16 @@ export class SkillUpgrades {
   private soundLibrary: SoundLibrary
   private spells: Spell[]
 
+  private blizzard: SkillUpgrade
+  private fireball: SkillUpgrade
+  private poison: SkillUpgrade
+  private storm: SkillUpgrade
+
+  private dmg: SkillUpgrade
+  private maxHp: SkillUpgrade
+  private maxMana: SkillUpgrade
+  private range: SkillUpgrade
+
   constructor(parent: UICanvas, player: Player, soundLibrary: SoundLibrary, spells: Spell[]) {
     this.player = player
     this.soundLibrary = soundLibrary
@@ -49,9 +59,8 @@ export class SkillUpgrades {
     this.skillInfoText.isPointerBlocker = false
 
     this.purchaseButton = new Button(this.container, 'purchase')
-    this.purchaseButton.positionX = 375
-    this.purchaseButton.positionY = -140
-    this.purchaseButton.visible = false
+    this.purchaseButton.setPosition(375, -140)
+    this.purchaseButton.hide()
 
     this.skillPointsCounter = new UIText(this.container)
     this.skillPointsCounter.value = player.skillPoints +" skill points available"
@@ -60,89 +69,89 @@ export class SkillUpgrades {
     this.skillPointsCounter.positionY = -160
     this.skillPointsCounter.color = Color4.Black()
     this.skillPointsCounter.isPointerBlocker = false
+
+    const imageMap = new Texture("assets/skill_upgrade_map.png")
+
+    // spell slots
+    this.blizzard = new SkillUpgrade(this.container, imageMap, 'blizzard')
+    this.blizzard.positionX = -185
+    this.blizzard.positionY = -10
+    this.blizzard.onClick = new OnClick(() => {
+      log('blizzard')
+      this.soundLibrary.play('button_click')
+      this.showPurchaseWindow('blizzard', 'spell')
+    })
+
+    this.fireball = new SkillUpgrade(this.container, imageMap, 'fireball')
+    this.fireball.positionX = 95
+    this.fireball.positionY = -10
+    this.fireball.onClick = new OnClick(() => {
+      log('fireball')
+      this.soundLibrary.play('button_click')
+      this.showPurchaseWindow('fireball', 'spell')
+    })
+
+    this.poison = new SkillUpgrade(this.container, imageMap, 'poison')
+    this.poison.positionX = -45
+    this.poison.positionY = -10
+    this.poison.onClick = new OnClick(() => {
+      log('poison')
+      this.soundLibrary.play('button_click')
+      this.showPurchaseWindow('poison', 'spell')
+    })
+
+    this.storm = new SkillUpgrade(this.container, imageMap, 'storm')
+    this.storm.positionX = 235
+    this.storm.positionY = -10
+    this.storm.onClick = new OnClick(() => {
+      log('storm')
+      this.soundLibrary.play('button_click')
+      this.showPurchaseWindow('storm', 'spell')
+    })
+
+    // buff slots
+    this.dmg = new SkillUpgrade(this.container, imageMap, 'dmg')
+    this.dmg.positionX = 95
+    this.dmg.positionY = -125
+    this.dmg.onClick = new OnClick(() => {
+      log('dmg')
+      this.soundLibrary.play('button_click')
+      this.showPurchaseWindow('dmgBonus', 'skill', 'Damage Bonus')
+    })
+
+    this.maxHp = new SkillUpgrade(this.container, imageMap, 'maxHp')
+    this.maxHp.positionX = -45
+    this.maxHp.positionY = -125
+    this.maxHp.onClick = new OnClick(() => {
+      log('maxHp')
+      this.soundLibrary.play('button_click')
+      this.showPurchaseWindow('maxHp', 'skill', 'Max HP')
+    })
+
+    this.maxMana = new SkillUpgrade(this.container, imageMap, 'maxMana')
+    this.maxMana.positionX = -185
+    this.maxMana.positionY = -125
+    this.maxMana.onClick = new OnClick(() => {
+      log('maxMana')
+      this.soundLibrary.play('button_click')
+      this.showPurchaseWindow('maxMana', 'skill', 'Max MP')
+    })
+
+    this.range = new SkillUpgrade(this.container, imageMap, 'range')
+    this.range.positionX = 235
+    this.range.positionY = -125
+    this.range.onClick = new OnClick(() => {
+      log('range')
+      this.soundLibrary.play('button_click')
+      this.showPurchaseWindow('rangeBonus', 'skill', 'Range Bonus')
+    })
   }
 
   visible() {
     return this.container.visible
   }
 
-  // TODO: all skillupgrades need to be initialized one time and then referenced
-  // in show so that they aren't created multiple times
   show() {
-    // spells
-    let blizzard = new SkillUpgrade(this.container, 'blizzard')
-    blizzard.positionX = -185
-    blizzard.positionY = -10
-    blizzard.onClick = new OnClick(() => {
-      log('blizzard')
-      this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('blizzard', 'spell')
-    })
-
-    let poison = new SkillUpgrade(this.container, 'poison')
-    poison.positionX = -45
-    poison.positionY = -10
-    poison.onClick = new OnClick(() => {
-      log('poison')
-      this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('poison', 'spell')
-    })
-
-    let fireball = new SkillUpgrade(this.container, 'fireball')
-    fireball.positionX = 95
-    fireball.positionY = -10
-    fireball.onClick = new OnClick(() => {
-      log('fireball')
-      this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('fireball', 'spell')
-    })
-
-    let storm = new SkillUpgrade(this.container, 'storm')
-    storm.positionX = 235
-    storm.positionY = -10
-    storm.onClick = new OnClick(() => {
-      log('storm')
-      this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('storm', 'spell')
-    })
-
-    // buffs
-    let maxMana = new SkillUpgrade(this.container, 'maxMana')
-    maxMana.positionX = -185
-    maxMana.positionY = -125
-    maxMana.onClick = new OnClick(() => {
-      log('maxMana')
-      this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('maxMana', 'skill', 'Max MP')
-    })
-
-    let maxHp = new SkillUpgrade(this.container, 'maxHp')
-    maxHp.positionX = -45
-    maxHp.positionY = -125
-    maxHp.onClick = new OnClick(() => {
-      log('maxHp')
-      this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('maxHp', 'skill', 'Max HP')
-    })
-
-    let dmg = new SkillUpgrade(this.container, 'dmg')
-    dmg.positionX = 95
-    dmg.positionY = -125
-    dmg.onClick = new OnClick(() => {
-      log('dmg')
-      this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('dmgBonus', 'skill', 'Damage Bonus')
-    })
-
-    let range = new SkillUpgrade(this.container, 'range')
-    range.positionX = 235
-    range.positionY = -125
-    range.onClick = new OnClick(() => {
-      log('range')
-      this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('rangeBonus', 'skill', 'Range Bonus')
-    })
-
     // show initial purchase window
     this.showPurchaseWindow('blizzard', 'spell')
     this.skillPointsCounter.value = this.player.skillPoints +" skill points available"
@@ -154,31 +163,40 @@ export class SkillUpgrades {
   }
 
   showPurchaseWindow(skill: string, type: string, displayName: string = null) {
-    this.purchaseButton.visible = true
+    const purchaseButton = this.purchaseButton
+
+    purchaseButton.show()
     this.showSkillInfo(skill, type, displayName)
 
-    this.purchaseButton.onClick = new OnClick(() => {
-      log('buying '+ skill)
-      this.soundLibrary.play('upgrade_skill')
 
-      if ( type === 'spell' ) {
-        this.spells.filter(spell => spell.name === skill).shift().incrementLevel()
-      } else {
-        this.player.incrementStat(skill)
-      }
+    if ( this.player.skillPoints === 0 ) {
+      purchaseButton.disable()
+      purchaseButton.buttonComponent.onClick = null
+    } else {
+      purchaseButton.enable()
 
+      purchaseButton.buttonComponent.onClick = new OnClick(() => {
+        log('buying '+ skill)
+        this.soundLibrary.play('upgrade_skill')
 
-      let remainingSkillPoints = this.player.decrementSkillPoints(1)
-      this.skillPointsCounter.value = remainingSkillPoints +" skill points available"
+        if ( type === 'spell' ) {
+          this.spells.filter(spell => spell.name === skill).shift().incrementLevel()
+        } else {
+          this.player.incrementStat(skill)
+        }
 
-      // refresh skill info window
-      this.showSkillInfo(skill, type, displayName)
+        let remainingSkillPoints = this.player.decrementSkillPoints(1)
+        this.skillPointsCounter.value = remainingSkillPoints +" skill points available"
 
-      if ( remainingSkillPoints === 0 ) {
-        this.purchaseButton.visible = false
-        // TODO: show unclickable button
-      }
-    })
+        // refresh skill info window
+        this.showSkillInfo(skill, type, displayName)
+
+        if ( remainingSkillPoints === 0 ) {
+          purchaseButton.disable()
+          purchaseButton.buttonComponent.onClick = null
+        }
+      })
+    }
   }
 
   // TODO: don't build full upgrade text if spell if at 0 level
@@ -247,8 +265,8 @@ class SkillUpgrade extends UIImage {
     'range': [375,80]
   }
 
-  constructor(parent: UIContainerRect, skill: string) {
-    super(parent, new Texture("assets/skill_upgrade_map.png"))
+  constructor(parent: UIContainerRect, imageMap: Texture, skill: string) {
+    super(parent, imageMap)
 
     let source = this.skillImgMap[skill]
     this.sourceLeft = source[0]
