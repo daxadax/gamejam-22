@@ -8,7 +8,7 @@ import { PlayerUI } from './playerUI'
 import { SkillUpgrades } from './skillUpgrades'
 import { SoundLibrary } from './soundLibrary'
 import { SpawnHelper } from './spawnHelper'
-import { Spell } from './spell'
+import { SpellLibrary } from './spellLibrary'
 
 export class GameUI {
   canvas: UICanvas
@@ -16,7 +16,7 @@ export class GameUI {
   playerUI: PlayerUI
   skillUpgradesComponent: SkillUpgrades
   soundLibrary: SoundLibrary
-  spellLibrary: Spell[]
+  spellLibrary: SpellLibrary
 
   private screenCover: UIContainerRect
   private colorFlash: UIContainerRect
@@ -24,11 +24,11 @@ export class GameUI {
   private textWrapper: UIImage
   btnNext: Button
 
-  constructor(canvas, player, soundLibrary, spells: Spell[]) {
+  constructor(canvas, player, soundLibrary, spellLibrary) {
     this.canvas = canvas
     this.player = player
     this.soundLibrary = soundLibrary
-    this.spellLibrary = spells
+    this.spellLibrary = spellLibrary
 
     // background
     this.screenCover = new UIContainerRect(canvas)
@@ -72,10 +72,10 @@ export class GameUI {
     this.btnNext = new Button(this.canvas)
 
     // player ui
-    this.playerUI = new PlayerUI(canvas, player, spells)
+    this.playerUI = new PlayerUI(canvas, player, spellLibrary)
 
     // skill upgrades component
-    this.skillUpgradesComponent = new SkillUpgrades(canvas, player, soundLibrary, spells)
+    this.skillUpgradesComponent = new SkillUpgrades(canvas, player, soundLibrary, spellLibrary)
   }
 
   async flashColor(color: Color4, duration: number = 10) {

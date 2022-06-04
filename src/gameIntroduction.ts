@@ -21,8 +21,8 @@ export class GameIntroduction {
     " - Cast spells with the 'E' key.\n - Cycle through your available spells with the left mouse button. \n - Destroy all enemies and portals to complete the current wave and move on to the next.\n\n\n"
 
   constructor(gameUI, gameState, playerHelper, soundLibrary, spawnHelper) {
-    this.gameUI = gameUI
     this.gameState = gameState
+    this.gameUI = gameUI
     this.playerHelper = playerHelper
     this.soundLibrary = soundLibrary
     this.spawnHelper = spawnHelper
@@ -75,7 +75,9 @@ export class GameIntroduction {
       this.gameUI.skillUpgradesComponent.hide()
 
       // set active spell
-      const spell = this.gameUI.spellLibrary.filter(spell => spell.level > 0).shift()
+      // TODO: don't use spellLibrary here at all, instead select first
+      // available spell that belongs to the player
+      const spell = this.gameUI.spellLibrary.knownSpells().shift()
       this.playerHelper.setActiveSpell(spell)
 
       // show next component

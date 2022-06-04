@@ -1,7 +1,7 @@
 import { Button } from './button'
 import { Player } from './player'
 import { SoundLibrary } from './soundLibrary'
-import { Spell } from './spell'
+import { SpellLibrary } from './spellLibrary'
 
 export class SkillUpgrades {
   container: UIContainerRect
@@ -12,7 +12,7 @@ export class SkillUpgrades {
   private skillInfoText: UIText
   private skillPointsCounter: UIText
   private soundLibrary: SoundLibrary
-  private spells: Spell[]
+  private spellLibrary: SpellLibrary
 
   private blizzard: SkillUpgrade
   private fireball: SkillUpgrade
@@ -24,10 +24,10 @@ export class SkillUpgrades {
   private maxMana: SkillUpgrade
   private range: SkillUpgrade
 
-  constructor(parent: UICanvas, player: Player, soundLibrary: SoundLibrary, spells: Spell[]) {
+  constructor(parent: UICanvas, player: Player, soundLibrary: SoundLibrary, spellLibrary: SpellLibrary) {
     this.player = player
     this.soundLibrary = soundLibrary
-    this.spells = spells
+    this.spellLibrary = spellLibrary
 
     this.container = new UIContainerRect(parent)
     this.container.width = 200
@@ -180,7 +180,7 @@ export class SkillUpgrades {
         this.soundLibrary.play('upgrade_skill')
 
         if ( type === 'spell' ) {
-          this.spells.filter(spell => spell.name === skill).shift().incrementLevel()
+          this.spellLibrary.spells[skill].incrementLevel()
         } else {
           this.player.incrementStat(skill)
         }
@@ -208,7 +208,7 @@ export class SkillUpgrades {
 
     if ( type === 'spell' ) {
       displayName = skill.toUpperCase()
-      el = this.spells.filter(spell => spell.name === skill).shift()
+      el = this.spellLibrary.spells[skill]
       text = "Level: "+ el.level
 
       // add a new line since spells have multiple attributes to upgrade

@@ -4,7 +4,7 @@ import { GameUI } from './gameUI'
 import { Player } from './player'
 import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
-import { Spell } from './spell'
+import { SpellLibrary } from './spellLibrary'
 
 import { PlayerActionHelper } from './playerActionHelper'
 import { SpawnHelper } from './spawnHelper'
@@ -14,34 +14,27 @@ import { StatusEffectResolver } from './statusEffectResolver'
 import { EnemyActionSystem } from './enemyActionSystem'
 import { GameLoopSystem } from './gameLoopSystem'
 
-// Spells //
 // TODO: enemy types with weaknesses
-// TODO: better spell 3d models
-// Blizzard: Ice damage [ slow enemy ]
-// Poison: Earth damage [ poison enemy ]
-// Fireball: Fire damage [ DMG+ ]
-// Storm: Air damage [ knockback enemy ]
 
+// minimum elements needed to start the game
+const canvas        = new UICanvas()
+const player        = new Player()
+const soundLibrary  = new SoundLibrary()
+const spellLibrary  = new SpellLibrary(soundLibrary)
+
+// gameUI
+const gameUI        = new GameUI(canvas, player, soundLibrary, spellLibrary)
+
+// TODO: from here to input events go into a game manager class
 // set scene constants
-const scene                 = new Scene()
 const camera                = Camera.instance
-const canvas                = new UICanvas()
+const gameState             = new GameState()
 const input                 = Input.instance
 const physicsCast           = PhysicsCast.instance
-const player                = new Player()
-const soundLibrary          = new SoundLibrary()
+const scene                 = new Scene()
 const statusEffectResolver  = new StatusEffectResolver()
 
-// spells
-const blizzard      = new Spell('blizzard', 'iceball.gltf', soundLibrary, {'slow': 1})
-const poison        = new Spell('poison', 'poison.gltf', soundLibrary, {'dot': 0.5})
-const fireball      = new Spell('fireball', 'fireball.gltf', soundLibrary, {'dmg': 2.5})
-const storm         = new Spell('storm', 'trashy.gltf', soundLibrary, {'knockback': 1})
-const spells        = [blizzard, poison, fireball, storm]
-
 // UI and helpers
-const gameState     = new GameState()
-const gameUI        = new GameUI(canvas, player, soundLibrary, spells)
 const playerHelper  = new PlayerActionHelper(player, gameUI, soundLibrary)
 const spawnHelper   = new SpawnHelper(gameState, scene, soundLibrary, statusEffectResolver)
 const spellHelper   = new SpellHelper(camera, physicsCast, playerHelper)
@@ -74,8 +67,9 @@ input.subscribe("BUTTON_DOWN", ActionButton.SECONDARY, false, (e) => {
   // if ( gameState.isStarted ) { gameUI.toggleSkillUpgradeDisplay() }
 })
 
+// TODO: move to player helper
 function selectNextSpell() {
-  const knownSpells = spells.filter(spell => spell.level > 0) // TODO: add known spells cache to player
+  const knownSpells = spellLibrary.knownSpells()
   let active = knownSpells.indexOf(player.activeSpell)
 
   // increment counter

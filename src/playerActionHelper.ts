@@ -38,7 +38,7 @@ export class PlayerActionHelper {
 
   setActiveSpell(spell: Spell) {
     this.player.setActiveSpell(spell)
-    this.gameUI.playerUI.setActiveSpell(spell)
+    this.gameUI.playerUI.setActiveSpell(spell.name, spell.level)
   }
 
   activeSpellStats() {

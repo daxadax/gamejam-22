@@ -2,19 +2,12 @@ import * as ui from '@dcl/ui-scene-utils'
 import { UIBar } from '@dcl/ui-scene-utils'
 
 import { Player } from './player'
-import { Spell } from './spell'
+import { SpellLibrary } from './spellLibrary'
 
 export class PlayerUI {
   canvas: UICanvas
   player: Player
-  spells: Spell[]
-
-  spellImgMap = {
-    'blizzard': 0,
-    'poison': 50,
-    'fireball': 100,
-    'storm': 150
-  }
+  spellLibrary: SpellLibrary
 
   private wrapper: UIContainerRect
   private brand: UIText
@@ -24,11 +17,11 @@ export class PlayerUI {
   private healthBar: UIBar
   private manaBar: UIBar
 
-  constructor(canvas: UICanvas, player: Player, spells: Spell[]) {
+  constructor(canvas, player, spellLibrary) {
     this.player = player
-    this.spells = spells
+    this.spellLibrary = spellLibrary
 
-    this.wrapper = new UIContainerRect(this.canvas);
+    this.wrapper = new UIContainerRect(canvas);
     // this.wrapper.color = Color4.Red()
     this.wrapper.width  = 300
     this.wrapper.height = 250
@@ -76,9 +69,9 @@ export class PlayerUI {
     this.manaBar = new ui.UIBar(1, -7, 572, Color4.Blue(), ui.BarStyles.ROUNDWHITE, 0.75, true)
   }
 
-  setActiveSpell(spell: Spell) {
-    this.activeSpellImg.sourceTop = this.spellImgMap[spell.name]
-    this.activeSpellText.value = "LVL "+ spell.level
+  setActiveSpell(name: string, level: number) {
+    this.activeSpellImg.sourceTop = this.spellLibrary.getUIImage(name)
+    this.activeSpellText.value = "LVL "+ level
   }
 
   incrementHp(amount: number) {
