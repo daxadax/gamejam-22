@@ -19,8 +19,6 @@ export class PlayerActionHelper {
     this.regenerator = new Entity()
     this.regenerator.addComponent(
       new utils.Interval(500, () => {
-        // TODO: stop on player death
-
         let manaRegen = this.player.stats.manaRegenRate
         let hpRegen = this.player.stats.hpRegenRate
 
@@ -32,6 +30,10 @@ export class PlayerActionHelper {
 
   startRegeneration() {
     engine.addEntity(this.regenerator)
+  }
+
+  stopRegeneration() {
+    engine.removeEntity(this.regenerator)
   }
 
   setActiveSpell(spell: Spell) {
@@ -55,15 +57,16 @@ export class PlayerActionHelper {
   takeDmg(amount: number) {
     log('player took '+ amount +' damage')
 
-    if ( this.player.stats.hp >= 0) {
-      // TODO: this color flash could be tighter with the attack animation
-      this.gameUI.flashColor(new Color4(255, 0, 0, 0.25))
-      this.soundLibrary.play('player_hit')
-      this.player.diminishHp(amount)
-      this.gameUI.playerUI.decrementHp(amount)
-    } else {
+    // TODO: this color flash could be tighter with the attack animation
+    this.gameUI.flashColor(new Color4(255, 0, 0, 0.25))
+    this.soundLibrary.play('player_hit')
+    this.player.diminishHp(amount)
+    this.gameUI.playerUI.decrementHp(amount)
+
+    if ( this.player.isDead() ) {
       // TODO: you dead
-      log('i am le dead')
+      this.stopRegeneration()
+      this.restrictMovement()
     }
   }
 

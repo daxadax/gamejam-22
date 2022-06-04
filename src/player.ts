@@ -39,6 +39,10 @@ export class Player {
     this.data = userData as UserData;
   }
 
+  isDead() {
+    return this.stats.hp <= 0
+  }
+
   setActiveSpell(spell: Spell) {
     this.activeSpell = spell
   }
