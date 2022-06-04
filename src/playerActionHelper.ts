@@ -91,6 +91,10 @@ export class PlayerActionHelper {
     }
   }
 
+  incrementSkillPoints(amount: number) {
+    return this.player.incrementSkillPoints(amount)
+  }
+
   restrictMovement() {
     this.player.restrictMovement()
   }

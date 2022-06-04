@@ -1,21 +1,21 @@
 import { GameState } from './gameState'
 import { GameUI } from './gameUI'
-import { Player } from './player'
-import { SpawnHelper } from './spawnHelper'
+import { PlayerActionHelper } from './playerActionHelper'
 import { SoundLibrary } from './soundLibrary'
+import { SpawnHelper } from './spawnHelper'
 
 export class GameLoopSystem implements ISystem {
   enemies = []
   gameUI: GameUI
   gameState: GameState
-  player: Player
+  playerHelper: PlayerActionHelper
   soundLibrary: SoundLibrary
   spawnHelper: SpawnHelper
 
-  constructor(gameUI, gameState, player, soundLibrary, spawnHelper) {
+  constructor(gameUI, gameState, playerHelper, soundLibrary, spawnHelper) {
     this.gameUI = gameUI
     this.gameState = gameState
-    this.player = player
+    this.playerHelper = playerHelper
     this.soundLibrary = soundLibrary
     this.spawnHelper = spawnHelper
   }
@@ -38,19 +38,18 @@ export class GameLoopSystem implements ISystem {
     if ( this.gameState.isStarted && this.gameState.waveIsActive && this.enemies.length === 0 ) {
       log('wave complete')
 
-      // TODO: pause player regeneration during this time
-
       // mark the wave as currently inactive
-      // removing this line allows the player to keep casting spells
-      // and triggering this function (since the spell entity is removed)
-      // thereby getting unlimited skill points
+      // WARNING: removing this line causes widespread chaos
       this.gameState.setWaveInactive()
+
+      // pause player regeneration between waves
+      this.playerHelper.stopRegeneration()
 
       // notify player that wave is complete
       // this.gameUI.xxx
 
       // assign skill points
-      this.player.incrementSkillPoints(3)
+      this.playerHelper.incrementSkillPoints(3)
 
       // increment wave
       this.gameState.incrementWave()
@@ -60,7 +59,7 @@ export class GameLoopSystem implements ISystem {
 
       // open skill menu
       // pass spawnhelper to start next wave with increased enemy difficulty / more enemies
-      this.gameUI.selectNewSkills(this.spawnHelper)
+      this.gameUI.selectNewSkills(this.spawnHelper, this.playerHelper)
     }
   }
 }

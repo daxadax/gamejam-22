@@ -55,7 +55,7 @@ player.restrictMovement()
 
 // add systems
 engine.addSystem(new EnemyActionSystem(camera, playerHelper))
-engine.addSystem(new GameLoopSystem(gameUI, gameState, player, soundLibrary, spawnHelper))
+engine.addSystem(new GameLoopSystem(gameUI, gameState, playerHelper, soundLibrary, spawnHelper))
 
 // start game loop
 gameIntro.initialize()

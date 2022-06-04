@@ -3,6 +3,7 @@ import * as utils from '@dcl/ecs-scene-utils'
 import { Button } from './button'
 import { GameIntroduction } from './gameIntroduction'
 import { Player } from './player'
+import { PlayerActionHelper } from './playerActionHelper'
 import { PlayerUI } from './playerUI'
 import { SkillUpgrades } from './skillUpgrades'
 import { SoundLibrary } from './soundLibrary'
@@ -102,7 +103,7 @@ export class GameUI {
     this.text.value = text
   }
 
-  selectNewSkills(spawnHelper: SpawnHelper) {
+  selectNewSkills(spawnHelper: SpawnHelper, playerHelper: PlayerActionHelper) {
     // hide playerUI
     this.playerUI.hide()
 
@@ -121,11 +122,14 @@ export class GameUI {
       // display playerUI
       this.playerUI.show()
 
-      // TODO: i hate that this is here but i haven't found a better way to ensure
-      // that the next wave is called only after the player has chosen upgrades
+      // TODO: i hate that this is here but i can't figure out a better way to
+      // handle callbacks
       //
       // start next wave
       spawnHelper.startNextWave()
+
+      // start player regeneration
+      playerHelper.startRegeneration()
     })
   }
 
