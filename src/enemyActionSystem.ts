@@ -57,7 +57,7 @@ export class EnemyActionSystem implements ISystem {
         enemy.walk()
         transform.translate(increment)
       } else {
-        // TODO: this should be rethought
+        // TODO: rethink how damage is assigned to player
         // at the moment player takes damage as soon as the enemy attacks
         // so there's not really a way to dodge attacks - you just take full
         // damage immediately even if you are running through the attack animation
