@@ -4,7 +4,7 @@ Submission for DCL 2022 Game Jam
 
 # Assets
 
-Most of the assets were create by Vex or myself. Some assets are from the
+Most of the assets were created by Vex or myself. Some assets are from the
 [decentraland builder asset](https://github.com/decentraland/builder-assets/tree/master/assets)
 packs
 
