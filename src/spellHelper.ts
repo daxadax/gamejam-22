@@ -7,11 +7,27 @@ export class SpellHelper {
   camera: Camera
   physicsCast: PhysicsCast
   playerHelper: PlayerActionHelper
+  spellLibrary: SpellLibrary
 
-  constructor(camera, physicsCast, playerHelper) {
+  constructor(camera, physicsCast, playerHelper, spellLibrary) {
     this.camera = camera
     this.physicsCast = physicsCast
     this.playerHelper = playerHelper
+    this.spellLibrary = spellLibrary
+  }
+
+  selectNextSpell() {
+    const knownSpells = this.spellLibrary.knownSpells()
+    let active = knownSpells.indexOf(this.playerHelper.player.activeSpell)
+
+    // increment counter
+    active++;
+
+    // reset counter if we reach end of array
+    if (active === knownSpells.length) { active = 0 }
+
+    // update active spell
+    this.playerHelper.setActiveSpell(knownSpells[active])
   }
 
   castActiveSpell(activeSpell: Spell, target: any) {

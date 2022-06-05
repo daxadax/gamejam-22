@@ -37,7 +37,7 @@ const statusEffectResolver  = new StatusEffectResolver()
 // UI and helpers
 const playerHelper  = new PlayerActionHelper(player, gameUI, soundLibrary)
 const spawnHelper   = new SpawnHelper(gameState, scene, soundLibrary, statusEffectResolver)
-const spellHelper   = new SpellHelper(camera, physicsCast, playerHelper)
+const spellHelper   = new SpellHelper(camera, physicsCast, playerHelper, spellLibrary)
 const gameIntro     = new GameIntroduction(gameUI, gameState, playerHelper, soundLibrary, spawnHelper)
 
 // run initializers
@@ -54,7 +54,7 @@ engine.addSystem(new GameLoopSystem(gameUI, gameState, playerHelper, soundLibrar
 gameIntro.initialize()
 
 input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, (e) => {
-  selectNextSpell()
+  spellHelper.selectNextSpell()
 })
 
 input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
@@ -66,18 +66,3 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
 input.subscribe("BUTTON_DOWN", ActionButton.SECONDARY, false, (e) => {
   // if ( gameState.isStarted ) { gameUI.toggleSkillUpgradeDisplay() }
 })
-
-// TODO: move to player helper
-function selectNextSpell() {
-  const knownSpells = spellLibrary.knownSpells()
-  let active = knownSpells.indexOf(player.activeSpell)
-
-  // increment counter
-  active++;
-
-  // reset counter if we reach end of array
-  if (active === knownSpells.length) { active = 0 }
-
-  // update active spell
-  playerHelper.setActiveSpell(knownSpells[active])
-}
