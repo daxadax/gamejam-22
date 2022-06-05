@@ -1,7 +1,8 @@
 import { PlayerActionHelper } from './playerActionHelper'
-import { Spell } from './spell'
 import { SkeletonEnemy } from './skeletonEnemy'
 import { Spawner } from './spawner'
+import { Spell } from './spell'
+import { SpellLibrary } from './spellLibrary'
 
 export class SpellHelper {
   camera: Camera
