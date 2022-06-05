@@ -10,9 +10,9 @@ export class SpellHelper {
   playerHelper: PlayerActionHelper
   spellLibrary: SpellLibrary
 
-  constructor(camera, physicsCast, playerHelper, spellLibrary) {
+  constructor(camera, playerHelper, spellLibrary) {
     this.camera = camera
-    this.physicsCast = physicsCast
+    this.physicsCast = PhysicsCast.instance
     this.playerHelper = playerHelper
     this.spellLibrary = spellLibrary
   }

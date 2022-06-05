@@ -30,14 +30,13 @@ const gameUI        = new GameUI(canvas, player, soundLibrary, spellLibrary)
 const camera                = Camera.instance
 const gameState             = new GameState()
 const input                 = Input.instance
-const physicsCast           = PhysicsCast.instance
 const scene                 = new Scene()
 const statusEffectResolver  = new StatusEffectResolver()
 
 // UI and helpers
 const playerHelper  = new PlayerActionHelper(player, gameUI, soundLibrary)
 const spawnHelper   = new SpawnHelper(gameState, scene, soundLibrary, statusEffectResolver)
-const spellHelper   = new SpellHelper(camera, physicsCast, playerHelper, spellLibrary)
+const spellHelper   = new SpellHelper(camera, playerHelper, spellLibrary)
 const gameIntro     = new GameIntroduction(gameUI, gameState, playerHelper, soundLibrary, spawnHelper)
 
 // run initializers
