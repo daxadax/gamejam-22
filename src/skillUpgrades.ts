@@ -10,6 +10,7 @@ export class SkillUpgrades {
   private purchaseButton: Button
   private skillInfoImg: UIImage
   private skillInfoText: UIText
+  private skillInfoDescription: UIText
   private skillPointsCounter: UIText
   private soundLibrary: SoundLibrary
   private spellLibrary: SpellLibrary
@@ -23,6 +24,17 @@ export class SkillUpgrades {
   private maxHp: SkillUpgrade
   private maxMana: SkillUpgrade
   private range: SkillUpgrade
+
+  descriptionMap = {
+    blizzard: "A chilling spell that freezes enemies",
+    poison: "A toxic cloud that does damage over time",
+    fireball: "The classic fireball: deals massive damage",
+    storm: "Whipping winds knockback your foes",
+    maxMana: 'Increase your mana pool',
+    maxHp: 'Increase your health',
+    rangeBonus: 'Increase the range of all spells',
+    dmgBonus: 'Increase the damage of all spells'
+  }
 
   constructor(parent: UICanvas, player: Player, soundLibrary: SoundLibrary, spellLibrary: SpellLibrary) {
     this.player = player
@@ -48,6 +60,15 @@ export class SkillUpgrades {
     this.skillInfoImg.sourceLeft = 0
     this.skillInfoImg.positionX = 375
     this.skillInfoImg.positionY = -10
+
+    this.skillInfoDescription = new UIText(this.container)
+    this.skillInfoDescription.fontSize = 24
+    this.skillInfoDescription.hAlign = 'left'
+    this.skillInfoDescription.vAlign = 'bottom'
+    this.skillInfoDescription.positionX = -125
+    this.skillInfoDescription.positionY = -55
+    this.skillInfoDescription.color = Color4.Black()
+    this.skillInfoDescription.isPointerBlocker = false
 
     this.skillInfoText = new UIText(this.skillInfoImg)
     this.skillInfoText.fontSize = 12
@@ -79,7 +100,7 @@ export class SkillUpgrades {
     this.blizzard.onClick = new OnClick(() => {
       log('blizzard')
       this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('blizzard', 'spell')
+      this.showPurchaseInfo('blizzard', 'spell')
     })
 
     this.fireball = new SkillUpgrade(this.container, imageMap, 'fireball')
@@ -88,7 +109,7 @@ export class SkillUpgrades {
     this.fireball.onClick = new OnClick(() => {
       log('fireball')
       this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('fireball', 'spell')
+      this.showPurchaseInfo('fireball', 'spell')
     })
 
     this.poison = new SkillUpgrade(this.container, imageMap, 'poison')
@@ -97,7 +118,7 @@ export class SkillUpgrades {
     this.poison.onClick = new OnClick(() => {
       log('poison')
       this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('poison', 'spell')
+      this.showPurchaseInfo('poison', 'spell')
     })
 
     this.storm = new SkillUpgrade(this.container, imageMap, 'storm')
@@ -106,7 +127,7 @@ export class SkillUpgrades {
     this.storm.onClick = new OnClick(() => {
       log('storm')
       this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('storm', 'spell')
+      this.showPurchaseInfo('storm', 'spell')
     })
 
     // buff slots
@@ -116,7 +137,7 @@ export class SkillUpgrades {
     this.dmg.onClick = new OnClick(() => {
       log('dmg')
       this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('dmgBonus', 'skill', 'Damage Bonus')
+      this.showPurchaseInfo('dmgBonus', 'skill', 'Damage Bonus')
     })
 
     this.maxHp = new SkillUpgrade(this.container, imageMap, 'maxHp')
@@ -125,7 +146,7 @@ export class SkillUpgrades {
     this.maxHp.onClick = new OnClick(() => {
       log('maxHp')
       this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('maxHp', 'skill', 'Max HP')
+      this.showPurchaseInfo('maxHp', 'skill', 'Max HP')
     })
 
     this.maxMana = new SkillUpgrade(this.container, imageMap, 'maxMana')
@@ -134,7 +155,7 @@ export class SkillUpgrades {
     this.maxMana.onClick = new OnClick(() => {
       log('maxMana')
       this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('maxMana', 'skill', 'Max MP')
+      this.showPurchaseInfo('maxMana', 'skill', 'Max MP')
     })
 
     this.range = new SkillUpgrade(this.container, imageMap, 'range')
@@ -143,7 +164,7 @@ export class SkillUpgrades {
     this.range.onClick = new OnClick(() => {
       log('range')
       this.soundLibrary.play('button_click')
-      this.showPurchaseWindow('rangeBonus', 'skill', 'Range Bonus')
+      this.showPurchaseInfo('rangeBonus', 'skill', 'Range Bonus')
     })
   }
 
@@ -153,7 +174,7 @@ export class SkillUpgrades {
 
   show() {
     // show initial purchase window
-    this.showPurchaseWindow('blizzard', 'spell')
+    this.showPurchaseInfo('blizzard', 'spell')
     this.skillPointsCounter.value = this.player.skillPoints +" skill points available"
     this.container.visible = true
   }
@@ -162,12 +183,11 @@ export class SkillUpgrades {
     this.container.visible = false
   }
 
-  showPurchaseWindow(skill: string, type: string, displayName: string = null) {
+  showPurchaseInfo(skill: string, type: string, displayName: string = null) {
     const purchaseButton = this.purchaseButton
 
     purchaseButton.show()
     this.showSkillInfo(skill, type, displayName)
-
 
     if ( this.player.skillPoints === 0 ) {
       purchaseButton.disable()
@@ -217,7 +237,7 @@ export class SkillUpgrades {
       // build upgrade text
       let stats = el.stats()
       Object.keys(stats['current']).forEach(function(key) {
-        if ( stats['next'][key] != 0 && key != 'level' ) {
+        if ( stats['next'][key] != 0 && key != 'level' && key != 'range' ) {
           // ex: "knockback: 1 -> 2\n"
           upgradeText += key +": "+ stats['current'][key] +" -> "+ stats['next'][key] +"\n"
         }
@@ -238,6 +258,7 @@ export class SkillUpgrades {
     // upgradeText += "\n".repeat(5 - upgradeText.split(/\r\n|\r|\n/).length)
 
     this.skillInfoText.value = displayName +"\n"+ text +"\n\nNext level:"+ upgradeText
+    this.skillInfoDescription.value = this.descriptionMap[skill]
   }
 }
 

@@ -25,8 +25,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
   }
 })
 
-// TODO: make skill select better - emphasize specialty of each spell / more
-// spells accessible
 // TODO: build default onclick button event that can be added to
 // TODO: game music - calmer for choosing skills // intense for gameplay
 // TODO: maybe the scene is initialized or there is a heavy fog as the only
