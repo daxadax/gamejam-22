@@ -1,11 +1,13 @@
 import * as utils from '@dcl/ecs-scene-utils'
 
+import { EnemyUI } from './enemyUI'
 import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
 import { SkeletonEnemy } from './skeletonEnemy'
 import { StatusEffectResolver } from './statusEffectResolver'
 
 export class Spawner extends Entity {
+  enemyUI: EnemyUI
   hp: number
   maxHp: number
   level: number
@@ -42,11 +44,16 @@ export class Spawner extends Entity {
     this.scene = scene
     this.soundLibrary = soundLibrary
     this.statusEffectResolver = statusEffectResolver
+    this.enemyUI = new EnemyUI(this, new Transform({
+      position: new Vector3(0, 5, -1)
+    }))
 
     this.level = level
     this.hp = 100 + ( this.level * 15 )
     this.maxHp = this.hp
     this.maxEnemies = 5 + this.level
+
+    this.updateLabel()
 
     return this
   }
@@ -102,6 +109,8 @@ export class Spawner extends Entity {
         this.statusEffectResolver.resolve(this, statusEffects)
       }
     })
+
+    this.updateLabel()
   }
 
   spawnEnemy(id: number) {
@@ -120,5 +129,9 @@ export class Spawner extends Entity {
       this.statusEffectResolver,
       n
     )
+  }
+
+  updateLabel() {
+    this.enemyUI.updateLabel("Portal\n"+ this.hp +"/"+ this.maxHp +"hp")
   }
 }

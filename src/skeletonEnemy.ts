@@ -1,5 +1,6 @@
 import * as utils from '@dcl/ecs-scene-utils'
 
+import { EnemyUI } from './enemyUI'
 import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
 import { StatusEffectResolver } from './statusEffectResolver'
@@ -7,6 +8,7 @@ import { StatusEffectResolver } from './statusEffectResolver'
 export class SkeletonEnemy extends Entity {
   soundLibrary: SoundLibrary
   statusEffectResolver: StatusEffectResolver
+  enemyUI: EnemyUI
   dmg: number
   hp: number
   maxHp: number
@@ -50,6 +52,7 @@ export class SkeletonEnemy extends Entity {
 
     this.soundLibrary = soundLibrary
     this.statusEffectResolver = statusEffectResolver
+    this.enemyUI = new EnemyUI(this)
 
     this.level = level
     // TODO: would be nice to dynamically slow animations based on speed changes
@@ -57,6 +60,8 @@ export class SkeletonEnemy extends Entity {
     this.maxHp = this.hp
     this.speed = 3 + ( this.level / 2 )
     this.dmg = 5 * (1.1 + this.level)
+
+    this.updateLabel()
 
     return this
   }
@@ -114,7 +119,6 @@ export class SkeletonEnemy extends Entity {
     if ( this.isDead() ) { return null }
 
     log("player dealt "+ dmg + " damage to Skeleton")
-    log("Skeleton hp: "+ this.hp +"/"+ this.maxHp)
     utils.setTimeout(atkSpeed, ()=> {
       this.hp -= dmg
       this.soundLibrary.play('enemy_hit')
@@ -131,6 +135,12 @@ export class SkeletonEnemy extends Entity {
       } else {
         this.statusEffectResolver.resolve(this, statusEffects)
       }
+
+      this.updateLabel()
     })
+  }
+
+  updateLabel() {
+    this.enemyUI.updateLabel("Skeleton\n"+ this.hp +"/"+ this.maxHp +"hp")
   }
 }
