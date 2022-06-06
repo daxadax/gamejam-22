@@ -14,12 +14,15 @@ export class SoundLibrary {
     const poisonSpell = new Sound('poison.wav')
     const waveComplete = new Sound('magic_spell_06.wav')
 
+    const darkAmbienceLoop = new BackgroundSound('dark_ambience_loop.mp3')
+
     this.library =  {
       button_click: buttonClick,
       enemy_die: enemyDie,
       enemy_hit: enemyHit,
       player_hit: playerHit,
       portal_close: portalClose,
+      dark_ambience_loop: darkAmbienceLoop,
       spell_blizzard: blizzardSpell,
       spell_fireball: fireballSpell,
       spell_storm: stormSpell,
@@ -31,6 +34,10 @@ export class SoundLibrary {
 
   play(name: string) {
     this.library[name].getComponent(AudioSource).playOnce()
+  }
+
+  loop(name: string) {
+    this.library[name].getComponent(AudioSource).playing = true
   }
 }
 
@@ -45,5 +52,21 @@ class Sound extends Entity {
     this.addComponent(
       new AudioSource(new AudioClip('sounds/'+ assetPath))
     )
+  }
+}
+
+class BackgroundSound extends Entity {
+  constructor(assetPath: string) {
+    super()
+
+    this.addComponent(new Transform())
+    engine.addEntity(this)
+
+    const source = new AudioSource(new AudioClip('sounds/'+ assetPath))
+    source.loop = true
+    source.volume = 0.5
+
+    this.setParent(Attachable.AVATAR)
+    this.addComponent(source)
   }
 }

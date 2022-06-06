@@ -45,6 +45,9 @@ export class GameManager {
 
   // show basic UI and give player choice to play or quit
   initialize() {
+    // start background music
+    this.soundLibrary.loop('dark_ambience_loop')
+
     // initialize player and restrict movement
     this.player.initialize()
     this.player.restrictMovement()
