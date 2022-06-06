@@ -4,6 +4,7 @@ import { UIBar } from '@dcl/ui-scene-utils'
 import { Player } from './player'
 import { SpellLibrary } from './spellLibrary'
 
+// TODO: show wave in the player ui
 export class PlayerUI {
   canvas: UICanvas
   player: Player
