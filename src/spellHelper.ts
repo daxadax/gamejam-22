@@ -47,7 +47,7 @@ export class SpellHelper {
     this.physicsCast.hitFirst(
       ray,
       (e) => {
-        let origin  = new Vector3(position.x, position.y - 0.4, position.z)
+        let origin  = new Vector3(position.x, position.y - 1, position.z)
 
         // decrement mana pool
         this.playerHelper.diminishMana(activeSpell.manaCost)

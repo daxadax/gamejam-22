@@ -27,7 +27,7 @@ export class Spell extends Entity {
     this.addComponent(
       new Transform({
         position: Vector3.Zero(),
-        scale: new Vector3(0.025, 0.025, 0.025)
+        scale: new Vector3(7, 7, 7)
       })
     )
 
@@ -47,7 +47,7 @@ export class Spell extends Entity {
     log('casting spell at position:', endPosition)
 
     // Randomly rotate each projectile
-     this.getComponent(Transform).rotate(Vector3.Forward(), Math.random() * 360)
+    this.getComponent(Transform).rotate(Vector3.Forward(), Math.random() * 360)
 
     // cast projectile
     this.addComponentOrReplace(
