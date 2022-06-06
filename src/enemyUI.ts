@@ -7,7 +7,7 @@ export class EnemyUI {
   })
 
   constructor(enemy: IEntity, offset?: Transform) {
-    this.label = new Entity(enemy.entityId +'-label')
+    this.label = new Entity()
     this.label.setParent(enemy)
     this.label.addComponent(new Billboard())
     this.label.addComponent(offset || this.defaultOffset)
