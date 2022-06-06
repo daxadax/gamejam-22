@@ -39,9 +39,13 @@ export class Button {
     this.buttonComponent.visible = false
   }
 
-  setPosition(x: number, y: number) {
-    this.buttonComponent.positionX = 375
-    this.buttonComponent.positionY = -140
+  setPosition(x: number, y: number = null) {
+    this.buttonComponent.positionX = x
+    this.buttonComponent.positionY = y || this.buttonComponent.positionY
+  }
+
+  setText(text: string) {
+    this.text.value = text.toUpperCase()
   }
 
   disable() {

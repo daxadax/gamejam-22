@@ -13,16 +13,21 @@ export class SpellLibrary {
   }
 
   constructor(soundLibrary) {
+    this.soundLibrary = soundLibrary
+    this.initialize()
+  }
+
+  initialize() {
     // spells
     // TODO: better spell 3d models
     // Blizzard: Ice damage [ slow enemy ]
     // Poison: Earth damage [ poison enemy ]
     // Fireball: Fire damage [ DMG+ ]
     // Storm: Air damage [ knockback enemy ]
-    const blizzard = new Spell('blizzard', 'iceball.gltf', soundLibrary, {'slow': 1})
-    const poison   = new Spell('poison', 'poison.gltf', soundLibrary, {'dot': 0.5})
-    const fireball = new Spell('fireball', 'fireball.gltf', soundLibrary, {'dmg': 2.5})
-    const storm    = new Spell('storm', 'trashy.gltf', soundLibrary, {'knockback': 1})
+    const blizzard = new Spell('blizzard', 'iceball.gltf', this.soundLibrary, {'slow': 1})
+    const poison   = new Spell('poison', 'poison.gltf', this.soundLibrary, {'dot': 0.5})
+    const fireball = new Spell('fireball', 'fireball.gltf', this.soundLibrary, {'dmg': 2.5})
+    const storm    = new Spell('storm', 'trashy.gltf', this.soundLibrary, {'knockback': 1})
 
     this.spells =  {
       blizzard: blizzard,
@@ -45,6 +50,11 @@ export class SpellLibrary {
     })
 
     return knownSpells
+  }
+
+  reset() {
+    this.spells = {}
+    this.initialize()
   }
 
   getUIImage(name: string) {

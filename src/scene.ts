@@ -51,35 +51,35 @@ export class Scene extends Entity {
     //   scale: new Vector3(255.9510955810547, 181.6527862548828, 194.45120239257812)
     // }))
 
-    new StaticModel(new GLTFShape('models/mausoleum.glb'), 'mausoleum', this, new Transform({
-      position: new Vector3(32, 0.05275225639343262, 32),
-      rotation: new Quaternion(0, 0, 0, 1),
-      scale: new Vector3(1, 1, 1)
-    }))
+    // new StaticModel(new GLTFShape('models/mausoleum.glb'), 'mausoleum', this, new Transform({
+    //   position: new Vector3(32, 0.05275225639343262, 32),
+    //   rotation: new Quaternion(0, 0, 0, 1),
+    //   scale: new Vector3(1, 1, 1)
+    // }))
 
-    new StaticModel(new GLTFShape('models/altar-portal.glb'), 'altar', this, new Transform({
-      position: new Vector3(32, 0.06, 31),
-      rotation: new Quaternion(0, 0, 0, 1),
-      scale: new Vector3(1, 1, 1)
-    }))
+    // new StaticModel(new GLTFShape('models/altar-portal.glb'), 'altar', this, new Transform({
+    //   position: new Vector3(32, 0.06, 31),
+    //   rotation: new Quaternion(0, 0, 0, 1),
+    //   scale: new Vector3(1, 1, 1)
+    // }))
 
-    new StaticModel(new GLTFShape('models/entry.glb'), 'entryway', this, new Transform({
-      position: new Vector3(32, 0.06, 31.5),
-      rotation: new Quaternion(0, 0, 0, 1),
-      scale: new Vector3(1, 1, 1)
-    }))
+    // new StaticModel(new GLTFShape('models/entry.glb'), 'entryway', this, new Transform({
+    //   position: new Vector3(32, 0.06, 31.5),
+    //   rotation: new Quaternion(0, 0, 0, 1),
+    //   scale: new Vector3(1, 1, 1)
+    // }))
 
-    new StaticModel(new GLTFShape('models/sigil.glb'), 'sigil', this, new Transform({
-      position: new Vector3(32, 5.14898681640625, 35.9151611328125),
-      rotation: new Quaternion(-0.13971063494682312, -0.00955082569271326, -0.0013476144522428513, 0.9901455044746399),
-      scale: new Vector3(1, 1, 1)
-    }))
+    // new StaticModel(new GLTFShape('models/sigil.glb'), 'sigil', this, new Transform({
+    //   position: new Vector3(32, 5.14898681640625, 35.9151611328125),
+    //   rotation: new Quaternion(-0.13971063494682312, -0.00955082569271326, -0.0013476144522428513, 0.9901455044746399),
+    //   scale: new Vector3(1, 1, 1)
+    // }))
 
-    new StaticModel(new GLTFShape('models/tombs.glb'), 'tombs', this, new Transform({
-      position: new Vector3(32, 0, 32),
-      rotation: new Quaternion(0, 0, 0, 1),
-      scale: new Vector3(1, 1, 1)
-    }))
+    // new StaticModel(new GLTFShape('models/tombs.glb'), 'tombs', this, new Transform({
+    //   position: new Vector3(32, 0, 32),
+    //   rotation: new Quaternion(0, 0, 0, 1),
+    //   scale: new Vector3(1, 1, 1)
+    // }))
 
     // models placed multiple times
     const yellowPineTree = new GLTFShape('models/pine_tree/model.glb')

@@ -23,6 +23,7 @@ export class GameUI {
   private text: UIText
   private textWrapper: UIImage
   btnNext: Button
+  btnExit: Button
 
   constructor(canvas, player, soundLibrary, spellLibrary) {
     this.canvas = canvas
@@ -71,6 +72,22 @@ export class GameUI {
     // default btn
     this.btnNext = new Button(this.canvas)
 
+    // exit btn
+    // TODO: pad button with required spaces dynamically in button class
+    this.btnExit = new Button(this.canvas, '  I\'m out')
+    this.btnExit.setPosition(-120)
+    this.btnExit.buttonComponent.onClick = new OnClick(() => {
+      // play sound
+      this.soundLibrary.play('button_click')
+
+      // unrestrict movement
+      this.player.unrestrictMovement()
+
+      // don't load resources and remove UI
+      this.hide()
+    })
+    this.btnExit.hide()
+
     // player ui
     this.playerUI = new PlayerUI(canvas, player, spellLibrary)
 
@@ -79,8 +96,6 @@ export class GameUI {
   }
 
   async flashColor(color: Color4, duration: number = 10) {
-    const prevColor = this.screenCover.color
-
     this.colorFlash.color = color
     this.colorFlash.visible = true
 
@@ -90,6 +105,9 @@ export class GameUI {
   }
 
   show() {
+    // ensure colorFlash is not visible - not sure why it would be but it shows
+    // up on the 'game over' screen for some reason
+    this.colorFlash.visible = false
     this.screenCover.visible = true
     this.btnNext.show()
   }
@@ -97,15 +115,34 @@ export class GameUI {
   hide() {
     this.screenCover.visible = false
     this.btnNext.hide()
+    this.btnExit.hide()
   }
 
   editText(text: string) {
     this.text.value = text
   }
 
+  displayPlayerChoice() {
+    const introText =
+    "After years of seeking, you've finally found it: the fabled tomb of the evil Archmage Bobby Bubonic. Your whole life has led you here and while you can't anticipate how things will end, you know it's your only chance to save your village / gain limitless power / get enough gold to pay for little timmy's operation. \n\nAre you ready?"
+
+    this.show()
+    this.editText(introText)
+
+    this.btnNext.setPosition(120)
+    this.btnNext.setText(' Let\'s go!')
+
+    this.btnExit.show()
+  }
+
   selectNewSkills(spawnHelper: SpawnHelper, playerHelper: PlayerActionHelper) {
     // hide playerUI
     this.playerUI.hide()
+
+    // ensure correct button positions / text
+    this.btnExit.hide()
+    this.btnNext.setPosition(0)
+    this.btnNext.setText('Continue')
 
     // show UI elements
     this.show()
@@ -122,9 +159,12 @@ export class GameUI {
       // display playerUI
       this.playerUI.show()
 
+      // NOTE: could do this the same way as display player choice where the
+      // button is configured by whoever calls it
       // TODO: i hate that this is here but i can't figure out a better way to
-      // handle callbacks
-      //
+      // handle callbacks so that these functions are only called after the
+      // button is clicked (ie, player is finished selecting skills)
+
       // start next wave
       spawnHelper.startNextWave()
 
@@ -133,22 +173,17 @@ export class GameUI {
     })
   }
 
-  // // NOT CURRENTLY USED
-  // toggleSkillUpgradeDisplay() {
-  //   if ( this.skillUpgradesComponent.visible() ) {
-  //     // hide UI elements
-  //     this.hide()
-  //     this.skillUpgradesComponent.hide()
+  displayGameOver() {
+    // hide playerUI
+    this.playerUI.hide()
 
-  //     // show playerUI
-  //     this.playerUI.show()
-  //   } else {
-  //     // hide playerUI
-  //     this.playerUI.hide()
+    // show UI elements
+    this.show()
+    this.editText("As you slip into blackness you faintly hear a deep voice say 'I win again'. Unfortunately you find yourself quite dead. What do?")
 
-  //     // show UI elements
-  //     this.show()
-  //     this.skillUpgradesComponent.show()
-  //   }
-  // }
+    this.btnNext.setPosition(120)
+    this.btnNext.setText('Try again')
+
+    this.btnExit.show()
+  }
 }

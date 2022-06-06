@@ -14,8 +14,6 @@ export class GameIntroduction {
 
   // each text container needs the same number of carraige returns for it to align properly. smh
   introText =
-    "After years of seeking, you've finally found it: the fabled tomb of the evil Archmage Bobby Bubonic. Your whole life has led you here and while you can't anticipate how things will end, you know it's your only chance to save your village / gain limitless power / get enough gold to pay for little timmy's operation. \n\nAre you ready?"
-  introText2 =
     "Making it all the way here would have been impossible without some kind of magical training. What do you know? \n\nYou start the game with 3 skill points but you'll gain more as you play. Spend them wisely!\n\n\n"
   instructions =
     " - Cast spells with the 'E' key.\n - Cycle through your available spells with the left mouse button. \n - Destroy all enemies and portals to complete the current wave and move on to the next.\n\n\n"
@@ -29,20 +27,12 @@ export class GameIntroduction {
   }
 
   initialize() {
-    this.gameUI.show()
     this.gameUI.editText(this.introText)
 
-    this.gameUI.btnNext.buttonComponent.onClick = new OnClick(() => {
-      // play sound
-      this.soundLibrary.play('button_click')
-
-      // show next component
-      this.displayIntroductionTwo()
-    })
-  }
-
-  displayIntroductionTwo() {
-    this.gameUI.editText(this.introText2)
+    // ensure correct button positions / text
+    this.gameUI.btnExit.hide()
+    this.gameUI.btnNext.setPosition(0)
+    this.gameUI.btnNext.setText('Continue')
 
     this.gameUI.btnNext.buttonComponent.onClick = new OnClick(() => {
       // play sound

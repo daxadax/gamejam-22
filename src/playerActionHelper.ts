@@ -1,19 +1,22 @@
 import * as utils from '@dcl/ecs-scene-utils'
 
+import { GameManager } from './gameManager'
 import { GameUI } from './gameUI'
 import { Player } from './player'
 import { SoundLibrary } from './soundLibrary'
 import { Spell } from './spell'
 
 export class PlayerActionHelper {
-  player: Player
+  gameManager: GameManager
   gameUI: GameUI
+  player: Player
   regenerator: Entity
   soundLibrary: SoundLibrary
 
-  constructor(player, gameUI, soundLibrary) {
-    this.player       = player
+  constructor(gameManager, gameUI, player, soundLibrary) {
+    this.gameManager  = gameManager
     this.gameUI       = gameUI
+    this.player       = player
     this.soundLibrary = soundLibrary
 
     this.regenerator = new Entity()
@@ -64,9 +67,7 @@ export class PlayerActionHelper {
     this.gameUI.playerUI.decrementHp(amount)
 
     if ( this.player.isDead() ) {
-      // TODO: you dead
-      this.stopRegeneration()
-      this.restrictMovement()
+      this.gameManager.endGame()
     }
   }
 

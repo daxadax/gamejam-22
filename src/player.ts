@@ -16,6 +16,8 @@ export class Player {
     rangeBonus: 0
   }
 
+  spells = []
+
   statIncrementMap = {
     dmgBonus: 5,
     maxHp: 20,
@@ -37,6 +39,20 @@ export class Player {
     // start pullling basic character information from DCL
     const userData = await getUserData();
     this.data = userData as UserData;
+  }
+
+  reset() {
+    this.skillPoints = 3
+    this.stats = {
+      dmgBonus: 0,
+      hp: 100,
+      hpRegenRate: 0.5,
+      mana: 125,
+      manaRegenRate: 7,
+      maxHp: 100,
+      maxMana: 125,
+      rangeBonus: 0
+    }
   }
 
   isDead() {
