@@ -7,8 +7,9 @@ import { StatusEffectResolver } from './statusEffectResolver'
 
 export class Spawner extends Entity {
   hp: number
-  level: number = 1
-  maxEnemies: number = 5
+  maxHp: number
+  level: number
+  maxEnemies: number
   scene: Scene
   soundLibrary: SoundLibrary
   spawnCounter: number = 0
@@ -20,6 +21,7 @@ export class Spawner extends Entity {
   MAX_TIME_OFFSET = 2000
 
   constructor(
+    level: number,
     name: string,
     scene: Scene,
     soundLibrary: SoundLibrary,
@@ -41,7 +43,10 @@ export class Spawner extends Entity {
     this.soundLibrary = soundLibrary
     this.statusEffectResolver = statusEffectResolver
 
-    this.hp = 125 * this.level
+    this.level = level
+    this.hp = 100 + ( this.level * 15 )
+    this.maxHp = this.hp
+    this.maxEnemies = 5 + this.level
 
     return this
   }
@@ -84,6 +89,7 @@ export class Spawner extends Entity {
     if ( this.isDead() ) { return null }
 
     log("player dealt "+ dmg + " damage to Spawner")
+    log("Spawner hp: "+ this.hp +"/"+ this.maxHp)
     utils.setTimeout(atkSpeed, ()=> {
       this.hp -= dmg
       this.soundLibrary.play('enemy_hit')
@@ -108,6 +114,7 @@ export class Spawner extends Entity {
     new SkeletonEnemy(
       new GLTFShape('models/skelly.glb'), // TODO: model library like soundLibrary
       'enemy-skelly-'+ this.name +'-'+ id,
+      this.level,
       this.scene,
       this.soundLibrary,
       this.statusEffectResolver,

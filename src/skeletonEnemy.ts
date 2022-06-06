@@ -9,7 +9,8 @@ export class SkeletonEnemy extends Entity {
   statusEffectResolver: StatusEffectResolver
   dmg: number
   hp: number
-  level: number = 1
+  maxHp: number
+  level: number
   statusEffects = []
   speed: number
 
@@ -18,6 +19,7 @@ export class SkeletonEnemy extends Entity {
   constructor(
     model: GLTFShape,
     name: string,
+    level: number,
     scene: Scene,
     soundLibrary: SoundLibrary,
     statusEffectResolver: StatusEffectResolver,
@@ -49,10 +51,12 @@ export class SkeletonEnemy extends Entity {
     this.soundLibrary = soundLibrary
     this.statusEffectResolver = statusEffectResolver
 
+    this.level = level
     // TODO: would be nice to dynamically slow animations based on speed changes
-    this.hp = 10 * this.level
-    this.speed = 3 + this.level // TODO increase speed every x levels
-    this.dmg = 5 * 1.2 * this.level
+    this.hp = 10 * ( this.level * 1.3 )
+    this.maxHp = this.hp
+    this.speed = 3 + ( this.level / 2 )
+    this.dmg = 5 * (1.1 + this.level)
 
     return this
   }
@@ -110,6 +114,7 @@ export class SkeletonEnemy extends Entity {
     if ( this.isDead() ) { return null }
 
     log("player dealt "+ dmg + " damage to Skeleton")
+    log("Skeleton hp: "+ this.hp +"/"+ this.maxHp)
     utils.setTimeout(atkSpeed, ()=> {
       this.hp -= dmg
       this.soundLibrary.play('enemy_hit')

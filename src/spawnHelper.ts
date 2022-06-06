@@ -18,23 +18,19 @@ export class SpawnHelper {
     this.statusEffectResolver = statusEffectResolver
   }
 
-  // TODO: increase difficulty per wave
-  // enemy/spawner health
-  // new enemies
-  // more dmg
-  // more speed
-  // etc
+  // TODO: add new enemies in wave 4
   startNextWave() {
     log('starting wave '+ this.gameState.wave)
     this.createSpawners(this.gameState.wave)
   }
 
-  createSpawners(count: number) {
-    const locations = spawnLocations.sort(() => .5 - Math.random()).slice(0, count);
+  createSpawners(level: number) {
+    const locations = spawnLocations.sort(() => .5 - Math.random()).slice(0, level);
     const self = this
 
     locations.forEach(function(spawnLocation, i) {
       const spawner = new Spawner(
+        level,
         'enemy-spawner-'+ i,
         self.scene,
         self.soundLibrary,
