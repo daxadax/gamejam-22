@@ -25,6 +25,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
   }
 })
 
+// TODO: show status effects in enemy UI
 // TODO: build default onclick button event that can be added to
 // TODO: game music - calmer for choosing skills // intense for gameplay
 // TODO: maybe the scene is initialized or there is a heavy fog as the only
