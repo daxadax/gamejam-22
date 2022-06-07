@@ -4,7 +4,6 @@ import { UIBar } from '@dcl/ui-scene-utils'
 import { Player } from './player'
 import { SpellLibrary } from './spellLibrary'
 
-// TODO: show wave in the player ui
 export class PlayerUI {
   canvas: UICanvas
   player: Player
@@ -14,7 +13,6 @@ export class PlayerUI {
   private brand: UIText
   private activeSpellWrapper: UIContainerRect
   private activeSpellImg: UIImage
-  private activeSpellText: UIText
   private healthBar: UIBar
   private manaBar: UIBar
 
@@ -25,54 +23,47 @@ export class PlayerUI {
     this.wrapper = new UIContainerRect(canvas);
     // this.wrapper.color = Color4.Red()
     this.wrapper.width  = 300
-    this.wrapper.height = 250
-    this.wrapper.hAlign = 'right'
-    this.wrapper.vAlign = 'top'
-    this.wrapper.positionX = -5
-    this.wrapper.positionY = 70
+    this.wrapper.height = 200
+    this.wrapper.hAlign = 'center'
+    this.wrapper.vAlign = 'bottom'
+    this.wrapper.positionX = -10
+    this.wrapper.positionY = -30
     this.wrapper.visible = false
 
-    this.brand = new UIText(this.wrapper)
-    this.brand.fontSize = 30
-    this.brand.hAlign = 'left'
-    this.brand.vAlign = 'top'
-    this.brand.positionX = 5
-    this.brand.positionY = 0
-    this.brand.value = 'GAMEJAM \'22'
+    // this.brand = new UIText(this.wrapper)
+    // this.brand.fontSize = 30
+    // this.brand.hAlign = 'center'
+    // this.brand.vAlign = 'bottom'
+    // this.brand.positionX = -55
+    // this.brand.positionY = 150
+    // this.brand.value = 'GAMEJAM \'22'
 
     this.activeSpellWrapper = new UIContainerRect(this.wrapper)
-    // this.activeSpellWrapper.color = Color4.Yellow()
     this.activeSpellWrapper.width  = 300
-    this.activeSpellWrapper.height = 100
-    this.activeSpellWrapper.hAlign = 'left'
-    this.activeSpellWrapper.vAlign = 'top'
-    this.activeSpellWrapper.positionX = 0
-    this.activeSpellWrapper.positionY = -55
+    this.activeSpellWrapper.height = 200
+    this.activeSpellWrapper.hAlign = 'center'
+    this.activeSpellWrapper.vAlign = 'bottom'
+    this.activeSpellWrapper.positionX = 77
+    this.activeSpellWrapper.positionY = -50
 
-    this.activeSpellImg = new UIImage(this.activeSpellWrapper, new Texture('assets/spell_map.png'))
+    this.activeSpellImg = new UIImage(this.activeSpellWrapper, new Texture('assets/element_map.png'))
     this.activeSpellImg.hAlign = 'left'
     this.activeSpellImg.vAlign = 'top'
-    this.activeSpellImg.width = 200
-    this.activeSpellImg.height = 50
+    this.activeSpellImg.width = 150
+    this.activeSpellImg.height = 150
     this.activeSpellImg.sourceWidth = 200
-    this.activeSpellImg.sourceHeight = 50
-    this.activeSpellImg.sourceTop = 200 // there is nothing at 200
+    this.activeSpellImg.sourceHeight = 200
+    this.activeSpellImg.sourceTop = 0
     this.activeSpellImg.sourceLeft = 0
 
-    this.activeSpellText = new UIText(this.activeSpellWrapper)
-    this.activeSpellText.fontSize = 18
-    this.activeSpellText.hAlign = 'left'
-    this.activeSpellText.vAlign = 'top'
-    this.activeSpellText.positionX = 50
-    this.activeSpellText.positionY = -2
-
-    this.healthBar = new ui.UIBar(1, -7, 595, Color4.Red(), ui.BarStyles.ROUNDWHITE, 0.75, true)
-    this.manaBar = new ui.UIBar(1, -7, 572, Color4.Blue(), ui.BarStyles.ROUNDWHITE, 0.75, true)
+    this.healthBar = new ui.UIBar(1, -820, 0, Color4.Red(), ui.BarStyles.ROUNDBLACK, 1.7, true)
+    this.manaBar = new ui.UIBar(1, -430, 0, Color4.Blue(), ui.BarStyles.ROUNDBLACK, 1.7, true)
   }
 
   setActiveSpell(name: string, level: number) {
-    this.activeSpellImg.sourceTop = this.spellLibrary.getUIImage(name)
-    this.activeSpellText.value = "LVL "+ level
+    const coordinates = this.spellLibrary.getUIImage(name)
+    this.activeSpellImg.sourceTop = coordinates[0]
+    this.activeSpellImg.sourceLeft = coordinates[1]
   }
 
   incrementHp(amount: number) {

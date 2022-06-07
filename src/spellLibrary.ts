@@ -6,10 +6,10 @@ export class SpellLibrary {
   soundLibrary: SoundLibrary
 
   UIImageMap = {
-    'blizzard': 0,
-    'poison': 50,
-    'fireball': 100,
-    'storm': 150
+    'blizzard': [0,0],
+    'poison': [200,0],
+    'fireball': [200, 200],
+    'storm': [0, 200]
   }
 
   constructor(soundLibrary) {
