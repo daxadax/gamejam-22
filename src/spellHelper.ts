@@ -85,7 +85,8 @@ export class SpellHelper {
             })
           }
         } else {
-          const target = origin.add(ray.direction.multiplyByFloats(range, range, range))
+          const direction = Vector3.Zero().copyFrom(ray.direction)
+          const target = origin.add(direction.multiplyByFloats(range, range, range))
 
           // cast spell into the air like an idiot
           activeSpell.cast(origin, target, 200)

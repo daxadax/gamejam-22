@@ -56,30 +56,44 @@ export class PlayerUI {
     this.activeSpellImg.sourceTop = 0
     this.activeSpellImg.sourceLeft = 0
 
+    // TODO: implement my own healthbars trying to position this sucks
     this.healthBar = new ui.UIBar(1, -820, 0, Color4.Red(), ui.BarStyles.ROUNDBLACK, 1.7, true)
     this.manaBar = new ui.UIBar(1, -430, 0, Color4.Blue(), ui.BarStyles.ROUNDBLACK, 1.7, true)
   }
 
   setActiveSpell(name: string, level: number) {
     const coordinates = this.spellLibrary.getUIImage(name)
+
     this.activeSpellImg.sourceTop = coordinates[0]
     this.activeSpellImg.sourceLeft = coordinates[1]
   }
 
   incrementHp(amount: number) {
-    this.healthBar.increase(amount / 100)
+    if ( this.healthBar.read() < this.player.stats.maxHp ) {
+      if ( this.healthBar.read() + amount >= this.player.stats.maxHp ) {
+        this.healthBar.set(1)
+      } else {
+        this.healthBar.increase(amount / this.player.stats.maxHp)
+      }
+    }
   }
 
   decrementHp(amount: number) {
-    this.healthBar.decrease(amount / 100)
+    this.healthBar.decrease(amount / this.player.stats.maxHp)
   }
 
   incrementMana(amount: number) {
-    this.manaBar.increase(amount / 100)
+    if ( this.manaBar.read() < this.player.stats.maxMana ) {
+      if ( this.manaBar.read() + amount >= this.player.stats.maxMana ) {
+        this.manaBar.set(1)
+      } else {
+        this.manaBar.increase(amount / this.player.stats.maxMana)
+      }
+    }
   }
 
   decrementMana(amount: number) {
-    this.manaBar.decrease(amount / 100)
+    this.manaBar.decrease(amount / this.player.stats.maxMana)
   }
 
   show() {
