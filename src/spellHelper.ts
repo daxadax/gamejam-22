@@ -35,13 +35,14 @@ export class SpellHelper {
     let spellStats = this.playerHelper.activeSpellStats()
     let position = this.camera.position
     let rotation = this.camera.rotation
+    let range = spellStats.range
 
     log('casting ', activeSpell.name, spellStats)
 
     let ray: Ray = {
       origin: position,
       direction: Vector3.Forward().rotate(rotation),
-      distance: spellStats.range
+      distance: range
     }
 
     this.physicsCast.hitFirst(
@@ -84,9 +85,10 @@ export class SpellHelper {
             })
           }
         } else {
+          const target = origin.add(ray.direction.multiplyByFloats(range, range, range))
+
           // cast spell into the air like an idiot
-          // TODO: cast it straight forward for player range
-          // activeSpell.cast(origin, Vector3.Forward(), 200)
+          activeSpell.cast(origin, target, 200)
         }
       },
       1
