@@ -104,7 +104,7 @@ export class Spawner extends Entity {
       if ( this.isDead() ) {
         this.soundLibrary.play('portal_close')
 
-        engine.removeEntity(this) // TODO trigger death animation
+        engine.removeEntity(this)
       } else {
         this.statusEffectResolver.resolve(this, statusEffects)
       }
