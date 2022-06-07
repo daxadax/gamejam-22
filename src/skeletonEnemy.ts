@@ -113,7 +113,6 @@ export class SkeletonEnemy extends Entity {
   // TODO: extract some concepts to a separate module which can be included in
   // various classes - a "damageHelper" maybe that could be used for the player
   // and enemies.
-  // TODO: in same helper as above - popup damage dealt like warcraft
   async takeDmg(dmg: number, atkSpeed: number, statusEffects: any) {
     // don't allow enemy to take damage after it's dead
     if ( this.isDead() ) { return null }
@@ -125,11 +124,9 @@ export class SkeletonEnemy extends Entity {
 
       if ( this.isDead() ) {
         // TODO: this should be a different clip maybe?
-        // it gets cut if called too frequently
         this.soundLibrary.play('enemy_die')
 
-        // TODO: low priority
-        // skeleton should rotate to face dmgSource before death animation is triggered
+        // TODO: skeleton should rotate to face dmgSource before death animation is triggered
         this.getComponent(Animator).getClip('die').play()
         this.addComponentOrReplace(new utils.ExpireIn(2700))
       } else {
