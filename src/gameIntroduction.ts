@@ -1,3 +1,5 @@
+import * as utils from '@dcl/ecs-scene-utils'
+
 import { Button } from './button'
 import { GameState } from './gameState'
 import { GameUI } from './gameUI'
@@ -12,6 +14,8 @@ export class GameIntroduction {
   soundLibrary: SoundLibrary
   spawnHelper: SpawnHelper
 
+  requirementText: UIText
+
   // each text container needs the same number of carraige returns for it to align properly. smh
   introText =
     "Making it all the way here would have been impossible without some kind of magical training. What do you know? \n\nYou start the game with 3 skill points but you'll gain more as you play. Spend them wisely!\n\n\n"
@@ -24,6 +28,15 @@ export class GameIntroduction {
     this.playerHelper = playerHelper
     this.soundLibrary = soundLibrary
     this.spawnHelper = spawnHelper
+
+    this.requirementText = new UIText(this.gameUI.canvas)
+    this.requirementText.font = new Font(Fonts.SanFrancisco)
+    this.requirementText.fontSize = 30
+    this.requirementText.hAlign = "center"
+    this.requirementText.vAlign = "top"
+    this.requirementText.positionX = -222
+    this.requirementText.positionY = -100
+    this.requirementText.color = Color4.Red()
   }
 
   initialize() {
@@ -46,7 +59,6 @@ export class GameIntroduction {
     })
   }
 
-  // TODO: split spells and skills?
   selectInitialSkills() {
     // skill upgrade component
     this.gameUI.skillUpgradesComponent.container.positionY = 50
@@ -54,8 +66,17 @@ export class GameIntroduction {
 
     // start game
     this.gameUI.btnNext.buttonComponent.onClick = new OnClick(() => {
-      // TODO: if player has selected at least one spell, continue
-      //       otherwise reset skillpoints and say "you must select at least one spell"
+      const spell = this.gameUI.spellLibrary.knownSpells().shift()
+      if ( spell === undefined ) {
+        this.selectInitialSkills()
+        this.requirementText.value = "You must select at least one Spell"
+
+        // TODO: this delay never triggers
+        return new utils.Delay(3, ()=> {
+          log('wtf')
+          this.requirementText.value = ''
+        })
+      }
 
       // play sound
       this.soundLibrary.play('button_click')
@@ -65,10 +86,11 @@ export class GameIntroduction {
       this.gameUI.skillUpgradesComponent.hide()
 
       // set active spell
-      // TODO: don't use spellLibrary here at all, instead select first
-      // available spell that belongs to the player
-      const spell = this.gameUI.spellLibrary.knownSpells().shift()
       this.playerHelper.setActiveSpell(spell)
+
+      // TODO: remove if you can get delay working
+      // remove requirement text on successful continue
+      this.requirementText.value = null
 
       // show next component
       this.displayInstructions()

@@ -1,3 +1,4 @@
+import * as ui from '@dcl/ui-scene-utils'
 import * as utils from '@dcl/ecs-scene-utils'
 
 import { Button } from './button'
@@ -121,6 +122,10 @@ export class GameUI {
   editText(text: string) {
     this.text.value = text
   }
+
+  // notify(text: string, duration?: number) {
+  //   ui.displayAnnouncement(text, duration || 3, false, Color4.Yellow())
+  // }
 
   displayPlayerChoice() {
     const introText =

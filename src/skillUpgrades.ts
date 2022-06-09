@@ -185,37 +185,43 @@ export class SkillUpgrades {
 
   showPurchaseInfo(skill: string, type: string, displayName: string = null) {
     const purchaseButton = this.purchaseButton
+    const knownSpells = this.spellLibrary.knownSpells().length
 
-    purchaseButton.show()
-    this.showSkillInfo(skill, type, displayName)
-
-    if ( this.player.skillPoints === 0 ) {
-      purchaseButton.disable()
-      purchaseButton.buttonComponent.onClick = null
+    // force the player to buy at least one spell at the beginning
+    // this is not the prettiest way to do this but ¯\_(ツ)_/¯
+    if ( this.player.skillPoints === 1 && knownSpells === 0 && type != 'spell') {
+      this.purchaseButton.disable()
+      this.purchaseButton.buttonComponent.onClick = null
+      this.skillInfoDescription.value = "You must select at least one spell"
     } else {
-      purchaseButton.enable()
+      purchaseButton.show()
+      this.showSkillInfo(skill, type, displayName)
 
-      purchaseButton.buttonComponent.onClick = new OnClick(() => {
-        log('buying '+ skill)
-        this.soundLibrary.play('upgrade_skill')
+      // don't allow player to keep buying skills
+      if ( this.player.skillPoints === 0 ) {
+        purchaseButton.disable()
+        purchaseButton.buttonComponent.onClick = null
+      } else {
+        purchaseButton.enable()
 
-        if ( type === 'spell' ) {
-          this.spellLibrary.spells[skill].incrementLevel()
-        } else {
-          this.player.incrementStat(skill)
-        }
+        purchaseButton.buttonComponent.onClick = new OnClick(() => {
+          log('buying '+ skill)
+          this.soundLibrary.play('upgrade_skill')
 
-        let remainingSkillPoints = this.player.decrementSkillPoints(1)
-        this.skillPointsCounter.value = remainingSkillPoints +" skill points available"
+          if ( type === 'spell' ) {
+            this.spellLibrary.spells[skill].incrementLevel()
+          } else {
+            this.player.incrementStat(skill)
+          }
 
-        // refresh skill info window
-        this.showSkillInfo(skill, type, displayName)
+          let remainingSkillPoints = this.player.decrementSkillPoints(1)
+          this.skillPointsCounter.value = remainingSkillPoints +" skill points available"
 
-        if ( remainingSkillPoints === 0 ) {
-          purchaseButton.disable()
-          purchaseButton.buttonComponent.onClick = null
-        }
-      })
+          // refresh skill info windows
+          this.showSkillInfo(skill, type, displayName)
+          this.showPurchaseInfo(skill, type, displayName)
+        })
+      }
     }
   }
 
