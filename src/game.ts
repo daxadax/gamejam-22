@@ -1,22 +1,19 @@
 import { GameManager } from './gameManager'
-import { GameUI } from './gameUI'
 import { Player } from './player'
-import { SoundLibrary } from './soundLibrary'
-import { SpellLibrary } from './spellLibrary'
 
-const canvas        = new UICanvas()
-const input         = Input.instance
-const player        = new Player()
-const soundLibrary  = new SoundLibrary()
-const spellLibrary  = new SpellLibrary(soundLibrary)
-
-const gameUI        = new GameUI(canvas, player, soundLibrary, spellLibrary)
-const gameManager   = new GameManager(canvas, gameUI, player, soundLibrary, spellLibrary)
+// GAME LOOP
+const player      = new Player()
+const gameManager = new GameManager(player)
 
 gameManager.initialize()
 
+// INPUT EVENTS
+const input = Input.instance
+
 input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, (e) => {
-  gameManager.spellHelper.selectNextSpell()
+  if ( gameManager.gameState.isStarted ) {
+    gameManager.spellHelper.selectNextSpell()
+  }
 })
 
 input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {

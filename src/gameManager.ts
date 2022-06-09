@@ -35,18 +35,24 @@ export class GameManager {
   enemyActionSystem!: EnemyActionSystem
   gameLoopSystem!: GameLoopSystem
 
-  constructor(canvas, gameUI, player, soundLibrary, spellLibrary) {
-    this.canvas = canvas
-    this.gameUI = gameUI
+  constructor(player) {
+    this.canvas = new UICanvas()
     this.player = player
-    this.soundLibrary = soundLibrary
-    this.spellLibrary = spellLibrary
+    this.soundLibrary = new SoundLibrary()
+    this.spellLibrary = new SpellLibrary(this.soundLibrary)
+    this.gameUI = new GameUI(this.canvas, player, this.soundLibrary, this.spellLibrary)
+    this.scene = new Scene()
+    this.gameState = new GameState()
   }
 
   // show basic UI and give player choice to play or quit
   initialize() {
     // start background music
     this.soundLibrary.loop('dark_ambience_loop')
+
+    // build scene
+    this.scene.initialize()
+    this.scene.buildStaticModels()
 
     // initialize player and restrict movement
     this.player.initialize()
@@ -66,8 +72,6 @@ export class GameManager {
   // load models, entities and systems and enter game loop
   startGame() {
     this.camera = Camera.instance
-    this.gameState = new GameState()
-    this.scene = new Scene()
     this.statusEffectResolver = new StatusEffectResolver()
     this.playerHelper = new PlayerActionHelper(this, this.gameUI, this.player, this.soundLibrary)
     this.spawnHelper = new SpawnHelper(this.gameState, this.scene, this.soundLibrary, this.statusEffectResolver)
@@ -88,12 +92,6 @@ export class GameManager {
     // add systems
     engine.addSystem(this.enemyActionSystem)
     engine.addSystem(this.gameLoopSystem)
-
-    // TODO: if certain scene components should be kept, they should be loaded
-    // before the systems are added to the engine
-    // run initializers
-    this.scene.initialize()
-    this.scene.buildStaticModels()
 
     // start game loop
     this.gameIntro.initialize()
