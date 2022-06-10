@@ -1,37 +1,42 @@
 export const spawnLocations = [
   new Transform({
-    position: new Vector3(31, 6.5, 54),
-    rotation: new Quaternion(0, 0, 0, 1),
-    scale: new Vector3(0.75, 0.75, 0.75)
-  }),
-  new Transform({
-    position: new Vector3(17, 3.5, 18),
-    rotation: Quaternion.Euler(0, 270, 0),
-    scale: new Vector3(1, 1, 1)
-  }),
-  new Transform({
-    position: new Vector3(17, 3.5, 27),
-    rotation: Quaternion.Euler(0, 270, 0),
-    scale: new Vector3(1, 1, 1)
-  }),
-  new Transform({
-    position: new Vector3(17, 3.5, 36),
-    rotation: Quaternion.Euler(0, 270, 0),
-    scale: new Vector3(1, 1, 1)
-  }),
-  new Transform({
-    position: new Vector3(47, 3.5, 18),
+      position: new Vector3(62.5, 3.5, 22.25),
     rotation: Quaternion.Euler(0, 90, 0),
     scale: new Vector3(1, 1, 1)
   }),
   new Transform({
-    position: new Vector3(47, 3.5, 27),
+    position: new Vector3(62.5, 3.5, 42.25),
     rotation: Quaternion.Euler(0, 90, 0),
     scale: new Vector3(1, 1, 1)
   }),
   new Transform({
-    position: new Vector3(47, 3.5, 36),
-    rotation: Quaternion.Euler(0, 90, 0),
+    position: new Vector3(1.5, 3.5, 22.25),
+    rotation: Quaternion.Euler(0, 270, 0),
+    scale: new Vector3(1, 1, 1)
+  }),
+  new Transform({
+    position: new Vector3(1.5, 3.5, 42.25),
+    rotation: Quaternion.Euler(0, 270, 0),
+    scale: new Vector3(1, 1, 1)
+  }),
+  new Transform({
+    position: new Vector3(22.5, 3.5, 62.5),
+    rotation: Quaternion.Euler(0, 0, 0),
+    scale: new Vector3(1, 1, 1)
+  }),
+  new Transform({
+    position: new Vector3(42.5, 3.5, 62.5),
+    rotation: Quaternion.Euler(0, 0, 0),
+    scale: new Vector3(1, 1, 1)
+  }),
+  new Transform({
+    position: new Vector3(22.5, 3.5, 1.5),
+    rotation: Quaternion.Euler(0, 180, 0),
+    scale: new Vector3(1, 1, 1)
+  }),
+  new Transform({
+    position: new Vector3(42.5, 3.5, 1.5),
+    rotation: Quaternion.Euler(0, 180, 0),
     scale: new Vector3(1, 1, 1)
   })
 ]
