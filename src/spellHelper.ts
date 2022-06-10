@@ -68,7 +68,7 @@ export class SpellHelper {
           if ( isHeadshot ) { this.playerHelper.gameUI.notify('HEADSHOT!', 0.7, Color4.Red()) }
 
           // deal damage to enemy targets
-          if ( entityType === "SkeletonEnemy" && enemy['hp'] > 0) {
+          if ( ( entityType === "SkeletonEnemy" || "ArmoredSkeletonEnemy" ) && enemy['hp'] > 0) {
             const skeleton = enemy as SkeletonEnemy
             const dmg = isHeadshot ? spellStats.dmg * 2 : spellStats.dmg
 
@@ -89,7 +89,7 @@ export class SpellHelper {
           const direction = Vector3.Zero().copyFrom(ray.direction)
           const target = origin.add(direction.multiplyByFloats(range, range, range))
 
-          // cast spell into the air like an idiot
+          // recklessly cast spell into the air
           activeSpell.cast(origin, target, 200)
         }
       },

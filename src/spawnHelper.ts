@@ -21,29 +21,48 @@ export class SpawnHelper {
     this.statusEffectResolver = statusEffectResolver
   }
 
-  // TODO: add new enemies in wave 4
   startNextWave() {
-    // notify player that next wave is starting
-    this.gameUI.notify("Wave "+ this.gameState.wave)
+    const waveNumber = this.gameState.wave
 
-    this.createSpawners(this.gameState.wave)
+    // notify player that next wave is starting
+    this.gameUI.notify("Wave "+ waveNumber)
+
+    if ( waveNumber < 3 ) {
+      this.createSpawners(waveNumber, waveNumber, 'skelly')
+      return null
+    }
+
+    if ( waveNumber < 5 ) {
+      this.createSpawners(waveNumber, waveNumber, 'armored_skelly')
+    }
+
+    if ( waveNumber === 5 ) {
+      // TODO: spawn boss
+
+      // create spawners at interval
+      this.createSpawners(waveNumber, waveNumber, 'skelly')
+    }
   }
 
-  createSpawners(level: number) {
-    const locations = spawnLocations.sort(() => .5 - Math.random()).slice(0, level);
+  createSpawners(level: number, count: number, enemyType: string) {
+    // pull x spawn locations where x is the give count
+    const locations = spawnLocations.sort(() => .5 - Math.random()).slice(0, count);
     const self = this
 
     locations.forEach(function(spawnLocation, i) {
-      const spawner = new Spawner(
-        level,
-        'enemy-spawner-'+ i,
-        self.scene,
-        self.soundLibrary,
-        self.statusEffectResolver,
-        spawnLocation
-      )
-
-      spawner.initialize()
+      self.createSpawner(level, i, enemyType, spawnLocation)
     })
+  }
+
+  createSpawner(level: number, enemyNumber: number, enemyType: string, spawnLocation: Transform) {
+     new Spawner(
+      level,
+      'enemy-spawner-'+ enemyNumber,
+      enemyType,
+      this.scene,
+      this.soundLibrary,
+      this.statusEffectResolver,
+      spawnLocation
+    ).initialize()
   }
 }

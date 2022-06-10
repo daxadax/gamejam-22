@@ -4,6 +4,7 @@ import { EnemyUI } from './enemyUI'
 import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
 import { SkeletonEnemy } from './skeletonEnemy'
+import { ArmoredSkeletonEnemy } from './armoredSkeletonEnemy'
 import { StatusEffectResolver } from './statusEffectResolver'
 
 export class Spawner extends Entity {
@@ -12,6 +13,7 @@ export class Spawner extends Entity {
   maxHp: number
   level: number
   maxEnemies: number
+  enemyType: string
   scene: Scene
   soundLibrary: SoundLibrary
   spawnCounter: number = 0
@@ -25,6 +27,7 @@ export class Spawner extends Entity {
   constructor(
     level: number,
     name: string,
+    enemyType: string,
     scene: Scene,
     soundLibrary: SoundLibrary,
     statusEffectResolver: StatusEffectResolver,
@@ -52,6 +55,7 @@ export class Spawner extends Entity {
     this.hp = 100 + ( this.level * 15 )
     this.maxHp = this.hp
     this.maxEnemies = 5 + this.level
+    this.enemyType = enemyType
 
     this.updateLabel()
 
@@ -72,7 +76,7 @@ export class Spawner extends Entity {
         // TODO: this logic should instead respond to the total enemies currently in combat
         if ( this.spawnCounter === this.maxEnemies ) { return null }
         log('spawning enemy')
-        this.spawnEnemy(this.spawnCounter)
+        this.spawnEnemy()
         this.spawnCounter ++
       })
     )
@@ -113,21 +117,38 @@ export class Spawner extends Entity {
     this.updateLabel()
   }
 
-  spawnEnemy(id: number) {
+  spawnEnemy() {
     const t = this.getComponent(Transform)
-    let n = new Transform()
-    n.position.copyFrom(t.position)
-    n.position.y = 0 // ground level
-    n.rotation.copyFrom(t.rotation)
+    let transform = new Transform()
+    transform.position.copyFrom(t.position)
+    transform.position.y = 0 // ground level
+    transform.rotation.copyFrom(t.rotation)
 
+    if ( this.enemyType === 'skelly' ) { this.spawnSkeleton(transform) }
+    if ( this.enemyType === 'armored_skelly' ) { this.spawnArmoredSkeleton(transform) }
+  }
+
+  spawnSkeleton(transform: Transform) {
     new SkeletonEnemy(
       new GLTFShape('models/skelly.glb'), // TODO: model library like soundLibrary
-      'enemy-skelly-'+ this.name +'-'+ id,
+      'enemy-skelly-'+ this.name +'-'+ this.spawnCounter,
       this.level,
       this.scene,
       this.soundLibrary,
       this.statusEffectResolver,
-      n
+      transform
+    )
+  }
+
+  spawnArmoredSkeleton(transform: Transform) {
+    new ArmoredSkeletonEnemy(
+      new GLTFShape('models/armored_skelly.glb'), // TODO: model library like soundLibrary
+      'enemy-armored-skelly-'+ this.name +'-'+ this.spawnCounter,
+      this.level,
+      this.scene,
+      this.soundLibrary,
+      this.statusEffectResolver,
+      transform
     )
   }
 

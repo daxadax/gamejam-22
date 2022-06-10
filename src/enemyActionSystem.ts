@@ -11,8 +11,10 @@ export class EnemyActionSystem implements ISystem {
   }
 
   onAddEntity(entity: Entity) {
+    // TODO: there is a nicer way to do this i'm sure
     // "enemy-skelly" not preceeded by "statusEffect-"
     if ( /(?<!statusEffect-)enemy-skelly/.test(entity.name) ) { this.enemies.push(entity) }
+    if ( /(?<!statusEffect-)enemy-armored-skelly/.test(entity.name) ) { this.enemies.push(entity) }
   }
 
   update(dt: number) {
