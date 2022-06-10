@@ -1,5 +1,6 @@
 import * as utils from '@dcl/ecs-scene-utils'
 
+import { staticLocations } from './staticLocations'
 import { StaticModel } from './staticModel'
 import { Spell } from './spell'
 
@@ -62,26 +63,18 @@ export class Scene extends Entity {
     //   scale: new Vector3(1, 1, 1)
     // }))
 
-    // new StaticModel(new GLTFShape('models/sigil.glb'), 'sigil', this, new Transform({
-    //   position: new Vector3(32, 5.14898681640625, 35.9151611328125),
-    //   rotation: new Quaternion(-0.13971063494682312, -0.00955082569271326, -0.0013476144522428513, 0.9901455044746399),
+    // new StaticModel(new GLTFShape('models/tombs.glb'), 'tombs', this, new Transform({
+    //   position: new Vector3(32, 0, 37),
+    //   rotation: new Quaternion(0, 0, 0, 1),
     //   scale: new Vector3(1, 1, 1)
     // }))
 
-    new StaticModel(new GLTFShape('models/tombs.glb'), 'tombs', this, new Transform({
-      position: new Vector3(32, 0, 37),
-      rotation: new Quaternion(0, 0, 0, 1),
-      scale: new Vector3(1, 1, 1)
-    }))
-
     // models placed multiple times
-    // const yellowPineTree = new GLTFShape('models/pine_tree/model.glb')
+    const ancientPath = new GLTFShape('models/ancient_path/model.glb')
 
     // place models
-    // new StaticModel(yellowPineTree, 'pinetree_001', this, new Transform({
-    //   position: new Vector3(8, 0, 57.5),
-    //   rotation: new Quaternion(0, 0, 0, 1),
-    //   scale: new Vector3(2.030536651611328, 2.030536651611328, 2.030536651611328)
-    // }))
+    staticLocations.ancientPath.forEach(function(location, i) {
+      new StaticModel(ancientPath, 'ancientPath-'+ i, this, location)
+    })
   }
 }
