@@ -71,30 +71,32 @@ export class GameManager {
 
   // load models, entities and systems and enter game loop
   startGame() {
-    this.camera = Camera.instance
-    this.statusEffectResolver = new StatusEffectResolver()
-    this.playerHelper = new PlayerActionHelper(this, this.gameUI, this.player, this.soundLibrary)
-    this.spawnHelper = new SpawnHelper(this.gameState, this.scene, this.soundLibrary, this.statusEffectResolver)
-    this.spellHelper = new SpellHelper(this.camera, this.playerHelper, this.spellLibrary)
+    const gm = this
 
-    this.gameIntro = new GameIntroduction(
-      this.gameUI,
-      this.gameState,
-      this.playerHelper,
-      this.soundLibrary,
-      this.spawnHelper
+    gm.camera = Camera.instance
+    gm.statusEffectResolver = new StatusEffectResolver()
+    gm.playerHelper = new PlayerActionHelper(gm, gm.gameUI, gm.player, gm.soundLibrary)
+    gm.spawnHelper = new SpawnHelper(gm.gameState, gm.gameUI, gm.scene, gm.soundLibrary, gm.statusEffectResolver)
+    gm.spellHelper = new SpellHelper(gm.camera, gm.playerHelper, gm.spellLibrary)
+
+    gm.gameIntro = new GameIntroduction(
+      gm.gameUI,
+      gm.gameState,
+      gm.playerHelper,
+      gm.soundLibrary,
+      gm.spawnHelper
     )
 
     // systems
-    this.enemyActionSystem = new EnemyActionSystem(this.camera, this.playerHelper)
-    this.gameLoopSystem = new GameLoopSystem(this, this.gameState)
+    gm.enemyActionSystem = new EnemyActionSystem(gm.camera, gm.playerHelper)
+    gm.gameLoopSystem = new GameLoopSystem(gm, gm.gameState)
 
     // add systems
-    engine.addSystem(this.enemyActionSystem)
-    engine.addSystem(this.gameLoopSystem)
+    engine.addSystem(gm.enemyActionSystem)
+    engine.addSystem(gm.gameLoopSystem)
 
     // start game loop
-    this.gameIntro.initialize()
+    gm.gameIntro.initialize()
   }
 
   // remove models, entities and systems and re-initialize
@@ -149,9 +151,6 @@ export class GameManager {
 
     // pause player regeneration between waves
     this.playerHelper.stopRegeneration()
-
-    // TODO: notify player that wave is complete
-    // this.gameUI.xxx
 
     // assign skill points
     this.playerHelper.incrementSkillPoints(3)

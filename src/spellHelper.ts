@@ -64,7 +64,8 @@ export class SpellHelper {
           // cast spell at target
           activeSpell.cast(origin, target, atkSpeed)
 
-          if ( isHeadshot ) { log('HEADSHOT!') }
+          // notify headshot
+          if ( isHeadshot ) { this.playerHelper.gameUI.notify('HEADSHOT!', 0.7, Color4.Red()) }
 
           // deal damage to enemy targets
           if ( entityType === "SkeletonEnemy" && enemy['hp'] > 0) {

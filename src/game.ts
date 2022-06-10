@@ -22,6 +22,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
   }
 })
 
+// TODO: add boss + spell casting
 // TODO: show status effects in enemy UI
 // TODO: build default onclick button event that can be added to
 // TODO: maybe the scene is initialized or there is a heavy fog as the only

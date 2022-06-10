@@ -1,4 +1,5 @@
 import { GameState } from './gameState'
+import { GameUI } from './gameUI'
 import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
 import { Spawner } from './spawner'
@@ -7,12 +8,14 @@ import { StatusEffectResolver } from './statusEffectResolver'
 
 export class SpawnHelper {
   gameState: GameState
+  gameUI: GameUI
   scene: Scene
   soundLibrary: SoundLibrary
   statusEffectResolver: StatusEffectResolver
 
-  constructor(gameState, scene, soundLibrary, statusEffectResolver) {
+  constructor(gameState, gameUI, scene, soundLibrary, statusEffectResolver) {
     this.gameState = gameState
+    this.gameUI = gameUI
     this.scene = scene
     this.soundLibrary = soundLibrary
     this.statusEffectResolver = statusEffectResolver
@@ -20,7 +23,9 @@ export class SpawnHelper {
 
   // TODO: add new enemies in wave 4
   startNextWave() {
-    log('starting wave '+ this.gameState.wave)
+    // notify player that next wave is starting
+    this.gameUI.notify("Wave "+ this.gameState.wave)
+
     this.createSpawners(this.gameState.wave)
   }
 

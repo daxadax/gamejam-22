@@ -123,9 +123,12 @@ export class GameUI {
     this.text.value = text
   }
 
-  // notify(text: string, duration?: number) {
-  //   ui.displayAnnouncement(text, duration || 3, false, Color4.Yellow())
-  // }
+  notify(text: string, duration?: number, color?: Color4) {
+    duration ||= 3
+    color ||= Color4.White()
+
+    ui.displayAnnouncement(text, duration, color)
+  }
 
   displayPlayerChoice() {
     const introText =
