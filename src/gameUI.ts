@@ -26,6 +26,13 @@ export class GameUI {
   btnNext: Button
   btnExit: Button
 
+  introText =
+    "After years of seeking, you've finally found it: the fabled tomb of the evil Archmage Bobby Bubonic. Your whole life has led you here and while you can't anticipate how things will end, you know it's your only chance to save your village / gain limitless power / get enough gold to pay for little timmy's operation. \n\nAre you ready?"
+  gameOver_playerDeath =
+    "As you slip into blackness you faintly hear a deep voice say 'I win again...'. Unfortunately you have died, but in the distance you see a glimmer - another chance to confront your fate. What will you do?\n\n\n\n\n"
+  gameOver_playerWin =
+    "You've done it!\n\nCongratulations, you've defeated Bobby Bubonic and proven your skills. In the crypt from which the evil wizard appeared, you see a passageway into the underworld: perhaps your adventure might one day continue, but for now, for you, the battle is over.\n\n"
+
   constructor(canvas, player, soundLibrary, spellLibrary) {
     this.canvas = canvas
     this.player = player
@@ -131,11 +138,8 @@ export class GameUI {
   }
 
   displayPlayerChoice() {
-    const introText =
-    "After years of seeking, you've finally found it: the fabled tomb of the evil Archmage Bobby Bubonic. Your whole life has led you here and while you can't anticipate how things will end, you know it's your only chance to save your village / gain limitless power / get enough gold to pay for little timmy's operation. \n\nAre you ready?"
-
     this.show()
-    this.editText(introText)
+    this.editText(this.introText)
 
     this.btnNext.setPosition(120)
     this.btnNext.setText(' Let\'s go!')
@@ -182,18 +186,13 @@ export class GameUI {
   }
 
   displayGameOver(ending: string) {
-    const playerDeath =
-      "As you slip into blackness you faintly hear a deep voice say 'I win again...'. Unfortunately you have died, but in the distance you see a glimmer - another chance to confront your fate. What will you do?\n\n\n\n\n"
-    const playerWin =
-      "You've done it!\n\nCongratulations, you've defeated Bobby Bubonic and proven your skills. In the crypt from which the evil wizard appeared, you see a passageway into the underworld: perhaps your adventure might one day continue, but for now, for you, the battle is over.\n\n"
-
     // hide playerUI
     this.playerUI.hide()
 
     // show UI elements
     this.show()
-    // TODO: surely there's a way to do this dynamically
-    this.editText(ending === 'playerDeath' ? playerDeath : playerWin)
+    //this.editText(ending === 'playerDeath' ? playerDeath : playerWin)
+    this.editText(this['gameOver_'+ ending])
 
     this.btnNext.setPosition(120)
     this.btnNext.setText('Try again')
