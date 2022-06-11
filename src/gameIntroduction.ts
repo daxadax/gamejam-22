@@ -67,13 +67,15 @@ export class GameIntroduction {
     // start game
     this.gameUI.btnNext.buttonComponent.onClick = new OnClick(() => {
       const spell = this.gameUI.spellLibrary.knownSpells().shift()
-      if ( spell === undefined ) {
-        this.selectInitialSkills()
-        this.requirementText.value = "You must select at least one Spell"
-      }
 
       // play sound
       this.soundLibrary.play('button_click')
+
+      // don't allow user to pass without selecting a spell
+      if ( spell === undefined ) {
+        this.requirementText.value = "You must select at least one Spell"
+        return this.selectInitialSkills()
+      }
 
       // hide existing components
       this.gameUI.editText('')
