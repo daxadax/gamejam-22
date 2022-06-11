@@ -22,6 +22,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
   }
 })
 
+// TODO: "try again" starts on wave 2 with no hp
 // TODO: add boss + spell casting
 // TODO: balance skeletons (dmg + health)
 // TODO: show status effects in enemy UI
