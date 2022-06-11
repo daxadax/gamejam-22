@@ -10,11 +10,11 @@ export class SpellHelper {
   playerHelper: PlayerActionHelper
   spellLibrary: SpellLibrary
 
-  constructor(camera, playerHelper, spellLibrary) {
-    this.camera = camera
-    this.physicsCast = PhysicsCast.instance
-    this.playerHelper = playerHelper
-    this.spellLibrary = spellLibrary
+  constructor(gameManager) {
+    this.camera       = gameManager.camera
+    this.physicsCast  = PhysicsCast.instance
+    this.playerHelper = gameManager.playerHelper
+    this.spellLibrary = gameManager.spellLibrary
   }
 
   selectNextSpell() {

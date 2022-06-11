@@ -73,19 +73,14 @@ export class GameManager {
   startGame() {
     const gm = this
 
-    gm.camera = Camera.instance
+    // passing just the GM to each class is a little bit suspect
+    // but it's so much easier. what could possibly go wrong?
+    gm.camera               = Camera.instance
     gm.statusEffectResolver = new StatusEffectResolver()
-    gm.playerHelper = new PlayerActionHelper(gm, gm.gameUI, gm.player, gm.soundLibrary)
-    gm.spawnHelper = new SpawnHelper(gm.gameState, gm.gameUI, gm.scene, gm.soundLibrary, gm.statusEffectResolver)
-    gm.spellHelper = new SpellHelper(gm.camera, gm.playerHelper, gm.spellLibrary)
-
-    gm.gameIntro = new GameIntroduction(
-      gm.gameUI,
-      gm.gameState,
-      gm.playerHelper,
-      gm.soundLibrary,
-      gm.spawnHelper
-    )
+    gm.playerHelper         = new PlayerActionHelper(gm)
+    gm.spawnHelper          = new SpawnHelper(gm)
+    gm.spellHelper          = new SpellHelper(gm)
+    gm.gameIntro            = new GameIntroduction(gm)
 
     // systems
     gm.enemyActionSystem = new EnemyActionSystem(gm.camera, gm.playerHelper)

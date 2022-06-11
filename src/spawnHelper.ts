@@ -13,12 +13,12 @@ export class SpawnHelper {
   soundLibrary: SoundLibrary
   statusEffectResolver: StatusEffectResolver
 
-  constructor(gameState, gameUI, scene, soundLibrary, statusEffectResolver) {
-    this.gameState = gameState
-    this.gameUI = gameUI
-    this.scene = scene
-    this.soundLibrary = soundLibrary
-    this.statusEffectResolver = statusEffectResolver
+  constructor(gameManager) {
+    this.gameState            = gameManager.gameState
+    this.gameUI               = gameManager.gameUI
+    this.scene                = gameManager.scene
+    this.soundLibrary         = gameManager.soundLibrary
+    this.statusEffectResolver = gameManager.statusEffectResolver
   }
 
   startNextWave() {

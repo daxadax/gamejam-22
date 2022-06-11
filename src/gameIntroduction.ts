@@ -22,12 +22,12 @@ export class GameIntroduction {
   instructions =
     " - Cast spells with the 'E' key.\n - Cycle through your available spells with the left mouse button. \n - Destroy all enemies and portals to complete the current wave and move on to the next.\n\n\n"
 
-  constructor(gameUI, gameState, playerHelper, soundLibrary, spawnHelper) {
-    this.gameState = gameState
-    this.gameUI = gameUI
-    this.playerHelper = playerHelper
-    this.soundLibrary = soundLibrary
-    this.spawnHelper = spawnHelper
+  constructor(gameManager) {
+    this.gameState    = gameManager.gameState
+    this.gameUI       = gameManager.gameUI
+    this.playerHelper = gameManager.playerHelper
+    this.soundLibrary = gameManager.soundLibrary
+    this.spawnHelper  = gameManager.spawnHelper
 
     this.requirementText = new UIText(this.gameUI.canvas)
     this.requirementText.font = new Font(Fonts.SanFrancisco)

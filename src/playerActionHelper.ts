@@ -13,11 +13,11 @@ export class PlayerActionHelper {
   regenerator: Entity
   soundLibrary: SoundLibrary
 
-  constructor(gameManager, gameUI, player, soundLibrary) {
+  constructor(gameManager) {
     this.gameManager  = gameManager
-    this.gameUI       = gameUI
-    this.player       = player
-    this.soundLibrary = soundLibrary
+    this.gameUI       = gameManager.gameUI
+    this.player       = gameManager.player
+    this.soundLibrary = gameManager.soundLibrary
 
     this.regenerator = new Entity()
     this.regenerator.addComponent(
