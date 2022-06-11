@@ -61,6 +61,11 @@ export class PlayerUI {
     this.manaBar = new ui.UIBar(1, -430, 0, Color4.Blue(), ui.BarStyles.ROUNDBLACK, 1.7, true)
   }
 
+  reset() {
+    this.healthBar.set(1)
+    this.manaBar.set(1)
+  }
+
   setActiveSpell(name: string, level: number) {
     const coordinates = this.spellLibrary.getUIImage(name)
 

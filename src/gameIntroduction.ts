@@ -70,12 +70,6 @@ export class GameIntroduction {
       if ( spell === undefined ) {
         this.selectInitialSkills()
         this.requirementText.value = "You must select at least one Spell"
-
-        // TODO: this delay never triggers
-        return new utils.Delay(3, ()=> {
-          log('wtf')
-          this.requirementText.value = ''
-        })
       }
 
       // play sound
@@ -88,7 +82,6 @@ export class GameIntroduction {
       // set active spell
       this.playerHelper.setActiveSpell(spell)
 
-      // TODO: remove if you can get delay working
       // remove requirement text on successful continue
       this.requirementText.value = null
 

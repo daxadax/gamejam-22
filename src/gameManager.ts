@@ -124,8 +124,14 @@ export class GameManager {
       // reset player
       this.player.reset()
 
+      // reset playerUI
+      this.gameUI.playerUI.reset()
+
       // reset spells
       this.spellLibrary.reset()
+
+      // reset gameState
+      this.gameState.reset()
 
       // TODO: move player to spawn point
 

@@ -4,6 +4,13 @@ export class GameState {
   wave: number = 0
   waveIsActive: boolean = false
 
+  reset() {
+    this.isOver = false
+    this.isStarted = false
+    this.wave = 0
+    this.waveIsActive = false
+  }
+
   startGame() {
     this.isStarted = true
   }
