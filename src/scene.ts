@@ -51,12 +51,6 @@ export class Scene extends Entity {
       scale: new Vector3(0.999, 0.999, 0.999)
     }))
 
-    // new StaticModel(new GLTFShape('models/altar-portal.glb'), 'altar', this, new Transform({
-    //   position: new Vector3(32, 0.06, 31),
-    //   rotation: new Quaternion(0, 0, 0, 1),
-    //   scale: new Vector3(1, 1, 1)
-    // }))
-
     // new StaticModel(new GLTFShape('models/entry.glb'), 'entryway', this, new Transform({
     //   position: new Vector3(32, 0.06, 31.5),
     //   rotation: new Quaternion(0, 0, 0, 1),
