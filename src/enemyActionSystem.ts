@@ -15,6 +15,7 @@ export class EnemyActionSystem implements ISystem {
     // "enemy-skelly" not preceeded by "statusEffect-"
     if ( /(?<!statusEffect-)enemy-skelly/.test(entity.name) ) { this.enemies.push(entity) }
     if ( /(?<!statusEffect-)enemy-armored-skelly/.test(entity.name) ) { this.enemies.push(entity) }
+    if ( /(?<!statusEffect-)enemy-boss/.test(entity.name) ) { this.enemies.push(entity) }
   }
 
   update(dt: number) {

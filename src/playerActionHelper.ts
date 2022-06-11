@@ -67,7 +67,7 @@ export class PlayerActionHelper {
     this.gameUI.playerUI.decrementHp(amount)
 
     if ( this.player.isDead() ) {
-      this.gameManager.endGame()
+      this.gameManager.endGame('playerDeath')
     }
   }
 

@@ -181,13 +181,19 @@ export class GameUI {
     })
   }
 
-  displayGameOver() {
+  displayGameOver(ending: string) {
+    const playerDeath =
+      "As you slip into blackness you faintly hear a deep voice say 'I win again...'. Unfortunately you have died, but in the distance you see a glimmer - another chance to confront your fate. What will you do?\n\n\n\n\n"
+    const playerWin =
+      "You've done it!\n\nCongratulations, you've defeated Bobby Bubonic and proven your skills. In the crypt from which the evil wizard appeared, you see a passageway into the underworld: perhaps your adventure might one day continue, but for now, for you, the battle is over.\n\n"
+
     // hide playerUI
     this.playerUI.hide()
 
     // show UI elements
     this.show()
-    this.editText("As you slip into blackness you faintly hear a deep voice say 'I win again'. Unfortunately you find yourself quite dead. What do?")
+    // TODO: surely there's a way to do this dynamically
+    this.editText(ending === 'playerDeath' ? playerDeath : playerWin)
 
     this.btnNext.setPosition(120)
     this.btnNext.setText('Try again')

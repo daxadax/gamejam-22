@@ -95,7 +95,7 @@ export class GameManager {
   }
 
   // remove models, entities and systems and re-initialize
-  endGame() {
+  endGame(ending: string) {
     if ( this.gameState.isOver ) { return null }
 
     let entitiesToRemove = this.gameLoopSystem.ephemeralEntities
@@ -127,14 +127,14 @@ export class GameManager {
       // reset spells
       this.spellLibrary.reset()
 
-      // move player to spawn point
+      // TODO: move player to spawn point
 
       // re-start game
       this.startGame()
     })
 
     // display game over message
-    this.gameUI.displayGameOver()
+    this.gameUI.displayGameOver(ending)
   }
 
   completeWave() {
