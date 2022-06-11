@@ -22,14 +22,19 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
   }
 })
 
-// TODO: "try again" starts on wave 2 with no hp
-// TODO: add boss + spell casting
+// high priority
+// TODO: add boss spell casting
+// TODO: spawn in skeletons at intervals on last wave
 // TODO: balance skeletons (dmg + health)
+// TODO: implement own health bars for player
+
+// middle priority
 // TODO: show status effects in enemy UI
+// TODO: different boss music // sound effects
+// TODO: freeze portals
+
+// low priority
 // TODO: build default onclick button event that can be added to
-// TODO: maybe the scene is initialized or there is a heavy fog as the only
-// model loaded when you enter the scene - if you choose to play, the full scene
-// loads and the fog disappears
 // TODO: enemy types with weaknesses
 // TODO: load next-level portals so the user can choose which enemies they face
 // TODO: rogue-like elements? (requires server)
