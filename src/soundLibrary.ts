@@ -3,20 +3,22 @@ export class SoundLibrary {
 
   constructor() {
     const blizzardSpell = new Sound('blizzard.wav')
+    const bossEmerge = new Sound('boss_emerge.mp3')
     const buttonClick = new Sound('upgrade_select.mp3')
     const enemyDie = new Sound('enemy_death.mp3')
     const enemyHit = new Sound('hit.wav')
     const fireballSpell = new Sound('fireball.wav')
     const playerHit = new Sound('player_hit.mp3')
+    const poisonSpell = new Sound('poison.wav')
     const portalClose = new Sound('portal_close.wav')
     const stormSpell = new Sound('lightning.wav')
     const upgradeSkill = new Sound('downgrade_select.mp3')
-    const poisonSpell = new Sound('poison.wav')
     const waveComplete = new Sound('magic_spell_06.wav')
 
     const darkAmbienceLoop = new BackgroundSound('dark_ambience_loop.mp3')
 
     this.library =  {
+      boss_emerge: bossEmerge,
       button_click: buttonClick,
       enemy_die: enemyDie,
       enemy_hit: enemyHit,

@@ -16,3 +16,6 @@ README.md
 *.fbx
 *.zip
 *.rar
+sounds/bossEmerge.aup
+sounds/bossEmerge_data/
+

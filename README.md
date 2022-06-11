@@ -25,6 +25,9 @@ The following are opensource assets from outside decentraland:
  - https://opengameart.org/content/spell-4-fire
  - https://freesound.org/people/CGEffex/sounds/89769/
  - https://opengameart.org/content/dark-ambience-loop
+ - https://freesound.org/people/nebulousflynn/sounds/234360/
+ - https://freesound.org/people/Setuniman/sounds/128335/
+ - https://freesound.org/people/Ballistiq85/sounds/211566/
 
 ### 3D Models
  - https://sketchfab.com/3d-models/ancient-portal-b68dceee1b22484ab6ca0207b9e7137a
