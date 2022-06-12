@@ -24,7 +24,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
 
 // high priority
 // TODO: add boss spell casting
-// TODO: spawn in skeletons at intervals on last wave
 // TODO: balance skeletons (dmg + health)
 // TODO: implement own health bars for player
 

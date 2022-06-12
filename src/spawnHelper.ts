@@ -46,10 +46,15 @@ export class SpawnHelper {
     if ( waveNumber === 5 ) {
       this.spawnBoss()
 
-      // create spawners every 20 seconds
-      new utils.Interval(20000, () => {
-        this.createSpawners(3, 2, 'skelly')
-      })
+      // create spawners every 15 seconds
+      const spawnerSpanwer = new Entity()
+      engine.addEntity(spawnerSpanwer)
+
+      spawnerSpanwer.addComponent(
+        new utils.Interval(15000, () => {
+          this.createSpawners(2, 1, 'skelly')
+        })
+      )
     }
   }
 
