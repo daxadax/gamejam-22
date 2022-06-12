@@ -47,9 +47,7 @@ export class Spawner extends Entity {
     this.scene = scene
     this.soundLibrary = soundLibrary
     this.statusEffectResolver = statusEffectResolver
-    this.enemyUI = new EnemyUI(this, new Transform({
-      position: new Vector3(0, 5, -1)
-    }))
+    this.enemyUI = new EnemyUI(this)
 
     this.level = level
     this.hp = 100 + ( this.level * 15 )
@@ -57,6 +55,9 @@ export class Spawner extends Entity {
     this.maxEnemies = 5 + this.level
     this.enemyType = enemyType
 
+    this.enemyUI.createLabel(new Transform({
+      position: new Vector3(0, 3.5, -0.5)
+    }))
     this.updateLabel()
 
     return this

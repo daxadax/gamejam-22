@@ -10,10 +10,13 @@ export class EnemyUI {
     position: new Vector3(0, 8, 0)
   })
 
-  // TODO: use createLabel instead of constructor
-  constructor(enemy: IEntity, offset?: Transform) {
+  constructor(enemy: IEntity) {
+    this.enemy = enemy
+  }
+
+  createLabel(offset?: Transform) {
     this.label = new Entity()
-    this.label.setParent(enemy)
+    this.label.setParent(this.enemy)
     this.label.addComponent(new Billboard())
     this.label.addComponent(offset || this.defaultOffset)
 

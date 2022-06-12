@@ -61,6 +61,7 @@ export class SkeletonEnemy extends Entity {
     this.speed = 3 + ( this.level / 2 )
     this.dmg = 5 * (1.1 + this.level)
 
+    this.enemyUI.createLabel()
     this.updateLabel()
 
     return this
