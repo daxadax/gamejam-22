@@ -10,15 +10,15 @@ gameManager.initialize()
 // INPUT EVENTS
 const input = Input.instance
 
-input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, (e) => {
+input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   if ( gameManager.gameState.isStarted ) {
     gameManager.spellHelper.selectNextSpell()
   }
 })
 
-input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, (target) => {
+input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, () => {
   if ( player.stats.mana >= player.activeSpell.manaCost ) {
-    gameManager.spellHelper.castActiveSpell(player.activeSpell, target)
+    gameManager.spellHelper.castActiveSpell(player.activeSpell)
   }
 })
 
