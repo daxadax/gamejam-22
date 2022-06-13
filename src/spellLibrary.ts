@@ -36,8 +36,6 @@ export class SpellLibrary {
     }
   }
 
-  // TODO: make a cache here or on player instead everytime a spell is learned
-  // TODO: of course Object.values doesn't work, why is typeshit so lame
   knownSpells() {
     //return this.spells.map(function(key) { this.spells[key] }).filter(spell => spell.level > 0)
     let knownSpells = []

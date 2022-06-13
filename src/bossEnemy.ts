@@ -4,6 +4,7 @@ import { EnemyUI } from './enemyUI'
 import { GameManager } from './gameManager'
 import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
+import { Spell } from './spell'
 import { StatusEffectResolver } from './statusEffectResolver'
 
 export class BossEnemy extends Entity {
@@ -16,6 +17,7 @@ export class BossEnemy extends Entity {
   maxHp: number
   statusEffects = []
   speed: number
+  spell: Spell
 
   attackTimer: number = 0
 
@@ -27,7 +29,6 @@ export class BossEnemy extends Entity {
     delay: number
   ) {
     super(name)
-    engine.addEntity(this)
     this.setParent(gameManager.scene)
 
     transform.scale.x = 2.5
@@ -37,21 +38,23 @@ export class BossEnemy extends Entity {
 
     model.withCollisions = true
     model.isPointerBlocker = true
-    model.visible = false
-    this.addComponent(model)
+    model.visible = true
 
     this.addComponent(new Animator())
     let walk = new AnimationState('walk', { layer: 0, looping: true })
-    let cast = new AnimationState('attack', { layer: 0 })
+    let attack = new AnimationState('attack', { layer: 0 })
     let die = new AnimationState('die', { layer: 0 })
     this.getComponent(Animator).addClip(walk)
-    this.getComponent(Animator).addClip(cast)
+    this.getComponent(Animator).addClip(attack)
     this.getComponent(Animator).addClip(die)
     walk.play()
 
     this.gameManager = gameManager
     this.soundLibrary = gameManager.soundLibrary
     this.statusEffectResolver = gameManager.statusEffectResolver
+
+    this.spell = new Spell('fireball', 'fireball.glb', this.soundLibrary, {})
+    this.spell.dmg = 20
 
     // create health bar
     this.enemyUI = new EnemyUI(this)
@@ -62,9 +65,10 @@ export class BossEnemy extends Entity {
     this.speed = 6
     this.dmg = 6
 
-    // delay appearance of model and health bar
+    // delay adding entity to the game
     this.addComponent(new utils.Delay(delay, () => {
-      model.visible = true
+      engine.addEntity(this)
+      this.addComponent(model)
       this.enemyUI.createHealthBar(gameManager.gameUI.canvas)
     }))
 
@@ -91,10 +95,18 @@ export class BossEnemy extends Entity {
     return this.attackTimer > 0
   }
 
-  // For now, all attacks hit
-  attack() {
-    this.attackTimer = 1.2
+  castSpell(target: Vector3) {
+    this.attackTimer = 3.5
     this.getComponent(Animator).getClip('attack').play()
+
+    utils.setTimeout(1500, ()=>{
+      this.gameManager.spellHelper.enemyMageCastSpell(this.spell, this.getComponent(Transform), target)
+    })
+  }
+
+  blink() {
+    this.getComponent(Animator).getClip('attack').stop()
+    this.soundLibrary.play('blink')
   }
 
   walk() {
@@ -134,6 +146,9 @@ export class BossEnemy extends Entity {
         // TODO: enemy should rotate to face dmgSource before death animation is triggered
         this.getComponent(Animator).getClip('die').play()
         this.addComponentOrReplace(new utils.ExpireIn(2300))
+
+        // remove enemyUI
+        this.enemyUI.removeHealthBar()
 
         // end game when boss dies
         this.gameManager.endGame('playerWin')

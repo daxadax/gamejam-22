@@ -23,7 +23,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, () => {
 })
 
 // high priority
-// TODO: add boss spell casting
+// TODO: game name!
 // TODO: balance skeletons (dmg + health)
 // TODO: implement own health bars for player
 

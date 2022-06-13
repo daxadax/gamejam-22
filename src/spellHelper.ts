@@ -1,3 +1,4 @@
+import { GameUI } from './gameUI'
 import { PlayerActionHelper } from './playerActionHelper'
 import { SkeletonEnemy } from './skeletonEnemy'
 import { Spawner } from './spawner'
@@ -6,12 +7,14 @@ import { SpellLibrary } from './spellLibrary'
 
 export class SpellHelper {
   camera: Camera
+  gameUI: GameUI
   physicsCast: PhysicsCast
   playerHelper: PlayerActionHelper
   spellLibrary: SpellLibrary
 
   constructor(gameManager) {
     this.camera       = gameManager.camera
+    this.gameUI       = gameManager.gameUI
     this.physicsCast  = PhysicsCast.instance
     this.playerHelper = gameManager.playerHelper
     this.spellLibrary = gameManager.spellLibrary
@@ -31,11 +34,11 @@ export class SpellHelper {
     this.playerHelper.setActiveSpell(knownSpells[active])
   }
 
-  castActiveSpell(activeSpell: Spell, target: any) {
-    let spellStats = this.playerHelper.activeSpellStats()
-    let position = this.camera.position
-    let rotation = this.camera.rotation
-    let range = spellStats.range
+  castActiveSpell(activeSpell: Spell) {
+    const spellStats = this.playerHelper.activeSpellStats()
+    const position = this.camera.position
+    const rotation = this.camera.rotation
+    const range = spellStats.range
 
     log('casting ', activeSpell.name, spellStats)
 
@@ -65,7 +68,7 @@ export class SpellHelper {
           activeSpell.cast(origin, target, atkSpeed)
 
           // notify headshot
-          if ( isHeadshot ) { this.playerHelper.gameUI.notify('HEADSHOT!', 0.7, Color4.Red()) }
+          if ( isHeadshot ) { this.gameUI.notify('HEADSHOT!', 0.7, Color4.Red()) }
 
           // deal damage to enemy targets
           if ( ( entityType === "SkeletonEnemy" || "ArmoredSkeletonEnemy" ) && enemy['hp'] > 0) {
@@ -95,5 +98,25 @@ export class SpellHelper {
       },
       1
     )
+  }
+
+  enemyMageCastSpell(spell: Spell, transform: Transform, target: Vector3) {
+    const range = 32
+
+    let origin = new Vector3(transform.position.x, 2, transform.position.z)
+    let atkSpeed = 200
+
+    // cast spell at target
+    spell.cast(origin, target, 200)
+
+    // deal damage to player on hit
+    if ( this.isApproximateHit(target, this.camera.position) ) {
+      this.playerHelper.takeDmg(spell.dmg)
+    }
+  }
+
+  isApproximateHit(target: Vector3, currentPosition: Vector3) {
+    return Math.round(target.x) === Math.round(currentPosition.x)
+    && Math.round(target.z) === Math.round(currentPosition.z)
   }
 }

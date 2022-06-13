@@ -3,6 +3,7 @@ export class SoundLibrary {
 
   constructor() {
     const blizzardSpell = new Sound('blizzard.wav')
+    const blink = new Sound('blink.wav')
     const bossEmerge = new Sound('boss_emerge.mp3')
     const buttonClick = new Sound('upgrade_select.mp3')
     const enemyDie = new Sound('enemy_death.mp3')
@@ -18,6 +19,7 @@ export class SoundLibrary {
     const darkAmbienceLoop = new BackgroundSound('dark_ambience_loop.mp3')
 
     this.library =  {
+      blink: blink,
       boss_emerge: bossEmerge,
       button_click: buttonClick,
       enemy_die: enemyDie,

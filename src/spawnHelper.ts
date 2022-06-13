@@ -107,7 +107,7 @@ export class SpawnHelper {
         rotation: Quaternion.Euler(0, 180, 0),
         scale: new Vector3(1, 1, 1)
       }),
-      10000
+      2000//10000
     )
   }
 }

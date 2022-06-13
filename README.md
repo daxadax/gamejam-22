@@ -28,6 +28,7 @@ The following are opensource assets from outside decentraland:
  - https://freesound.org/people/nebulousflynn/sounds/234360/
  - https://freesound.org/people/Setuniman/sounds/128335/
  - https://freesound.org/people/Ballistiq85/sounds/211566/
+ - https://freesound.org/people/Hacrown87/sounds/488257/
 
 ### 3D Models
  - https://sketchfab.com/3d-models/ancient-portal-b68dceee1b22484ab6ca0207b9e7137a

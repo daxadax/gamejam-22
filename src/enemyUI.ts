@@ -2,6 +2,7 @@ export class EnemyUI {
   HEALTH_BAR_MAX_WIDTH = 666
 
   enemy: any
+  healthBarBg: UIContainerRect
   healthBar: UIContainerRect
   label: Entity
   text: TextShape
@@ -30,16 +31,16 @@ export class EnemyUI {
   }
 
   createHealthBar(canvas: UICanvas) {
-    const healthBarBg = new UIContainerRect(canvas)
-    healthBarBg.width = this.HEALTH_BAR_MAX_WIDTH
-    healthBarBg.height = 40
-    healthBarBg.vAlign = 'top'
-    healthBarBg.hAlign = 'left'
-    healthBarBg.positionX = '27.5%'
-    healthBarBg.positionY = 60
-    healthBarBg.color = Color4.Black()
-    healthBarBg.isPointerBlocker = false
-    healthBarBg.visible = true
+    this.healthBarBg = new UIContainerRect(canvas)
+    this.healthBarBg.width = this.HEALTH_BAR_MAX_WIDTH
+    this.healthBarBg.height = 40
+    this.healthBarBg.vAlign = 'top'
+    this.healthBarBg.hAlign = 'left'
+    this.healthBarBg.positionX = '27.5%'
+    this.healthBarBg.positionY = 60
+    this.healthBarBg.color = Color4.Black()
+    this.healthBarBg.isPointerBlocker = false
+    this.healthBarBg.visible = true
 
     this.healthBar = new UIContainerRect(canvas)
     this.healthBar.width = this.HEALTH_BAR_MAX_WIDTH
@@ -51,6 +52,11 @@ export class EnemyUI {
     this.healthBar.color = Color4.Red()
     this.healthBar.isPointerBlocker = false
     this.healthBar.visible = true
+  }
+
+  removeHealthBar() {
+    this.healthBarBg.visible = false
+    this.healthBar.visible = false
   }
 
   updateLabel(text: string) {
