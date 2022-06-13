@@ -99,7 +99,6 @@ export class Spawner extends Entity {
     if ( this.isDead() ) { return null }
 
     log("player dealt "+ dmg + " damage to Spawner")
-    log("Spawner hp: "+ this.hp +"/"+ this.maxHp)
     utils.setTimeout(atkSpeed, ()=> {
       this.hp -= dmg
       this.soundLibrary.play('enemy_hit')

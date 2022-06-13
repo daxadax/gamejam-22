@@ -115,9 +115,6 @@ export class PlayerUI {
       activeStatText = "/ "+ activeStatValue +" "+ activeStat
     }
 
-    log(stats)
-    log(activeStatText)
-
     this.activeSpellImg.sourceTop = this.spellLibrary.getUIImage(name)
     this.activeSpellText.value = stats.dmg +" DMG "+ activeStatText
   }
