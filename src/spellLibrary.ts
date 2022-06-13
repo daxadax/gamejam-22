@@ -7,11 +7,17 @@ export class SpellLibrary {
   spells: any
   soundLibrary: SoundLibrary
 
+  activeStatMap = {
+    'blizzard': 'Slow',
+    'poison': 'DoT',
+    'storm': 'Knockback'
+  }
+
   UIImageMap = {
-    'blizzard': [0,0],
-    'poison': [200,0],
-    'fireball': [200, 200],
-    'storm': [0, 200]
+    'blizzard': 0,
+    'fireball': 100,
+    'poison': 200,
+    'storm': 300
   }
 
   constructor(gameManager) {
@@ -55,6 +61,10 @@ export class SpellLibrary {
   reset() {
     this.spells = {}
     this.initialize()
+  }
+
+  getActiveStat(name: string) {
+    return this.activeStatMap[name]
   }
 
   getUIImage(name: string) {

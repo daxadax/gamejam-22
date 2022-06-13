@@ -41,7 +41,7 @@ export class PlayerActionHelper {
 
   setActiveSpell(spell: Spell) {
     this.player.setActiveSpell(spell)
-    this.gameUI.playerUI.setActiveSpell(spell.name, spell.level)
+    this.gameUI.playerUI.setActiveSpell(spell.name, this.activeSpellStats())
   }
 
   activeSpellStats() {
@@ -64,7 +64,7 @@ export class PlayerActionHelper {
     this.gameUI.flashColor(new Color4(255, 0, 0, 0.25))
     this.soundLibrary.play('player_hit')
     this.player.diminishHp(amount)
-    this.gameUI.playerUI.decrementHp(amount)
+    this.gameUI.playerUI.decrementHp()
 
     if ( this.player.isDead() ) {
       this.gameManager.endGame('playerDeath')
@@ -81,7 +81,7 @@ export class PlayerActionHelper {
   diminishMana(amount: number) {
     if ( this.player.stats.mana > 0) {
       this.player.diminishMana(amount)
-      this.gameUI.playerUI.decrementMana(amount)
+      this.gameUI.playerUI.decrementMana()
     }
   }
 

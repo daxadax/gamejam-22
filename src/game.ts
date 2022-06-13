@@ -26,7 +26,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, () => {
 // TODO: game name!
 // TODO: counter of enemies / portals
 // TODO: balance skeletons (dmg + health)
-// TODO: implement own health bars for player
+// TODO: simple server for stats
 
 // middle priority
 // TODO: show status effects in enemy UI

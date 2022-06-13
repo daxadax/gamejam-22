@@ -1,11 +1,10 @@
-import * as ui from '@dcl/ui-scene-utils'
-import { UIBar } from '@dcl/ui-scene-utils'
-
+import { GameManager } from './gameManager'
 import { Player } from './player'
 import { SpellLibrary } from './spellLibrary'
 
 export class PlayerUI {
-  canvas: UICanvas
+  BAR_MAX_WIDTH = 290
+
   player: Player
   spellLibrary: SpellLibrary
 
@@ -13,21 +12,23 @@ export class PlayerUI {
   private brand: UIText
   private activeSpellWrapper: UIContainerRect
   private activeSpellImg: UIImage
-  private healthBar: UIBar
-  private manaBar: UIBar
+  private activeSpellText: UIText
+  private barsBg: UIContainerRect
+  private healthBar: UIContainerRect
+  private manaBar: UIContainerRect
 
-  constructor(canvas, player, spellLibrary) {
+  constructor(canvas: UICanvas, player: Player, spellLibrary: SpellLibrary) {
     this.player = player
     this.spellLibrary = spellLibrary
 
     this.wrapper = new UIContainerRect(canvas);
-    // this.wrapper.color = Color4.Red()
+    this.wrapper.color = Color4.Black()
     this.wrapper.width  = 300
-    this.wrapper.height = 200
-    this.wrapper.hAlign = 'center'
-    this.wrapper.vAlign = 'bottom'
-    this.wrapper.positionX = -10
-    this.wrapper.positionY = -30
+    this.wrapper.height = 150
+    this.wrapper.hAlign = 'right'
+    this.wrapper.vAlign = 'top'
+    this.wrapper.positionX = -5
+    this.wrapper.positionY = 70
     this.wrapper.visible = false
 
     // this.brand = new UIText(this.wrapper)
@@ -36,7 +37,7 @@ export class PlayerUI {
     // this.brand.vAlign = 'bottom'
     // this.brand.positionX = -55
     // this.brand.positionY = 150
-    // this.brand.value = 'GAMEJAM \'22'
+    // this.brand.value = 'RIFT BATTLEGROUND'
 
     this.activeSpellWrapper = new UIContainerRect(this.wrapper)
     this.activeSpellWrapper.width  = 300
@@ -49,67 +50,111 @@ export class PlayerUI {
     this.activeSpellImg = new UIImage(this.activeSpellWrapper, new Texture('assets/element_map.png'))
     this.activeSpellImg.hAlign = 'left'
     this.activeSpellImg.vAlign = 'top'
-    this.activeSpellImg.width = 150
-    this.activeSpellImg.height = 150
-    this.activeSpellImg.sourceWidth = 200
-    this.activeSpellImg.sourceHeight = 200
+    this.activeSpellImg.positionX = -80
+    this.activeSpellImg.width = 240
+    this.activeSpellImg.height = 70
+    this.activeSpellImg.sourceWidth = 305
+    this.activeSpellImg.sourceHeight = 100
     this.activeSpellImg.sourceTop = 0
     this.activeSpellImg.sourceLeft = 0
 
-    // TODO: implement my own healthbars trying to position this sucks
-    this.healthBar = new ui.UIBar(1, -820, 0, Color4.Red(), ui.BarStyles.ROUNDBLACK, 1.7, true)
-    this.manaBar = new ui.UIBar(1, -430, 0, Color4.Blue(), ui.BarStyles.ROUNDBLACK, 1.7, true)
+    this.activeSpellText = new UIText(this.activeSpellWrapper)
+    this.activeSpellText.width = 200
+    this.activeSpellText.font = new Font(Fonts.SanFrancisco)
+    this.activeSpellText.fontSize = 15
+    this.activeSpellText.vAlign = "top"
+    this.activeSpellText.hAlign = "left"
+    this.activeSpellText.positionX = 4
+    this.activeSpellText.positionY = -8
+    this.activeSpellText.color = Color4.White()
+
+    this.barsBg = new UIContainerRect(this.wrapper)
+    this.barsBg.width = this.BAR_MAX_WIDTH + 10
+    this.barsBg.height = 90
+    this.barsBg.vAlign = 'bottom'
+    this.barsBg.hAlign = 'center'
+    this.barsBg.positionY = 0
+    this.barsBg.color = Color4.Black()
+    this.barsBg.isPointerBlocker = false
+    this.barsBg.visible = true
+
+    this.healthBar = new UIContainerRect(this.barsBg)
+    this.healthBar.width = this.BAR_MAX_WIDTH
+    this.healthBar.height = 40
+    this.healthBar.vAlign = 'top'
+    this.healthBar.hAlign = 'left'
+    this.healthBar.positionX = 5
+    this.healthBar.positionY = -2.5
+    this.healthBar.color = Color4.Red()
+    this.healthBar.isPointerBlocker = false
+    this.healthBar.visible = true
+
+    this.manaBar = new UIContainerRect(this.barsBg)
+    this.manaBar.width = this.BAR_MAX_WIDTH
+    this.manaBar.height = 40
+    this.manaBar.vAlign = 'top'
+    this.manaBar.hAlign = 'left'
+    this.manaBar.positionX = 5
+    this.manaBar.positionY = -45
+    this.manaBar.color = Color4.Blue()
+    this.manaBar.isPointerBlocker = false
+    this.manaBar.visible = true
   }
 
   reset() {
-    this.healthBar.set(1)
-    this.manaBar.set(1)
+    this.healthBar.width = this.BAR_MAX_WIDTH
+    this.manaBar.width = this.BAR_MAX_WIDTH
   }
 
-  setActiveSpell(name: string, level: number) {
-    const coordinates = this.spellLibrary.getUIImage(name)
+  setActiveSpell(name: string, stats: any) {
+    const activeStat = this.spellLibrary.getActiveStat(name)
+    let activeStatText = ''
 
-    this.activeSpellImg.sourceTop = coordinates[0]
-    this.activeSpellImg.sourceLeft = coordinates[1]
+    if ( activeStat != undefined ) {
+      const activeStatValue = stats[activeStat.toLowerCase()]
+      activeStatText = "/ "+ activeStatValue +" "+ activeStat
+    }
+
+    log(stats)
+    log(activeStatText)
+
+    this.activeSpellImg.sourceTop = this.spellLibrary.getUIImage(name)
+    this.activeSpellText.value = stats.dmg +" DMG "+ activeStatText
   }
 
   incrementHp(amount: number) {
-    if ( this.healthBar.read() < this.player.stats.maxHp ) {
-      if ( this.healthBar.read() + amount >= this.player.stats.maxHp ) {
-        this.healthBar.set(1)
-      } else {
-        this.healthBar.increase(amount / this.player.stats.maxHp)
-      }
+    let currentHp = 1
+
+    if ( (this.player.stats.hp + amount) < this.player.stats.maxHp ) {
+      currentHp = (this.player.stats.hp + amount) / this.player.stats.maxHp
     }
+
+    this.healthBar.width = currentHp * this.BAR_MAX_WIDTH
   }
 
-  decrementHp(amount: number) {
-    this.healthBar.decrease(amount / this.player.stats.maxHp)
+  decrementHp() {
+    this.healthBar.width = (this.player.stats.hp / this.player.stats.maxHp) * this.BAR_MAX_WIDTH
   }
 
   incrementMana(amount: number) {
-    if ( this.manaBar.read() < this.player.stats.maxMana ) {
-      if ( this.manaBar.read() + amount >= this.player.stats.maxMana ) {
-        this.manaBar.set(1)
-      } else {
-        this.manaBar.increase(amount / this.player.stats.maxMana)
-      }
+    let currentMana = 1
+
+    if ( (this.player.stats.mana + amount) < this.player.stats.maxMana ) {
+      currentMana = (this.player.stats.mana + amount) / this.player.stats.maxMana
     }
+
+    this.manaBar.width = currentMana * this.BAR_MAX_WIDTH
   }
 
-  decrementMana(amount: number) {
-    this.manaBar.decrease(amount / this.player.stats.maxMana)
+  decrementMana() {
+    this.manaBar.width = (this.player.stats.mana / this.player.stats.maxMana) * this.BAR_MAX_WIDTH
   }
 
   show() {
     this.wrapper.visible = true
-    this.healthBar.show()
-    this.manaBar.show()
   }
 
   hide() {
     this.wrapper.visible = false
-    this.healthBar.hide()
-    this.manaBar.hide()
   }
 }
