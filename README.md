@@ -39,3 +39,4 @@ The following are opensource assets from outside decentraland:
  - https://sketchfab.com/3d-models/statue-ecd586875a8845cebb74aa9ea11756ed
  - https://sketchfab.com/3d-models/stone-arch-hand-painted-8717a8619b254346a868e84df6748b86
  - https://sketchfab.com/3d-models/stylized-stones-minipack-719d8ee393db4b218ace19ce9124918d
+ - https://sketchfab.com/3d-models/low-poly-grave-stone-ec58781026b24cdfbd2e6ad635fe74de

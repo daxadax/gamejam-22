@@ -59,10 +59,15 @@ export class Scene extends Entity {
 
     // models placed multiple times
     const ancientPath = this.modelLibrary.ancientPath
+    const tomb = this.modelLibrary.tomb
 
     // place models
     staticLocations.ancientPath.forEach(function(location, i) {
       new StaticModel('ancientPath-'+ i, ancientPath, this, location)
+    })
+
+    staticLocations.tomb.forEach(function(location, i) {
+      new StaticModel('tomb-'+ i, tomb, this, location)
     })
   }
 }

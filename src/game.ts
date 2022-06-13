@@ -26,6 +26,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, () => {
 // TODO: game name!
 // TODO: counter of enemies / portals
 // TODO: balance skeletons (dmg + health)
+// TODO: update readme
 // TODO: simple server for stats
 
 // middle priority

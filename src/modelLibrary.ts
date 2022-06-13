@@ -1,15 +1,16 @@
 export class ModelLibrary {
   altar: GLTFShape
-  armoredSkeleton: GLTFShape
   ancientPath: GLTFShape
+  armoredSkeleton: GLTFShape
+  blizzard: GLTFShape
   boss: GLTFShape
+  fireball: GLTFShape
   ground: GLTFShape
+  poison: GLTFShape
   portal: GLTFShape
   skeleton: GLTFShape
-  fireball: GLTFShape
-  blizzard: GLTFShape
-  poison: GLTFShape
   storm: GLTFShape
+  tomb: GLTFShape
 
   constructor() {
     this.altar = new GLTFShape('models/altar-portal.glb')
@@ -23,5 +24,6 @@ export class ModelLibrary {
     this.portal = new GLTFShape('models/portal.glb')
     this.skeleton = new GLTFShape('models/skelly.glb')
     this.storm = new GLTFShape('models/storm.glb')
+    this.tomb = new GLTFShape('models/tombs.glb')
   }
 }
