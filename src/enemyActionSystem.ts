@@ -76,9 +76,8 @@ export class EnemyActionSystem implements ISystem { enemies = []
 
   // and this is handle casting
   handleBossAttack(distance: number, transform: Transform, dt: number, enemy: any) {
+    if ( enemy.isVisible() != true ) { return null }
     const range = 200
-
-    // TODO: if boss has stood still for more than x seconds, blink
 
     // If closer than range, blink away and cast a spell at the player
     if ( distance < range ) {

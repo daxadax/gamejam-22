@@ -8,16 +8,17 @@ import { Spell } from './spell'
 import { StatusEffectResolver } from './statusEffectResolver'
 
 export class BossEnemy extends Entity {
-  gameManager: GameManager
-  soundLibrary: SoundLibrary
-  statusEffectResolver: StatusEffectResolver
-  enemyUI: EnemyUI
   dmg: number
+  enemyUI: EnemyUI
+  gameManager: GameManager
   hp: number
   maxHp: number
-  statusEffects = []
+  model: GLTFShape
+  soundLibrary: SoundLibrary
   speed: number
   spell: Spell
+  statusEffectResolver: StatusEffectResolver
+  statusEffects = []
 
   attackTimer: number = 0
 
@@ -48,6 +49,9 @@ export class BossEnemy extends Entity {
     this.soundLibrary = gameManager.soundLibrary
     this.statusEffectResolver = gameManager.statusEffectResolver
 
+    this.model = this.gameManager.modelLibrary.boss
+    this.model.visible = false
+
     this.spell = new Spell('fireball', gameManager, {})
     this.spell.dmg = 20
 
@@ -62,12 +66,11 @@ export class BossEnemy extends Entity {
 
     // delay adding entity to the game
     this.addComponent(new utils.Delay(delay, () => {
-      const model = this.gameManager.modelLibrary.boss
-      model.withCollisions = true
-      model.isPointerBlocker = true
-      model.visible = true
+      this.model.withCollisions = true
+      this.model.isPointerBlocker = true
+      this.model.visible = true
 
-      this.addComponent(model)
+      this.addComponent(this.model)
       this.enemyUI.createHealthBar(gameManager.gameUI.canvas)
       engine.addEntity(this)
     }))
@@ -89,6 +92,12 @@ export class BossEnemy extends Entity {
 
   isDead() {
     return this.hp <= 0
+  }
+
+  isVisible() {
+    if ( this.model.visible ) { return true }
+
+    return false
   }
 
   hasRecentlyAttacked(dt) {
