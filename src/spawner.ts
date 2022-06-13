@@ -22,7 +22,7 @@ export class Spawner extends Entity {
   speed = 4
 
   BASE_SPAWN_TIME = 4000
-  MAX_TIME_OFFSET = 2000
+  MAX_TIME_OFFSET = 6000
 
   constructor(
     level: number,
@@ -50,7 +50,7 @@ export class Spawner extends Entity {
     this.level = level
     this.hp = 100 + ( this.level * 15 )
     this.maxHp = this.hp
-    this.maxEnemies = 5 + this.level
+    this.maxEnemies = 7 + this.level
     this.enemyType = enemyType
 
     this.enemyUI.createLabel(new Transform({
