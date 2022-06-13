@@ -2,8 +2,8 @@ import { Scene } from './scene'
 
 export class StaticModel extends Entity {
   constructor(
-    model: GLTFShape,
     name: string,
+    model: GLTFShape,
     scene: Scene,
     transform: Transform
   ) {

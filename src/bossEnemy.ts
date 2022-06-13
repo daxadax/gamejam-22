@@ -22,7 +22,6 @@ export class BossEnemy extends Entity {
   attackTimer: number = 0
 
   constructor(
-    model: GLTFShape,
     name: string,
     gameManager: GameManager,
     transform: Transform,
@@ -35,10 +34,6 @@ export class BossEnemy extends Entity {
     transform.scale.y = 2.5
     transform.scale.z = 2.5
     this.addComponent(transform)
-
-    model.withCollisions = true
-    model.isPointerBlocker = true
-    model.visible = true
 
     this.addComponent(new Animator())
     let walk = new AnimationState('walk', { layer: 0, looping: true })
@@ -53,7 +48,7 @@ export class BossEnemy extends Entity {
     this.soundLibrary = gameManager.soundLibrary
     this.statusEffectResolver = gameManager.statusEffectResolver
 
-    this.spell = new Spell('fireball', 'fireball.glb', this.soundLibrary, {})
+    this.spell = new Spell('fireball', gameManager, {})
     this.spell.dmg = 20
 
     // create health bar
@@ -67,9 +62,14 @@ export class BossEnemy extends Entity {
 
     // delay adding entity to the game
     this.addComponent(new utils.Delay(delay, () => {
-      engine.addEntity(this)
+      const model = this.gameManager.modelLibrary.boss
+      model.withCollisions = true
+      model.isPointerBlocker = true
+      model.visible = true
+
       this.addComponent(model)
       this.enemyUI.createHealthBar(gameManager.gameUI.canvas)
+      engine.addEntity(this)
     }))
 
     return this

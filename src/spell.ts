@@ -17,13 +17,13 @@ export class Spell extends Entity {
   range: number = 15
   slow: number = 0
 
-  constructor(name, assetPath, soundLibrary, stats) {
+  constructor(name, gameManager, stats) {
     super()
     this.name = name
-    this.soundLibrary = soundLibrary
+    this.soundLibrary = gameManager.soundLibrary
     this.bonusStats = stats
 
-    this.addComponent(new GLTFShape('models/'+ assetPath))
+    this.addComponent(gameManager.modelLibrary[name])
     this.addComponent(
       new Transform({
         position: Vector3.Zero(),

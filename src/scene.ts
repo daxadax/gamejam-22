@@ -1,11 +1,15 @@
 import * as utils from '@dcl/ecs-scene-utils'
 
+import { GameManager } from './gameManager'
+import { ModelLibrary } from './modelLibrary'
 import { staticLocations } from './staticLocations'
 import { StaticModel } from './staticModel'
 import { Spell } from './spell'
 
 export class Scene extends Entity {
-  constructor() {
+  modelLibrary: ModelLibrary
+
+  constructor(gameManager: GameManager) {
     super('_scene')
     engine.addEntity(this)
     const basePosition = new Transform({
@@ -14,6 +18,8 @@ export class Scene extends Entity {
       scale: new Vector3(1, 1, 1)
     })
     this.addComponentOrReplace(basePosition)
+
+    this.modelLibrary = gameManager.modelLibrary
 
     return this
   }
@@ -45,30 +51,18 @@ export class Scene extends Entity {
   }
 
   buildStaticModels() {
-    new StaticModel(new GLTFShape('models/ground.glb'), 'ground', this, new Transform({
+    new StaticModel('ground', this.modelLibrary.ground, this, new Transform({
       position: new Vector3(30.75, 0, 28),
       rotation: new Quaternion(0, 0, 0, 1),
       scale: new Vector3(0.999, 0.999, 0.999)
     }))
 
-    // new StaticModel(new GLTFShape('models/entry.glb'), 'entryway', this, new Transform({
-    //   position: new Vector3(32, 0.06, 31.5),
-    //   rotation: new Quaternion(0, 0, 0, 1),
-    //   scale: new Vector3(1, 1, 1)
-    // }))
-
-    // new StaticModel(new GLTFShape('models/tombs.glb'), 'tombs', this, new Transform({
-    //   position: new Vector3(32, 0, 37),
-    //   rotation: new Quaternion(0, 0, 0, 1),
-    //   scale: new Vector3(1, 1, 1)
-    // }))
-
     // models placed multiple times
-    const ancientPath = new GLTFShape('models/ancient_path/model.glb')
+    const ancientPath = this.modelLibrary.ancientPath
 
     // place models
     staticLocations.ancientPath.forEach(function(location, i) {
-      new StaticModel(ancientPath, 'ancientPath-'+ i, this, location)
+      new StaticModel('ancientPath-'+ i, ancientPath, this, location)
     })
   }
 }

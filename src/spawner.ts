@@ -1,20 +1,20 @@
 import * as utils from '@dcl/ecs-scene-utils'
 
 import { EnemyUI } from './enemyUI'
-import { Scene } from './scene'
+import { GameManager } from './gameManager'
 import { SoundLibrary } from './soundLibrary'
 import { SkeletonEnemy } from './skeletonEnemy'
 import { ArmoredSkeletonEnemy } from './armoredSkeletonEnemy'
 import { StatusEffectResolver } from './statusEffectResolver'
 
 export class Spawner extends Entity {
+  gameManager: GameManager
   enemyUI: EnemyUI
   hp: number
   maxHp: number
   level: number
   maxEnemies: number
   enemyType: string
-  scene: Scene
   soundLibrary: SoundLibrary
   spawnCounter: number = 0
   statusEffectResolver: StatusEffectResolver
@@ -28,26 +28,24 @@ export class Spawner extends Entity {
     level: number,
     name: string,
     enemyType: string,
-    scene: Scene,
-    soundLibrary: SoundLibrary,
-    statusEffectResolver: StatusEffectResolver,
+    gameManager: GameManager,
     transform: Transform
   ) {
     super(name)
+    this.gameManager = gameManager
+    this.soundLibrary = gameManager.soundLibrary
+    this.statusEffectResolver = gameManager.statusEffectResolver
+    this.enemyUI = new EnemyUI(this)
+
     engine.addEntity(this)
-    this.setParent(scene)
+    this.setParent(this.gameManager.scene)
     this.addComponent(transform)
 
-    const model = new GLTFShape('models/portal.glb')
+    const model = gameManager.modelLibrary.portal
     model.withCollisions = true
     model.isPointerBlocker = true
     model.visible = true
     this.addComponent(model)
-
-    this.scene = scene
-    this.soundLibrary = soundLibrary
-    this.statusEffectResolver = statusEffectResolver
-    this.enemyUI = new EnemyUI(this)
 
     this.level = level
     this.hp = 100 + ( this.level * 15 )
@@ -131,24 +129,18 @@ export class Spawner extends Entity {
 
   spawnSkeleton(transform: Transform) {
     new SkeletonEnemy(
-      new GLTFShape('models/skelly.glb'), // TODO: model library like soundLibrary
       'enemy-skelly-'+ this.name +'-'+ this.spawnCounter,
       this.level,
-      this.scene,
-      this.soundLibrary,
-      this.statusEffectResolver,
+      this.gameManager,
       transform
     )
   }
 
   spawnArmoredSkeleton(transform: Transform) {
     new ArmoredSkeletonEnemy(
-      new GLTFShape('models/armored_skelly.glb'), // TODO: model library like soundLibrary
       'enemy-armored-skelly-'+ this.name +'-'+ this.spawnCounter,
       this.level,
-      this.scene,
-      this.soundLibrary,
-      this.statusEffectResolver,
+      this.gameManager,
       transform
     )
   }

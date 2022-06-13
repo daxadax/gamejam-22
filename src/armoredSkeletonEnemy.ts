@@ -1,6 +1,7 @@
 import * as utils from '@dcl/ecs-scene-utils'
 
 import { EnemyUI } from './enemyUI'
+import { GameManager } from './gameManager'
 import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
 import { StatusEffectResolver } from './statusEffectResolver'
@@ -19,23 +20,21 @@ export class ArmoredSkeletonEnemy extends Entity {
   attackTimer: number = 0
 
   constructor(
-    model: GLTFShape,
     name: string,
     level: number,
-    scene: Scene,
-    soundLibrary: SoundLibrary,
-    statusEffectResolver: StatusEffectResolver,
+    gameManager: GameManager,
     transform: Transform
   ) {
     super(name)
     engine.addEntity(this)
-    this.setParent(scene)
+    this.setParent(gameManager.scene)
 
     transform.scale.x = 0.5
     transform.scale.y = 0.5
     transform.scale.z = 0.5
     this.addComponent(transform)
 
+    const model = gameManager.modelLibrary.armoredSkeleton
     model.withCollisions = true
     model.isPointerBlocker = true
     model.visible = true
@@ -50,8 +49,8 @@ export class ArmoredSkeletonEnemy extends Entity {
     this.getComponent(Animator).addClip(die)
     walk.play()
 
-    this.soundLibrary = soundLibrary
-    this.statusEffectResolver = statusEffectResolver
+    this.soundLibrary = gameManager.soundLibrary
+    this.statusEffectResolver = gameManager.statusEffectResolver
     this.enemyUI = new EnemyUI(this)
 
     this.level = level

@@ -1,7 +1,9 @@
+import { GameManager } from './gameManager'
 import { SoundLibrary } from './soundLibrary'
 import { Spell } from './spell'
 
 export class SpellLibrary {
+  gameManager: GameManager
   spells: any
   soundLibrary: SoundLibrary
 
@@ -12,8 +14,9 @@ export class SpellLibrary {
     'storm': [0, 200]
   }
 
-  constructor(soundLibrary) {
-    this.soundLibrary = soundLibrary
+  constructor(gameManager) {
+    this.gameManager = gameManager
+    this.soundLibrary = gameManager.soundLibrary
     this.initialize()
   }
 
@@ -23,10 +26,10 @@ export class SpellLibrary {
     // Poison: Earth damage [ poison enemy ]
     // Fireball: Fire damage [ DMG+ ]
     // Storm: Air damage [ knockback enemy ]
-    const blizzard = new Spell('blizzard', 'blizzard.glb', this.soundLibrary, {'slow': 1})
-    const poison   = new Spell('poison', 'poison.glb', this.soundLibrary, {'dot': 0.5})
-    const fireball = new Spell('fireball', 'fireball.glb', this.soundLibrary, {'dmg': 2.5})
-    const storm    = new Spell('storm', 'storm.glb', this.soundLibrary, {'knockback': 1})
+    const blizzard = new Spell('blizzard', this.gameManager, {'slow': 1})
+    const poison   = new Spell('poison', this.gameManager, {'dot': 0.5})
+    const fireball = new Spell('fireball', this.gameManager, {'dmg': 2.5})
+    const storm    = new Spell('storm', this.gameManager, {'knockback': 1})
 
     this.spells =  {
       blizzard: blizzard,

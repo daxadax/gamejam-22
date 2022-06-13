@@ -1,6 +1,7 @@
 import { GameIntroduction } from './gameIntroduction'
 import { GameState } from './gameState'
 import { GameUI } from './gameUI'
+import { ModelLibrary } from './modelLibrary'
 import { Player } from './player'
 import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
@@ -20,6 +21,7 @@ export class GameManager {
   player: Player
   soundLibrary: SoundLibrary
   spellLibrary: SpellLibrary
+  modelLibrary: ModelLibrary
 
   // helpers
   camera!: Camera
@@ -38,10 +40,11 @@ export class GameManager {
   constructor(player) {
     this.canvas = new UICanvas()
     this.player = player
+    this.modelLibrary = new ModelLibrary()
     this.soundLibrary = new SoundLibrary()
-    this.spellLibrary = new SpellLibrary(this.soundLibrary)
+    this.spellLibrary = new SpellLibrary(this)
     this.gameUI = new GameUI(this.canvas, player, this.soundLibrary, this.spellLibrary)
-    this.scene = new Scene()
+    this.scene = new Scene(this)
     this.gameState = new GameState()
   }
 

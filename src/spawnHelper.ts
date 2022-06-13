@@ -8,7 +8,6 @@ import { Scene } from './scene'
 import { SoundLibrary } from './soundLibrary'
 import { Spawner } from './spawner'
 import { StaticModel } from './staticModel'
-import { StatusEffectResolver } from './statusEffectResolver'
 import { spawnLocations } from './spawnLocations'
 
 export class SpawnHelper {
@@ -17,7 +16,6 @@ export class SpawnHelper {
   gameUI: GameUI
   scene: Scene
   soundLibrary: SoundLibrary
-  statusEffectResolver: StatusEffectResolver
 
   constructor(gameManager) {
     this.gameManager          = gameManager
@@ -25,7 +23,6 @@ export class SpawnHelper {
     this.gameUI               = gameManager.gameUI
     this.scene                = gameManager.scene
     this.soundLibrary         = gameManager.soundLibrary
-    this.statusEffectResolver = gameManager.statusEffectResolver
   }
 
   startNextWave() {
@@ -73,9 +70,7 @@ export class SpawnHelper {
       level,
       'enemy-spawner-'+ enemyNumber,
       enemyType,
-      this.scene,
-      this.soundLibrary,
-      this.statusEffectResolver,
+      this.gameManager,
       spawnLocation
     ).initialize()
   }
@@ -86,7 +81,7 @@ export class SpawnHelper {
     let endPosition = new Vector3(32.5, -3, 10)
 
     // create tomb
-    const tomb = new StaticModel(new GLTFShape('models/altar-portal.glb'), 'altar', this.scene, new Transform({
+    const tomb = new StaticModel('altar', this.gameManager.modelLibrary.altar, this.scene, new Transform({
       position: startPosition,
       rotation: new Quaternion(0, 0, 0, 1),
       scale: new Vector3(1, 1, 1)
@@ -99,7 +94,6 @@ export class SpawnHelper {
     // TODO: spawn in some smoke so the "pop in" effect is not so jarring
     // spawn boss with 10 second delay (fits audio)
     new BossEnemy(
-      new GLTFShape('models/boss.glb'), // TODO: model library like soundLibrary
       'enemy-boss',
       this.gameManager,
       new Transform({
