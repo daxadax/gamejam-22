@@ -7,6 +7,7 @@ export class ModelLibrary {
   boss: GLTFShape
   cross: GLTFShape
   fireball: GLTFShape
+  grave: GLTFShape
   ground: GLTFShape
   poison: GLTFShape
   portal: GLTFShape
@@ -23,6 +24,7 @@ export class ModelLibrary {
     this.boss = new GLTFShape('models/boss.glb')
     this.cross = new GLTFShape('models/cross.glb')
     this.fireball = new GLTFShape('models/fireball.glb')
+    this.grave = new GLTFShape('models/grave.glb')
     this.ground = new GLTFShape('models/ground.glb')
     this.poison = new GLTFShape('models/poison.glb')
     this.portal = new GLTFShape('models/portal.glb')

@@ -61,6 +61,7 @@ export class Scene extends Entity {
     const ancientPath = this.modelLibrary.ancientPath
     const bonePile = this.modelLibrary.bonePile
     const cross = this.modelLibrary.cross
+    const grave = this.modelLibrary.grave
     const tomb = this.modelLibrary.tomb
 
     // place models
@@ -69,14 +70,25 @@ export class Scene extends Entity {
     })
 
     staticLocations.tomb.forEach(function(location, i) {
-      const model = Math.random() > 0.4 ? 'tomb' : 'cross'
+      // 80% chance to show a tomb of some kind
+      if ( Math.random() > 0.2 ) {
+        // 60% chance to use tomb model, otherwise cross
+        const model = Math.random() > 0.4 ? 'tomb' : 'cross'
 
-      if ( model === 'tomb' ) {
-        new StaticModel('tomb-'+ i, tomb, this, location)
-      } else {
-        let sm =  new StaticModel('tomb-'+ i, cross, this, location)
-        sm.getComponent(Transform).scale.set(0.01, 0.01, 0.01)
-        sm.getComponent(Transform).rotation.set(Math.random(), 0, Math.random(), 1)
+        if ( model === 'tomb' ) {
+          new StaticModel('tomb-'+ i, tomb, this, location)
+        } else {
+          let sm =  new StaticModel('tomb-'+ i, cross, this, location)
+          sm.getComponent(Transform).scale.set(0.01, 0.01, 0.01)
+          sm.getComponent(Transform).rotation.set(Math.random(), 0, Math.random(), 1)
+        }
+      }
+    })
+
+    staticLocations.grave.forEach(function(location, i) {
+      // 40% chance to show a grave
+      if ( Math.random() > 0.6 ) {
+        new StaticModel('grave-'+ i, grave, this, location)
       }
     })
 
