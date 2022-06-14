@@ -23,6 +23,7 @@ export class GameUI {
   private colorFlash: UIContainerRect
   private text: UIText
   private textWrapper: UIImage
+  private attributionButton: UIImage
   btnNext: Button
   btnExit: Button
 
@@ -77,6 +78,24 @@ export class GameUI {
     this.text.positionY = -220
     this.text.color = Color4.Black()
 
+    // attribution button
+    this.attributionButton = new UIImage(canvas, new Texture('assets/cc.png'))
+    this.attributionButton.width = 50
+    this.attributionButton.height = 50
+    this.attributionButton.sourceWidth = 800
+    this.attributionButton.sourceHeight = 800
+    // this.attributionButton.sourceTop = 0
+    // this.attributionButton.sourceLeft = 0
+    this.attributionButton.vAlign = "bottom"
+    this.attributionButton.hAlign = "center"
+    this.attributionButton.visible = true
+    this.attributionButton.positionX = -375
+    this.attributionButton.positionY = 80
+    this.attributionButton.isPointerBlocker = true
+    this.attributionButton.onClick = new OnClick(() => {
+      openExternalURL("https://bit.ly/3HmDc7N")
+    })
+
     // default btn
     this.btnNext = new Button(this.canvas)
 
@@ -117,11 +136,13 @@ export class GameUI {
     // up on the 'game over' screen for some reason
     this.colorFlash.visible = false
     this.screenCover.visible = true
+    this.attributionButton.visible = true
     this.btnNext.show()
   }
 
   hide() {
     this.screenCover.visible = false
+    this.attributionButton.visible = false
     this.btnNext.hide()
     this.btnExit.hide()
   }
