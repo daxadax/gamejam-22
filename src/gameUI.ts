@@ -189,7 +189,9 @@ export class GameUI {
       this.hide()
       this.skillUpgradesComponent.hide()
 
-      // display playerUI
+      // update spell stats in UI and display playerUI
+      const spell = this.player.activeSpell
+      playerHelper.setActiveSpell(spell)
       this.playerUI.show()
 
       // NOTE: could do this the same way as display player choice where the
