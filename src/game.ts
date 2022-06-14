@@ -23,10 +23,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, () => {
 })
 
 // high priority
-// TODO: game name!
 // TODO: counter of enemies / portals
 // TODO: balance skeletons (dmg + health)
-// TODO: update readme re: models/sounds/etc
 // TODO: simple server for stats
 
 // middle priority
