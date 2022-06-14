@@ -1,3 +1,5 @@
+import { movePlayerTo } from '@decentraland/RestrictedActions'
+
 import { GameIntroduction } from './gameIntroduction'
 import { GameState } from './gameState'
 import { GameUI } from './gameUI'
@@ -112,6 +114,9 @@ export class GameManager {
 
     // remove all enemies
     entitiesToRemove.forEach(function(entity) {
+      // if boss enemy is here, remove his health bar
+      if ( entity.name === 'enemy-boss' ) { entity.enemyUI.removeHealthBar() }
+
       engine.removeEntity(entity)
     })
 
@@ -136,7 +141,8 @@ export class GameManager {
       // reset gameState
       this.gameState.reset()
 
-      // TODO: move player to spawn point
+      // move player to spawn point
+      movePlayerTo({ x: 32, y: 0, z: 0 }, { x: 32, y: 2, z: 32 })
 
       // re-start game
       this.startGame()
