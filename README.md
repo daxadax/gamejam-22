@@ -38,5 +38,6 @@ The following are opensource assets from outside decentraland:
 ### 3D Models
  - https://sketchfab.com/3d-models/ancient-portal-b68dceee1b22484ab6ca0207b9e7137a
  - https://sketchfab.com/3d-models/skeleton-animated-bd1de4a8153a44fe93e728ca8e06701b
- - https://sketchfab.com/3d-models/low-poly-grave-stone-ec58781026b24cdfbd2e6ad635fe74de
  - https://sketchfab.com/3d-models/acero-af62747f43824f8a984c4aee8732c228
+ - https://sketchfab.com/3d-models/low-poly-bone-pile-downloadable-5ec580b41a934cea86d4297980d1378f
+ - https://sketchfab.com/3d-models/low-poly-cross-downloadable-c0e477f21db740448b2f1abde7552d8a
