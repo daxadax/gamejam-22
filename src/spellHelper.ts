@@ -1,5 +1,6 @@
 import { GameUI } from './gameUI'
 import { PlayerActionHelper } from './playerActionHelper'
+import { BossEnemy } from './bossEnemy'
 import { SkeletonEnemy } from './skeletonEnemy'
 import { ArmoredSkeletonEnemy } from './armoredSkeletonEnemy'
 import { Spawner } from './spawner'
@@ -75,6 +76,17 @@ export class SpellHelper {
 
           // deal damage to enemy targets
           if ( enemy['hp'] > 0 ) {
+            if ( entityType === "BossEnemy" ) {
+              const boss = enemy as BossEnemy
+              const dmg = isHeadshot ? spellStats.dmg * 2 : spellStats.dmg
+
+              boss.takeDmg(dmg, atkSpeed, {
+                dot: spellStats.dot,
+                knockback: spellStats.knockback,
+                slow: spellStats.slow
+              })
+            }
+
             if ( entityType === "SkeletonEnemy" ) {
               const skeleton = enemy as SkeletonEnemy
               const dmg = isHeadshot ? spellStats.dmg * 2 : spellStats.dmg
