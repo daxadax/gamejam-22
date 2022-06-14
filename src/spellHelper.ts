@@ -1,6 +1,7 @@
 import { GameUI } from './gameUI'
 import { PlayerActionHelper } from './playerActionHelper'
 import { SkeletonEnemy } from './skeletonEnemy'
+import { ArmoredSkeletonEnemy } from './armoredSkeletonEnemy'
 import { Spawner } from './spawner'
 import { Spell } from './spell'
 import { SpellLibrary } from './spellLibrary'
@@ -64,6 +65,8 @@ export class SpellHelper {
           let atkSpeed    = 200
           let isHeadshot  = /_head/.test(collider)
 
+          log(entityType)
+
           // cast spell at target
           activeSpell.cast(origin, target, atkSpeed)
 
@@ -71,22 +74,37 @@ export class SpellHelper {
           if ( isHeadshot ) { this.gameUI.notify('HEADSHOT!', 0.7, Color4.Red()) }
 
           // deal damage to enemy targets
-          if ( ( entityType === "SkeletonEnemy" || "ArmoredSkeletonEnemy" ) && enemy['hp'] > 0) {
-            const skeleton = enemy as SkeletonEnemy
-            const dmg = isHeadshot ? spellStats.dmg * 2 : spellStats.dmg
+          if ( enemy['hp'] > 0 ) {
+            if ( entityType === "SkeletonEnemy" ) {
+              const skeleton = enemy as SkeletonEnemy
+              const dmg = isHeadshot ? spellStats.dmg * 2 : spellStats.dmg
 
-            skeleton.takeDmg(dmg, atkSpeed, {
-              dot: spellStats.dot,
-              knockback: spellStats.knockback,
-              slow: spellStats.slow
-            })
-          } else if ( entityType === "Spawner" && enemy['hp'] > 0) {
-            const spawner = enemy as Spawner
+              skeleton.takeDmg(dmg, atkSpeed, {
+                dot: spellStats.dot,
+                knockback: spellStats.knockback,
+                slow: spellStats.slow
+              })
+            }
 
-            spawner.takeDmg(spellStats.dmg, atkSpeed, {
-              dot: spellStats.dot,
-              slow: spellStats.slow
-            })
+            if ( entityType === "ArmoredSkeletonEnemy" ) {
+              const skeleton = enemy as ArmoredSkeletonEnemy
+              const dmg = isHeadshot ? spellStats.dmg * 2 : spellStats.dmg
+
+              skeleton.takeDmg(dmg, atkSpeed, {
+                dot: spellStats.dot,
+                knockback: spellStats.knockback,
+                slow: spellStats.slow
+              })
+            }
+
+            if ( entityType === "Spawner" ) {
+              const spawner = enemy as Spawner
+
+              spawner.takeDmg(spellStats.dmg, atkSpeed, {
+                dot: spellStats.dot,
+                slow: spellStats.slow
+              })
+            }
           }
         } else {
           const direction = Vector3.Zero().copyFrom(ray.direction)
