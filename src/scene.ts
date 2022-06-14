@@ -59,6 +59,8 @@ export class Scene extends Entity {
 
     // models placed multiple times
     const ancientPath = this.modelLibrary.ancientPath
+    const bonePile = this.modelLibrary.bonePile
+    const cross = this.modelLibrary.cross
     const tomb = this.modelLibrary.tomb
 
     // place models
@@ -67,7 +69,19 @@ export class Scene extends Entity {
     })
 
     staticLocations.tomb.forEach(function(location, i) {
-      new StaticModel('tomb-'+ i, tomb, this, location)
+      const model = Math.random() > 0.4 ? 'tomb' : 'cross'
+
+      if ( model === 'tomb' ) {
+        new StaticModel('tomb-'+ i, tomb, this, location)
+      } else {
+        let sm =  new StaticModel('tomb-'+ i, cross, this, location)
+        sm.getComponent(Transform).scale.set(0.01, 0.01, 0.01)
+        sm.getComponent(Transform).rotation.set(Math.random(), 0, Math.random(), 1)
+      }
+    })
+
+    staticLocations.bonePile.forEach(function(location, i) {
+      new StaticModel('bonePile-'+ i, bonePile, this, location)
     })
   }
 }

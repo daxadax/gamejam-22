@@ -68,204 +68,336 @@ export const staticLocations = {
   ],
   tomb: [
     new Transform({
-      position: new Vector3(5, -0.25, 5),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(5, 0, 5),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(5, -0.25, 10),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(5, 0, 10),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(5, -0.25, 15),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(5, 0, 15),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(5, -0.25, 20),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(5, 0, 20),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(5, -0.25, 25),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(5, 0, 25),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(15, -0.25, 5),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(15, 0, 5),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(15, -0.25, 10),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(15, 0, 10),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(15, -0.25, 15),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(15, 0, 15),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(15, -0.25, 20),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(15, 0, 20),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(15, -0.25, 25),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(15, 0, 25),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(5, -0.25, 40),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(25, 0, 5),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(5, -0.25, 45),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(25, 0, 10),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(5, -0.25, 50),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(25, 0, 15),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(5, -0.25, 55),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(25, 0, 20),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(5, -0.25, 60),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(25, 0, 25),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(15, -0.25, 40),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(5, 0, 40),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(15, -0.25, 45),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(5, 0, 45),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(15, -0.25, 50),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(5, 0, 50),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(15, -0.25, 55),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(5, 0, 55),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(15, -0.25, 60),
-      rotation: Quaternion.Euler(0, -90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(5, 0, 60),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(59, -0.25, 5),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(15, 0, 40),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(59, -0.25, 10),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(15, 0, 45),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(59, -0.25, 15),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(15, 0, 50),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(59, -0.25, 20),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(15, 0, 55),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(59, -0.25, 25),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(15, 0, 60),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(49, -0.25, 5),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(25, 0, 40),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(49, -0.25, 10),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(25, 0, 45),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(49, -0.25, 15),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(25, 0, 50),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(49, -0.25, 20),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(25, 0, 55),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(49, -0.25, 25),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(25, 0, 60),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(59, -0.25, 40),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(59, 0, 5),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(59, -0.25, 45),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(59, 0, 10),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(59, -0.25, 50),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(59, 0, 15),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(59, -0.25, 55),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(59, 0, 20),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(59, -0.25, 60),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(59, 0, 25),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(49, -0.25, 40),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(49, 0, 5),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(49, -0.25, 45),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(49, 0, 10),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(49, -0.25, 50),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(49, 0, 15),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(49, -0.25, 55),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(49, 0, 20),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
     }),
     new Transform({
-      position: new Vector3(49, -0.25, 60),
-      rotation: Quaternion.Euler(0, 90, 0),
-      scale: new Vector3(0.5, 0.2, 0.5)
+      position: new Vector3(49, 0, 25),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(39, 0, 5),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(39, 0, 10),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(39, 0, 15),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(39, 0, 20),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(39, 0, 25),
+      rotation: Quaternion.Euler(0, 180, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(59, 0, 40),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(59, 0, 45),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(59, 0, 50),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(59, 0, 55),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(59, 0, 60),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(49, 0, 40),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(49, 0, 45),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(49, 0, 50),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(49, 0, 55),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(49, 0, 60),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(39, 0, 40),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(39, 0, 45),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(39, 0, 50),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(39, 0, 55),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    }),
+    new Transform({
+      position: new Vector3(39, 0, 60),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(10, 10, 10)
+    })
+  ],
+  bonePile: [
+    new Transform({
+      position: new Vector3(36, 0, 62.5),
+      rotation: Quaternion.Euler(0, 160, 0),
+      scale: new Vector3(0.015, 0.015, 0.015)
+    }),
+    new Transform({
+      position: new Vector3(28, 0, 1.5),
+      rotation: Quaternion.Euler(0, -40, 0),
+      scale: new Vector3(0.015, 0.015, 0.015)
+    }),
+    new Transform({
+      position: new Vector3(1.5, 0, 17),
+      rotation: Quaternion.Euler(0, 40, 0),
+      scale: new Vector3(0.015, 0.015, 0.015)
+    }),
+    new Transform({
+      position: new Vector3(39, 0, 44),
+      rotation: Quaternion.Euler(0, 220, 0),
+      scale: new Vector3(0.01, 0.01, 0.01)
+    }),
+    new Transform({
+      position: new Vector3(15, 0, 16),
+      rotation: Quaternion.Euler(0, 40, 0),
+      scale: new Vector3(0.01, 0.01, 0.01)
+    }),
+    new Transform({
+      position: new Vector3(5, 0, 59),
+      rotation: Quaternion.Euler(0, 220, 0),
+      scale: new Vector3(0.01, 0.01, 0.01)
     })
   ]
 }
