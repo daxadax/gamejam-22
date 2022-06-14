@@ -21,7 +21,7 @@ export class Spawner extends Entity {
   statusEffects = []
   speed = 4
 
-  BASE_SPAWN_TIME = 4000
+  BASE_SPAWN_TIME = 2500
   MAX_TIME_OFFSET = 6000
 
   constructor(
