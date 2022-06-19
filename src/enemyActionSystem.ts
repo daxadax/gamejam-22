@@ -1,6 +1,7 @@
 import { PlayerActionHelper } from './playerActionHelper'
 
-export class EnemyActionSystem implements ISystem { enemies = []
+export class EnemyActionSystem implements ISystem {
+  enemies = []
   camera: Camera
   playerHelper: PlayerActionHelper
 
