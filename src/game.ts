@@ -21,19 +21,3 @@ input.subscribe("BUTTON_DOWN", ActionButton.POINTER, false, () => {
     gameManager.spellHelper.castActiveSpell(player.activeSpell)
   }
 })
-
-// high priority
-// TODO: counter of enemies / portals
-// TODO: balance skeletons (dmg + health)
-// TODO: simple server for stats
-
-// middle priority
-// TODO: show status effects in enemy UI
-// TODO: different boss music // sound effects
-// TODO: freeze portals
-
-// low priority
-// TODO: build default onclick button event that can be added to
-// TODO: enemy types with weaknesses
-// TODO: load next-level portals so the user can choose which enemies they face
-// TODO: rogue-like elements? (requires server)
